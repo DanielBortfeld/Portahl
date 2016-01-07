@@ -1,0 +1,13 @@
+<ButtonAssignment>
+  
+	<ChamberOne button="Pedda" conditionable="Smits"/>
+  
+  <ChamberTwo button="George" conditionable="Cloony"/>
+  <ChamberTwo button="Barbara" conditionable="Streusand"/>
+  
+  <ChamberThree button="Kurt" conditionable="Cobain"/>
+  <ChamberThree button="Dave" conditionable="Grohl"/>
+  <ChamberThree button="Krist" conditionable="Novoselic"/>
+  <ChamberThree button="Pat" conditionable="Smear"/>
+  
+</ButtonAssignment>
