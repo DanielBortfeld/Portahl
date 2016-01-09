@@ -25,7 +25,7 @@ namespace MonoGamePortal3Practise
 
                 if (item is Entity && pressingEntity == null)
                 {
-                    if (Position == ((Entity)item).Position + ((Entity)item).offset)
+                    if (Position == ((Entity)item).OffsetPosition)
                     {
                         IsPressed = true;
                         GameManager.RemoveGameObject(item);
@@ -37,7 +37,7 @@ namespace MonoGamePortal3Practise
                 }
                 else if (item == pressingEntity)
                 {
-                    if (Position == pressingEntity.Position + pressingEntity.offset)
+                    if (Position == pressingEntity.OffsetPosition)
                         IsPressed = true;
                     else
                     {

@@ -20,6 +20,11 @@ namespace MonoGamePortal3Practise
             this.direction = direction;
         }
 
+        public override void LoadContent()
+        {
+            trigger = (Trigger)GameManager.FindGameObject("Button");
+        }
+
         public override void Update(GameTime gameTime)
         {
             isOn = !trigger.IsPressed;

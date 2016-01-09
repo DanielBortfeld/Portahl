@@ -23,13 +23,23 @@ namespace MonoGamePortal3Practise
 
         protected Map map;
 
+        protected Vector2 offset = Vector2.Zero;
         protected Vector2 directionDown = new Vector2(0, 1);
         protected Vector2 directionRight = new Vector2(1, 0);
-        public Vector2 offset = Vector2.Zero;
 
         protected int spriteWidth = 32;
 
         private Player player;
+
+        public Vector2 OffsetPosition
+        {
+            get { return Position + offset; }
+        }
+
+        public Vector2 OffsetStandartPosition
+        {
+            get { return StandartPosition + offset; }
+        }
 
         public Entity() : base()
         {
@@ -97,46 +107,37 @@ namespace MonoGamePortal3Practise
         {
             foreach (var item in GameManager.GameObjects)
             {
-                if (item is MaterialEmancipationGrill)
-                {
-                    if (((MaterialEmancipationGrill)item).Position == targetPosition)
+                if (item is Entity)
+                    if (((Entity)item).Position == targetPosition)
                     {
-                        if (this is Player)
-                            ResetPortals();
-                        else if (this is WeightedCompanionCube)
-                            Position = StandartPosition;
-                    }
-                }
+                        if (item is MaterialEmancipationGrill)
+                            HandleEmancipationGrill((MaterialEmancipationGrill)item);
 
-                else if (item is WeightedCompanionCube)
-                {
-                    if (((WeightedCompanionCube)item).Position == targetPosition)
-                    {
-                        MoveInViewDirection((Entity)item);
-                        return true;
-                    }
-                }
-                //#######
-                if (item is HeavyDutySuperCollidingSuperButton)
-                {
-                    if (((HeavyDutySuperCollidingSuperButton)item).Position == targetPosition)
-                        ((HeavyDutySuperCollidingSuperButton)item).IsPressed = true;
-                }
-                //#######
-                if (item is Portal)
-                {
-                    if (((Portal)item).Position == targetPosition)
-                    {
-                        if (GetDestinationPortal((Portal)item).Position != Vector2.Zero)
+                        else if (item is WeightedCompanionCube)
                         {
-                            Teleport((Portal)item);
+                            MoveInViewDirection((Entity)item);
                             return true;
                         }
+                        if (item is Portal)
+                            if (GetDestinationPortal((Portal)item).Position != Vector2.Zero)
+                            {
+                                Teleport((Portal)item);
+                                return true;
+                            }
                     }
-                }
             }
-
             return false;
+        }
+
+        private void HandleEmancipationGrill(MaterialEmancipationGrill item)
+        {
+            if (item.isOn)
+            {
+                if (this is Player)
+                    ResetPortals();
+                else if (this is WeightedCompanionCube)
+                    Position = StandartPosition;
+            }
         }
 
         private void ResetPortals()
@@ -158,15 +159,19 @@ namespace MonoGamePortal3Practise
                 {
                     case 0:
                         direction = directionRight;
+                        player.viewDirection = ViewDirection.Right;
                         break;
                     case 1:
                         direction = -directionRight;
+                        player.viewDirection = ViewDirection.Left;
                         break;
                     case 2:
                         direction = directionDown;
+                        player.viewDirection = ViewDirection.Down;
                         break;
                     case 3:
                         direction = -directionDown;
+                        player.viewDirection = ViewDirection.Up;
                         break;
                 }
 
@@ -175,8 +180,11 @@ namespace MonoGamePortal3Practise
 
                 if (targetTile.IsWalkable)
                 {
-                    Position = targetPosition - this.offset;
-                    break;
+                    if (!EntityBlocksPosition(targetPosition))
+                    {
+                        Position = targetPosition - this.offset;
+                        return;
+                    }
                 }
             }
         }

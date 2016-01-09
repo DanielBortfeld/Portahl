@@ -63,7 +63,6 @@ namespace MonoGamePortal3Practise
 
         public static void LoadSprites(string dataPath)
         {
-
             XmlReader xmlReader = XmlReader.Create(dataPath);
 
             while (xmlReader.Read())
@@ -78,6 +77,19 @@ namespace MonoGamePortal3Practise
                     sprite.SourceRect.Width = Convert.ToInt32(xmlReader.GetAttribute("width"));
                     sprite.SourceRect.Height = Convert.ToInt32(xmlReader.GetAttribute("height"));
                     sprites.Add(sprite);
+                }
+            }
+        }
+
+        public static void LoadTriggerConnections(string mapName, string dataPath)
+        {
+            XmlReader xmlReader = XmlReader.Create(dataPath);
+
+            while (xmlReader.Read())
+            {
+                if (xmlReader.IsStartElement(mapName))
+                {
+
                 }
             }
         }

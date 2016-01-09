@@ -24,6 +24,5 @@ namespace MonoGamePortal3Practise
         {
             Position += direction;
         }
-
     }
 }

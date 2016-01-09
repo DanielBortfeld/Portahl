@@ -20,7 +20,7 @@ namespace MonoGamePortal3Practise
             base.Initialize();
 
             GameManager.Graphics = this.graphics;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
         }
 
         protected override void LoadContent()

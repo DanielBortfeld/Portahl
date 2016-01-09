@@ -60,6 +60,7 @@
     <Compile Include="Tiles\Tile.cs" />
     <Compile Include="GameObjects\Entities\WeightedCompanionCube.cs" />
     <Compile Include="Tiles\ToxicGooAnim.cs" />
+    <Compile Include="TriggerConditionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -72,7 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\ButtonAssignment.xml" />
+    <Content Include="Content\TriggerConnections.xml" />
     <Content Include="Content\PortalChamberOneSprites.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
