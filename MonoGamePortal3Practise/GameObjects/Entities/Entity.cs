@@ -47,13 +47,13 @@ namespace MonoGamePortal3Practise
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(GameManager.SpriteSheet, Position * spriteWidth, GameManager.GetSpriteRect(Name), Color.White);
+            spriteBatch.Draw(SceneManager.CurrentScene.SpriteSheet, Position * spriteWidth, SceneManager.CurrentScene.GetSpriteRect(Name), Color.White);
         }
 
         public override void LoadContent()
         {
-            map = (Map)GameManager.FindGameObject("ChamberOne");
-            player = (Player)GameManager.FindGameObject("Chell");
+            map = (Map)SceneManager.CurrentScene.FindGameObject("ChamberOne");
+            player = (Player)SceneManager.CurrentScene.FindGameObject("Chell");
         }
 
         public virtual void Move(Vector2 direction)

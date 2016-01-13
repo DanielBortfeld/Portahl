@@ -22,7 +22,7 @@ namespace MonoGamePortal3Practise
 
         public override void LoadContent()
         {
-            trigger = (Trigger)GameManager.FindGameObject("Button");
+            trigger = (Trigger)SceneManager.CurrentScene.FindGameObject("Button");
         }
 
         public override void Update(GameTime gameTime)

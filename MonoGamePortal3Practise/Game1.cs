@@ -28,19 +28,6 @@ namespace MonoGamePortal3Practise
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             GameManager.Content = this.Content;
-
-            GameManager.SpriteSheet = GameManager.LoadTexture2D("SpriteSheet");
-            GameManager.LoadSprites(Content.RootDirectory + "/spritesheet.xml");
-
-            Map chamberOne = new Map("ChamberOne");
-            chamberOne.LoadMapFromImage(GameManager.LoadTexture2D("PortalChamberOneTiles"));
-            chamberOne.LoadSpritesFromImage(GameManager.LoadTexture2D("PortalChamberOneSprites"));
-
-            Player player = new Player();
-
-            graphics.PreferredBackBufferWidth = chamberOne.Width * chamberOne.TileWidth;
-            graphics.PreferredBackBufferHeight = chamberOne.Height * chamberOne.TileHeight;
-            graphics.ApplyChanges();
         }
 
         protected override void UnloadContent()
@@ -57,7 +44,7 @@ namespace MonoGamePortal3Practise
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            GameManager.Update(gameTime);
+            SceneManager.UpdateScene(gameTime);
 
             base.Update(gameTime);
         }
@@ -70,7 +57,7 @@ namespace MonoGamePortal3Practise
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            GameManager.Draw(spriteBatch);
+            SceneManager.DrawScene(spriteBatch);
 
             base.Draw(gameTime);
         }

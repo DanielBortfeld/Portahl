@@ -15,7 +15,7 @@ namespace MonoGamePortal3Practise
 
         public GameObject()
         {
-            GameManager.AddGameObject(this);
+            SceneManager.AddGameObject(this);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

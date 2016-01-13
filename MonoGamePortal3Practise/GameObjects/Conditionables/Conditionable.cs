@@ -15,7 +15,7 @@ namespace MonoGamePortal3Practise
         public void AssignTrigger(string triggerName)
         {
             if (triggerName != null)
-                trigger = (Trigger)GameManager.FindGameObject(triggerName);
+                trigger = (Trigger)SceneManager.CurrentScene.FindGameObject(triggerName);
         }
     }
 }
