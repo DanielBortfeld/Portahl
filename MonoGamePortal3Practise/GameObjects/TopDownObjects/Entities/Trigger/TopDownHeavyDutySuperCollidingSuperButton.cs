@@ -6,43 +6,40 @@ using Microsoft.Xna.Framework;
 
 namespace MonoGamePortal3Practise
 {
-    class HeavyDutySuperCollidingSuperButton : Trigger
+    class TopDownHeavyDutySuperCollidingSuperButton : TopDownTrigger
     {
-        Entity pressingEntity;
-
-        public HeavyDutySuperCollidingSuperButton()
+        public TopDownHeavyDutySuperCollidingSuperButton()
         {
             Name = "Button";
         }
 
-        // with update is kaka
-        public override void Update(GameTime gametime)
+		public override void Trigger_OnMove()
         {
             foreach (var item in SceneManager.CurrentScene.GameObjects)
             {
-                if (item is HeavyDutySuperCollidingSuperButton)
+                if (item is TopDownHeavyDutySuperCollidingSuperButton)
                     continue;
 
-                if (item is Entity && pressingEntity == null)
+                if (item is TopDownEntity && triggeringEntity == null)
                 {
-                    if (Position == ((Entity)item).OffsetPosition)
+                    if (Position == ((TopDownEntity)item).OffsetPosition)
                     {
                         IsPressed = true;
                         SceneManager.CurrentScene.RemoveGameObject(item);
                         SceneManager.CurrentScene.AddGameObject(item);
-                        pressingEntity = (Entity)item;
+                        triggeringEntity = (TopDownEntity)item;
                     }
                     else
                         IsPressed = false;
                 }
-                else if (item == pressingEntity)
+                else if (item == triggeringEntity)
                 {
-                    if (Position == pressingEntity.OffsetPosition)
+                    if (Position == triggeringEntity.OffsetPosition)
                         IsPressed = true;
                     else
                     {
                         IsPressed = false;
-                        pressingEntity = null;
+                        triggeringEntity = null;
                     }
                 }
             }

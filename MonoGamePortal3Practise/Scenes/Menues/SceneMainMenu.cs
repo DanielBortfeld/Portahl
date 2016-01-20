@@ -20,10 +20,5 @@ namespace MonoGamePortal3Practise
         public override void Draw(SpriteBatch spriteBatch)
         {
         }
-
-        public override GameObject FindGameObject(string name)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

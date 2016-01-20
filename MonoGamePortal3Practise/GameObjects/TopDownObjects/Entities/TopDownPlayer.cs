@@ -8,14 +8,13 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-
-    class Player : Entity
+    class TopDownPlayer : TopDownEntity
     {
         public ViewDirection viewDirection;
 
         private KeyboardState previousState;
 
-        public Player() : base()
+        public TopDownPlayer() : base()
         {
             Name = "Chell";
 
@@ -106,8 +105,8 @@ namespace MonoGamePortal3Practise
 
                 foreach (var item in SceneManager.CurrentScene.GameObjects)
                 {
-                    if ((item is MaterialEmancipationGrill && ((MaterialEmancipationGrill)item).isOn) || item is Portal)
-                        if (((Entity)item).Position == shot.Position)
+                    if ((item is TopDownMaterialEmancipationGrill && ((TopDownMaterialEmancipationGrill)item).isOn) || item is Portal)
+                        if (((TopDownEntity)item).Position == shot.Position)
                             return portalPosition;
                 }
 

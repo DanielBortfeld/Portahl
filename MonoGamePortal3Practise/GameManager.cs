@@ -12,10 +12,22 @@ namespace MonoGamePortal3Practise
         public static ContentManager Content;
         public static GraphicsDeviceManager Graphics;
 
+		public delegate void MoveEvent();
+		public static event MoveEvent OnMove;
+
+		public static void ReportMove()
+		{
+			if (OnMove != null)
+				OnMove();
+		}
+
         public static Texture2D LoadTexture2D(string name)
         {
             return Content.Load<Texture2D>(name);
         }
+
+
+        //###### OLD BELOW ######
 
         //public static Texture2D SpriteSheet;
 

@@ -1,0 +1,16 @@
+<TextureAtlas imagePath="spritesheet.png">
+	<SubTexture name="portal_GrillDown.png" x="0" y="204" width="32" height="32"/>
+	<SubTexture name="portal_GrillLeft.png" x="34" y="170" width="32" height="32"/>
+	<SubTexture name="portal_GrillDownOffline.png" x="34" y="136" width="32" height="32"/>
+	<SubTexture name="portal_GrillLeftOffline.png" x="34" y="102" width="32" height="32"/>
+	<SubTexture name="portal_Button.png" x="34" y="0" width="32" height="32"/>
+	<SubTexture name="portal_CompanionCube.png" x="34" y="68" width="32" height="32"/>
+	<SubTexture name="portal_PortalBlue.png" x="34" y="34" width="32" height="32"/>
+	<SubTexture name="portal_PortalOrange.png" x="0" y="0" width="32" height="32"/>
+	<SubTexture name="portal_Chell.png" x="68" y="0" width="32" height="64"/>
+	<SubTexture name="portal_ChellSmall.png" x="0" y="170" width="32" height="32"/>
+	<SubTexture name="portal_DoorTop.png" x="0" y="136" width="32" height="32"/>
+	<SubTexture name="portal_DoorBottom.png" x="0" y="102" width="32" height="32"/>
+	<SubTexture name="portal_DoorLeft.png" x="0" y="68" width="32" height="32"/>
+	<SubTexture name="portal_DoorRight.png" x="0" y="34" width="32" height="32"/>
+</TextureAtlas>

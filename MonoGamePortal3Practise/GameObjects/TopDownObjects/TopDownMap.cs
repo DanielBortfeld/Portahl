@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-    class Map : GameObject
+    class TopDownMap : GameObject
     {
         private Tile[,] tileMap;
         private Texture2D tileset;
@@ -18,7 +18,7 @@ namespace MonoGamePortal3Practise
         public int TileWidth = 32;
         public int TileHeight = 32;
 
-        public Map(string name):base()
+        public TopDownMap(string name):base()
         {
             Name = name;
 
@@ -57,7 +57,7 @@ namespace MonoGamePortal3Practise
                 {
                     int index = y * Width + x; // the position of the pixel in the pixel snake
                     Color spriteType = pixelSnake[index]; // the pixel in the pixel snake
-                    Entity entity =/**/ GetSpriteByType(spriteType); // returns sprite with a position on the tileset
+                    TopDownEntity entity =/**/ GetSpriteByType(spriteType); // returns sprite with a position on the tileset
                     if (entity != null)
                     {
                         entity.StandartPosition = new Vector2(x, y);
@@ -66,22 +66,22 @@ namespace MonoGamePortal3Practise
                 }
             }
         }
-        private Entity GetSpriteByType(Color color)
+        private TopDownEntity GetSpriteByType(Color color)
         {
             if (color == new Color(237, 28, 36))
-                return new HeavyDutySuperCollidingSuperButton();
+                return new TopDownHeavyDutySuperCollidingSuperButton();
 
             if (color == new Color(255, 174, 201))
                 return new WeightedCompanionCube();
 
             if (color == new Color(255, 127, 39))
-                return new Door(DoorPosition.Left);
+                return new TopDownDoor(DoorPosition.Left);
 
             if (color == new Color(185, 122, 87))
-                return new MaterialEmancipationGrill(GrillDirection.Down);
+                return new TopDownMaterialEmancipationGrill(GrillDirection.Down);
 
             if (color == new Color(0, 255, 0))
-                return new VictoryTrigger();
+                return new TopDownVictoryTrigger();
 
             else return null;
         }

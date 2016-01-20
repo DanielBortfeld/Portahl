@@ -12,10 +12,11 @@ namespace MonoGamePortal3Practise
         public static Random Random = new Random();
 
         public string Name = "GameObject";
+        public Vector2 Position = Vector2.Zero;
 
         public GameObject()
         {
-            SceneManager.AddGameObject(this);
+            SceneManager.CurrentScene.AddGameObject(this);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
