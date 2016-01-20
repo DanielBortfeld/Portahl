@@ -5,8 +5,7 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-    class Trigger : Entity
+    class SideScrollEntity : Entity
     {
-        public bool IsPressed;
     }
 }

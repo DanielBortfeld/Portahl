@@ -19,8 +19,7 @@ namespace MonoGamePortal3Practise
         {
             base.Initialize();
 
-            GameManager.Graphics = this.graphics;
-            graphics.IsFullScreen = true;
+			//graphics.IsFullScreen = true;
         }
 
         protected override void LoadContent()
@@ -28,6 +27,10 @@ namespace MonoGamePortal3Practise
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             GameManager.Content = this.Content;
+            GameManager.Graphics = this.graphics;
+            SceneManager.graphicsDevice = this.GraphicsDevice;
+
+            SceneManager.LoadScene<SceneLevelOne>();
         }
 
         protected override void UnloadContent()
@@ -55,8 +58,6 @@ namespace MonoGamePortal3Practise
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
             SceneManager.DrawScene(spriteBatch);
 
             base.Draw(gameTime);

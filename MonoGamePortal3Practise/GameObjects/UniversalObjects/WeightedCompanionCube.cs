@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace MonoGamePortal3Practise
 {
-    class WeightedCompanionCube : Entity
+    class WeightedCompanionCube : TopDownEntity
     {
         public WeightedCompanionCube():base()
         {

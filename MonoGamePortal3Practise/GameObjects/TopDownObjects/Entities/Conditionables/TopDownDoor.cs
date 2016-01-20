@@ -10,9 +10,9 @@ namespace MonoGamePortal3Practise
 
     public enum DoorPosition { Top, Bottom, Left, Right }
 
-    class Door : Conditionable
+    class TopDownDoor : TopDownConditionable
     {
-        public Door(DoorPosition doorPosition) : base()
+        public TopDownDoor(DoorPosition doorPosition) : base()
         {
             Name = "Door" + doorPosition;
         }

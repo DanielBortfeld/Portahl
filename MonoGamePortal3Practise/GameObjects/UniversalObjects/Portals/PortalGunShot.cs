@@ -7,16 +7,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
 {
-    class Portal : Entity
+    class PortalGunShot : TopDownEntity
     {
-        public Portal() : base()
+        public PortalGunShot(Vector2 position)
         {
+            Name = "PortalGunShot";
+
+            Position = position;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (Position != Vector2.Zero)
-                base.Draw(spriteBatch);
+        }
+
+        public override void Move(Vector2 direction)
+        {
+            Position += direction;
         }
     }
 }

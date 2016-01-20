@@ -9,19 +9,9 @@ namespace MonoGamePortal3Practise
 {
     public enum ViewDirection { Up, Down, Left, Right }
 
-    class Entity : GameObject
+    class TopDownEntity : Entity
     {
-        protected static PortalBlue portalBlue = new PortalBlue(Vector2.Zero);
-        protected static PortalOrange portalOrange = new PortalOrange(Vector2.Zero);
-
-        public Vector2 Position;
-        public Vector2 StandartPosition;
-        //public Rectangle Collider
-        //{
-        //    get { return new Rectangle((int)Position.X, (int)Position.Y, spriteWidth, spriteWidth); }
-        //}
-
-        protected Map map;
+        protected TopDownMap map;
 
         protected Vector2 offset = Vector2.Zero;
         protected Vector2 directionDown = new Vector2(0, 1);
@@ -29,7 +19,7 @@ namespace MonoGamePortal3Practise
 
         protected int spriteWidth = 32;
 
-        private Player player;
+        protected TopDownPlayer player;
 
         public Vector2 OffsetPosition
         {
@@ -41,7 +31,8 @@ namespace MonoGamePortal3Practise
             get { return StandartPosition + offset; }
         }
 
-        public Entity() : base()
+        public TopDownEntity()
+            : base()
         {
         }
 
@@ -52,8 +43,8 @@ namespace MonoGamePortal3Practise
 
         public override void LoadContent()
         {
-            map = (Map)SceneManager.CurrentScene.FindGameObject("ChamberOne");
-            player = (Player)SceneManager.CurrentScene.FindGameObject("Chell");
+            map = (TopDownMap)SceneManager.CurrentScene.FindGameObject("ChamberOne");
+            player = (TopDownPlayer)SceneManager.CurrentScene.FindGameObject("Chell");
         }
 
         public virtual void Move(Vector2 direction)
@@ -72,9 +63,11 @@ namespace MonoGamePortal3Practise
 
             else if (targetTile.IsWalkable)
                 Position += direction;
+
+            GameManager.ReportMove();
         }
 
-        public void MoveInViewDirection(Entity entity)
+        public void MoveInViewDirection(TopDownEntity entity)
         {
             switch (player.viewDirection)
             {
@@ -105,17 +98,17 @@ namespace MonoGamePortal3Practise
 
         private bool EntityBlocksPosition(Vector2 targetPosition)
         {
-            foreach (var item in GameManager.GameObjects)
+            foreach (var item in SceneManager.CurrentScene.GameObjects)
             {
-                if (item is Entity)
-                    if (((Entity)item).Position == targetPosition)
+                if (item is TopDownEntity)
+                    if (((TopDownEntity)item).Position == targetPosition)
                     {
-                        if (item is MaterialEmancipationGrill)
-                            HandleEmancipationGrill((MaterialEmancipationGrill)item);
+                        if (item is TopDownMaterialEmancipationGrill)
+                            HandleEmancipationGrill((TopDownMaterialEmancipationGrill)item);
 
                         else if (item is WeightedCompanionCube)
                         {
-                            MoveInViewDirection((Entity)item);
+                            MoveInViewDirection((TopDownEntity)item);
                             return true;
                         }
                         if (item is Portal)
@@ -129,23 +122,15 @@ namespace MonoGamePortal3Practise
             return false;
         }
 
-        private void HandleEmancipationGrill(MaterialEmancipationGrill item)
+        private void HandleEmancipationGrill(TopDownMaterialEmancipationGrill grill)
         {
-            if (item.isOn)
+            if (grill.isOn)
             {
-                if (this is Player)
+                if (this is TopDownPlayer)
                     ResetPortals();
                 else if (this is WeightedCompanionCube)
                     Position = StandartPosition;
             }
-        }
-
-        private void ResetPortals()
-        {
-            GameManager.RemoveGameObject(GameManager.FindGameObject("PortalOrange"));
-            GameManager.RemoveGameObject(GameManager.FindGameObject("PortalBlue"));
-            portalBlue = new PortalBlue(Vector2.Zero);
-            portalOrange = new PortalOrange(Vector2.Zero);
         }
 
         private void Teleport(Portal enteredPortal)

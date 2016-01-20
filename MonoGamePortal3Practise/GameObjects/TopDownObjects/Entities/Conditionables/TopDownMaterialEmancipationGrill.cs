@@ -10,11 +10,11 @@ namespace MonoGamePortal3Practise
 
     public enum GrillDirection { Down, Left }
 
-    class MaterialEmancipationGrill : Conditionable
+    class TopDownMaterialEmancipationGrill : TopDownConditionable
     {
         private GrillDirection direction;
 
-        public MaterialEmancipationGrill(GrillDirection direction)
+        public TopDownMaterialEmancipationGrill(GrillDirection direction)
         {
             Name = "Grill" + direction;
             this.direction = direction;
@@ -22,7 +22,7 @@ namespace MonoGamePortal3Practise
 
         public override void LoadContent()
         {
-            trigger = (Trigger)SceneManager.CurrentScene.FindGameObject("Button");
+            trigger = (TopDownTrigger)SceneManager.CurrentScene.FindGameObject("Button");
         }
 
         public override void Update(GameTime gameTime)

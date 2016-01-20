@@ -10,45 +10,50 @@ namespace MonoGamePortal3Practise
 {
     class SceneLevelOne : Scene
     {
-        private List<SpriteFrame> sprites = new List<SpriteFrame>();
-        private List<GameObject> gameObjects = new List<GameObject>();
+		private TopDownVictoryTrigger victoryTrigger;
 
         public override void LoadContent()
         {
-            SpriteSheet = GameManager.LoadTexture2D("SpriteSheet");
-            LoadSprites(GameManager.Content.RootDirectory + "/spritesheet.xml");
+            SpriteSheet = GameManager.LoadTexture2D("SpriteSheetOne");
+            LoadSprites(GameManager.Content.RootDirectory + "/spritesheetOne.xml");
 
-            Map chamberOne = new Map("ChamberOne");
-            chamberOne.LoadMapFromImage(GameManager.LoadTexture2D("PortalChamberOneTiles"));
+            TopDownMap chamberOne = new TopDownMap("ChamberOne");
+            chamberOne.LoadMapFromImage(GameManager.LoadTexture2D("PortalChamberOneTilesDEBUG"));
             chamberOne.LoadSpritesFromImage(GameManager.LoadTexture2D("PortalChamberOneSprites"));
 
-            Player player = new Player();
+			TopDownPlayer player = new TopDownPlayer();
+
+			victoryTrigger = (TopDownVictoryTrigger)addedGameObjects.Find(g => g.Name.Contains("VictoryTrigger"));
+			victoryTrigger.OnVictory += OnVictory;
 
             GameManager.Graphics.PreferredBackBufferWidth = chamberOne.Width * chamberOne.TileWidth;
             GameManager.Graphics.PreferredBackBufferHeight = chamberOne.Height * chamberOne.TileHeight;
             GameManager.Graphics.ApplyChanges();
         }
 
+		void OnVictory()
+		{
+			SceneManager.LoadScene<SceneLevelTwo>();
+			victoryTrigger.OnVictory -= OnVictory;
+		}
+
         public override void Update(GameTime gameTime)
         {
-            gameObjects.AddRange(SceneManager.AddedGameObjects);
-            SceneManager.AddedGameObjects.ForEach(e => e.LoadContent());
-            SceneManager.AddedGameObjects.Clear();
+            gameObjects.AddRange(addedGameObjects);
+            addedGameObjects.ForEach(e => e.LoadContent());
+            addedGameObjects.Clear();
 
             gameObjects.ForEach(e => e.Update(gameTime));
 
-            SceneManager.RemovedGameObjects.ForEach(e => gameObjects.Remove(e));
-            SceneManager.RemovedGameObjects.Clear();
+            removedGameObjects.ForEach(e => gameObjects.Remove(e));
+            removedGameObjects.Clear();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
             gameObjects.ForEach(e => e.Draw(spriteBatch));
-        }
-
-        public override Rectangle GetSpriteRect(string name)
-        {
-            return ((SpriteFrame)sprites.Find(s => s.Name.Contains(name))).SourceRect;
+            spriteBatch.End();
         }
 
         public void LoadSprites(string dataPath)
@@ -83,10 +88,5 @@ namespace MonoGamePortal3Practise
         //        }
         //    }
         //}
-
-        public override GameObject FindGameObject(string name)
-        {
-            return gameObjects.Find(g => g.Name.Contains(name));
-        }
     }
 }

@@ -6,16 +6,16 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-    class Conditionable : Entity
+    class TopDownConditionable : TopDownEntity
     {
         public bool isOn;
 
-        protected Trigger trigger;
+        protected TopDownTrigger trigger;
 
         public void AssignTrigger(string triggerName)
         {
             if (triggerName != null)
-                trigger = (Trigger)SceneManager.CurrentScene.FindGameObject(triggerName);
+                trigger = (TopDownTrigger)SceneManager.CurrentScene.FindGameObject(triggerName);
         }
     }
 }
