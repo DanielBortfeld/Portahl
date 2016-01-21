@@ -14,7 +14,12 @@ namespace MonoGamePortal3Practise
 			colliders.Add(collider);
 		}
 
-		public static void Update()
+        public static void Clear()
+        {
+            colliders.Clear();
+        }
+
+        public static void Update()
 		{
 			CheckCollisions();
 		}

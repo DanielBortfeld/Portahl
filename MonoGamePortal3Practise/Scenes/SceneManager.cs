@@ -15,6 +15,7 @@ namespace MonoGamePortal3Practise
 
         public static void LoadScene<T>() where T : Scene, new()
         {
+            CollisionManager.Clear();
             CurrentScene = new T();
             CurrentScene.LoadContent();
         }

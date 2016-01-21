@@ -9,7 +9,7 @@ namespace MonoGamePortal3Practise
 {
     public enum ViewDirection { Up, Down, Left, Right }
 
-    class TopDownEntity : Entity
+  public  class TopDownEntity : Entity
     {
         protected TopDownMap map;
 
@@ -29,11 +29,6 @@ namespace MonoGamePortal3Practise
         public Vector2 OffsetStandartPosition
         {
             get { return StandartPosition + offset; }
-        }
-
-        public TopDownEntity()
-            : base()
-        {
         }
 
         public override void Draw(SpriteBatch spriteBatch)

@@ -18,8 +18,6 @@ namespace MonoGamePortal3Practise
         protected override void Initialize()
         {
             base.Initialize();
-
-			//graphics.IsFullScreen = true;
         }
 
         protected override void LoadContent()
@@ -48,6 +46,7 @@ namespace MonoGamePortal3Practise
                 Exit();
 
             SceneManager.UpdateScene(gameTime);
+            CollisionManager.Update();
 
             base.Update(gameTime);
         }

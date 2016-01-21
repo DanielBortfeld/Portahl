@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-    class Entity : GameObject
+  public  class Entity : GameObject
     {
         protected static PortalBlue portalBlue = new PortalBlue(Vector2.Zero);
         protected static PortalOrange portalOrange = new PortalOrange(Vector2.Zero);
@@ -16,7 +16,6 @@ namespace MonoGamePortal3Practise
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(SceneManager.CurrentScene.SpriteSheet, Position, SceneManager.CurrentScene.GetSpriteRect(Name), Color.White);
         }
 
         protected void ResetPortals()

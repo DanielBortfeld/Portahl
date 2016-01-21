@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-    class Tile
+    public class Tile
     {
         public int TilesetPosX;
         public int TilesetPosY;

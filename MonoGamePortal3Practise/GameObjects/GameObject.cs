@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-    class GameObject
+   public class GameObject
     {
         public static Random Random = new Random();
 

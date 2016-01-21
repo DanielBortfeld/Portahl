@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGamePortal3Practise
 {
@@ -16,22 +13,33 @@ namespace MonoGamePortal3Practise
 		
         public override void LoadContent()
 		{
-			SpriteSheet = GameManager.LoadTexture2D("SpriteSheetOne");
-			//load sprite frames
+			SpriteSheet = GameManager.LoadTexture2D("Chell_run");
+            //load sprite frames
+            //###
+            SpriteFrame sprite = new SpriteFrame();  
+            sprite.Name = "Chell_run";
+            sprite.SourceRect.X = 0;
+            sprite.SourceRect.Y = 0;
+            sprite.SourceRect.Width = SpriteSheet.Width;
+            sprite.SourceRect.Height = SpriteSheet.Height;
+            sprites.Add(sprite);
+            //###
 
-			SideScrollMap chamberTwo = new SideScrollMap("ChamberTwo");
+            SideScrollMap chamberTwo = new SideScrollMap("ChamberTwo");
 
 			player = new SideScrollPlayer(Vector2.Zero);
 
             camera.SetTarget(player);
 
 			victoryTrigger = (TopDownVictoryTrigger)addedGameObjects.Find(g => g.Name.Contains("VictoryTrigger"));
-			//victoryTrigger.OnVictory += OnVictory;
+            //victoryTrigger.OnVictory += OnVictory;
 
-			//GameManager.Graphics.PreferredBackBufferWidth = 
-			//GameManager.Graphics.PreferredBackBufferHeight = 
-			//GameManager.Graphics.ApplyChanges();
-		}
+            GameManager.Graphics.PreferredBackBufferWidth = 1920;
+            GameManager.Graphics.PreferredBackBufferHeight = 1080;
+            GameManager.Graphics.IsFullScreen = true;
+
+            GameManager.Graphics.ApplyChanges();
+        }
 
 
 		private void OnVictory()

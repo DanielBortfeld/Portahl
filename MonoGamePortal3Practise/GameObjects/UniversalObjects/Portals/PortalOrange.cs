@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-    class PortalOrange :Portal
+   public class PortalOrange :Portal
     {
         public PortalOrange(Vector2 position) :base()
         {

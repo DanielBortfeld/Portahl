@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-    class TopDownMap : GameObject
+   public class TopDownMap : GameObject
     {
         private Tile[,] tileMap;
         private Texture2D tileset;
