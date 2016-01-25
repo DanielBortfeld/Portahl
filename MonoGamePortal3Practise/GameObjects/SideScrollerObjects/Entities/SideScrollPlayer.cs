@@ -9,8 +9,12 @@ namespace MonoGamePortal3Practise
     {
         private bool isGrounded;
 
+        Vector2 velocity;
+
+        private int moveForce = 10;
+        private int jumpForce = 25;
+        private float gravityForce = 1f;
         private float timer;
-        private int speed = 10;
 
         public SideScrollPlayer(Vector2 position)
         {
@@ -19,25 +23,26 @@ namespace MonoGamePortal3Practise
             Position = position;
             collider = new BoxCollider(this, SceneManager.CurrentScene.SpriteSheet.Width, SceneManager.CurrentScene.SpriteSheet.Height);
             collider.OnCollisionEnter += OnCollisionEnter;
-            collider.OnCollisionStay += OnCollisionEnter;
-        }
-
-        private void OnCollisionStay(BoxCollider other)
-        {
-            throw new NotImplementedException();
+            collider.OnCollisionStay += OnCollisionStay;
+            collider.OnCollisionExit += OnCollisionExit;
         }
 
         public override void Update(GameTime gameTime)
         {
+            Position += velocity;
+
             ProcessInput();
 
-            if (!isGrounded)
+            if (isGrounded)
             {
-                timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                Position.Y += speed * (timer / 2);
+                velocity.Y = 0f;
+                timer = 0;
             }
             else
-                timer = 0;
+            {
+                timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                velocity.Y += gravityForce * timer;
+            }
 
             base.Update(gameTime);
         }
@@ -47,24 +52,28 @@ namespace MonoGamePortal3Practise
             KeyboardState keyState = Keyboard.GetState();
 
             if (keyState.IsKeyDown(Keys.D))
-                Run(speed);
+                velocity.X = moveForce;
+            else if (keyState.IsKeyDown(Keys.A))
+                velocity.X = -moveForce;
+            else
+                velocity.X = 0;
 
-            if (keyState.IsKeyDown(Keys.A))
-                Run(-speed);
+            if (keyState.IsKeyDown(Keys.Space) && isGrounded)
+            {
+                velocity.Y = -jumpForce;
+                isGrounded = false;
+            }
+
         }
 
-        private void Run(int speedX)
+        private void Move(Vector2 velocity)
         {
-            Position.X += speedX;
         }
 
         private void Jump()
         {
             if (isGrounded)
-            {
-                //jump
-            }
-
+                Position.Y = 1080 - SceneManager.CurrentScene.SpriteSheet.Height - 1;
         }
 
         private void OnCollisionEnter(BoxCollider other)
@@ -72,6 +81,16 @@ namespace MonoGamePortal3Practise
             if (other.GameObject is Floor)
                 isGrounded = true;
             if (other.GameObject is Wall) ;
+        }
+
+        private void OnCollisionStay(BoxCollider other)
+        {
+        }
+
+        private void OnCollisionExit(BoxCollider other)
+        {
+            if (other.GameObject is Floor)
+                isGrounded = false;
         }
     }
 }
