@@ -72,7 +72,7 @@ namespace MonoGamePortal3Practise
                 return new TopDownHeavyDutySuperCollidingSuperButton();
 
             if (color == new Color(255, 174, 201))
-                return new WeightedCompanionCube();
+                return new TopDownWeightedCompanionCube();
 
             if (color == new Color(255, 127, 39))
                 return new TopDownDoor(DoorPosition.Left);

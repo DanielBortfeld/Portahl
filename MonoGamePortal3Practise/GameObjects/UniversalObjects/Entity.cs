@@ -7,16 +7,12 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-  public  class Entity : GameObject
+    public class Entity : GameObject
     {
         protected static PortalBlue portalBlue = new PortalBlue(Vector2.Zero);
         protected static PortalOrange portalOrange = new PortalOrange(Vector2.Zero);
 
         public Vector2 StandartPosition;
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-        }
 
         protected void ResetPortals()
         {
@@ -24,6 +20,11 @@ namespace MonoGamePortal3Practise
             SceneManager.CurrentScene.RemoveGameObject(SceneManager.CurrentScene.FindGameObject("PortalBlue"));
             portalBlue = new PortalBlue(Vector2.Zero);
             portalOrange = new PortalOrange(Vector2.Zero);
+        }
+
+        protected Rectangle GetSpriteRect()
+        {
+            return SceneManager.CurrentScene.GetSpriteRect(Name);
         }
     }
 }

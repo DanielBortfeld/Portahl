@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,9 @@ namespace MonoGamePortal3Practise
             colliders.Clear();
         }
 
-        public static void Update()
+        public static void UpdateColliders(GameTime gameTime)
 		{
+            colliders.ForEach(c => c.UpdatePosition(gameTime));
 			CheckCollisions();
 		}
 

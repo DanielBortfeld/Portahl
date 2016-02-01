@@ -101,7 +101,7 @@ namespace MonoGamePortal3Practise
                         if (item is TopDownMaterialEmancipationGrill)
                             HandleEmancipationGrill((TopDownMaterialEmancipationGrill)item);
 
-                        else if (item is WeightedCompanionCube)
+                        else if (item is TopDownWeightedCompanionCube)
                         {
                             MoveInViewDirection((TopDownEntity)item);
                             return true;
@@ -123,7 +123,7 @@ namespace MonoGamePortal3Practise
             {
                 if (this is TopDownPlayer)
                     ResetPortals();
-                else if (this is WeightedCompanionCube)
+                else if (this is TopDownWeightedCompanionCube)
                     Position = StandartPosition;
             }
         }

@@ -13,10 +13,10 @@ namespace MonoGamePortal3Practise
 
         public override void LoadContent()
         {
-            Rectangle spriteRect = SceneManager.CurrentScene.GetSpriteRect(Name);
-            collider = new BoxCollider(this, spriteRect.Width, spriteRect.Height); 
-            
             base.LoadContent();
+
+            Rectangle spriteRect = GetSpriteRect();
+            collider = new BoxCollider(this, spriteRect.Width, spriteRect.Height, true); 
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -27,8 +27,6 @@ namespace MonoGamePortal3Practise
 
         public override void Update(GameTime gameTime)
         {
-            collider.X = (int)Position.X;
-            collider.Y = (int)Position.Y;
         }
     }
 }

@@ -18,6 +18,11 @@ namespace MonoGamePortal3Practise
         private int backgroundWidth = 1920;
         private int backgroundHeight = 1080;
 
+		public Camera(SideScrollPlayer player)
+		{
+			this.player = player;
+		}
+
         public void SetTarget(SideScrollPlayer player)
         {
             this.player = player;
@@ -46,20 +51,20 @@ namespace MonoGamePortal3Practise
             cameraTranslationY = 0f;
 
             // translation:
-            if (player.Position.X < marginLeft) // wenn der player weiter links als die linke grenze ist...
-                cameraTranslationX = player.Position.X - marginLeft;
-            else if (player.Position.X > marginRight) // wenn der player weiter rechts als die rechte grenze ist...
-                cameraTranslationX = player.Position.X - marginRight;
+            if (player.Pivot.X < marginLeft) // wenn der player weiter links als die linke grenze ist...
+                cameraTranslationX = player.Pivot.X - marginLeft;
+            else if (player.Pivot.X > marginRight) // wenn der player weiter rechts als die rechte grenze ist...
+                cameraTranslationX = player.Pivot.X - marginRight;
 
-            if (player.Position.Y < marginTop) // wenn der player weiter oben ist als die obere grenze...
-                cameraTranslationY = player.Position.Y - marginTop;
-            else if (player.Position.Y > marginFloor) // wenn der player weiter unten als die untere grenze...
-                cameraTranslationY = player.Position.Y - marginFloor;
+            if (player.Pivot.Y < marginTop) // wenn der player weiter oben ist als die obere grenze...
+                cameraTranslationY = player.Pivot.Y - marginTop;
+            else if (player.Pivot.Y > marginFloor) // wenn der player weiter unten als die untere grenze...
+                cameraTranslationY = player.Pivot.Y - marginFloor;
             //--> ...dann sag an, wie weit die cam verschoben werden muss
 
             // apply translation:
-            X = MathHelper.Clamp(X + cameraTranslationX, 0f, backgroundWidth - GameManager.Graphics.PreferredBackBufferWidth);
-            Y = MathHelper.Clamp(Y + cameraTranslationY, 0f, backgroundHeight - GameManager.Graphics.PreferredBackBufferHeight);
+            X = MathHelper.Clamp(X + cameraTranslationX, 0f, backgroundWidth - GameManager.Graphics.GraphicsDevice.Viewport.Width);
+            Y = MathHelper.Clamp(Y + cameraTranslationY, 0f, backgroundHeight - GameManager.Graphics.GraphicsDevice.Viewport.Height);
             // cam wird verschoben auf die aktuelle position
             // -> die cam wird aber immer innerhalb vom gesetzten background bleiben
         }

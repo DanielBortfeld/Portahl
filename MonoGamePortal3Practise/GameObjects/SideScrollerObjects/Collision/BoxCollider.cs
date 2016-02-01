@@ -14,6 +14,13 @@ namespace MonoGamePortal3Practise
 		public int Width;
 		public int Height;
 
+        public int Top { get { return Y; } }
+        public int Bottom { get { return Y + Height; } }
+        public int Left { get { return X; } }
+        public int Right { get { return X + Width; } }
+
+        public bool IsTrigger;
+
         public GameObject GameObject;
 
 		public delegate void CollisionEvent(BoxCollider other);
@@ -21,25 +28,33 @@ namespace MonoGamePortal3Practise
 
 		private List<BoxCollider> collidingColliders = new List<BoxCollider>();
 
-		public BoxCollider(int x, int y, int width, int height)
+		public BoxCollider(int x, int y, int width, int height, bool isTrigger)
 		{
-			this.X = x;
-			this.Y = y;
-			this.Width = width;
-			this.Height = height;
+			X = x;
+			Y = y;
+			Width = width;
+			Height = height;
+            IsTrigger = isTrigger;
 
 			CollisionManager.AddCollider(this);
 		}
 
-        public BoxCollider(GameObject gameObject, int width, int height)
+        public BoxCollider(GameObject gameObject, int width, int height, bool isTrigger)
         {
             GameObject = gameObject;
             X = (int)GameObject.Position.X;
             Y = (int)GameObject.Position.Y;
             Width = width;
             Height = height;
+            IsTrigger = isTrigger;
 
             CollisionManager.AddCollider(this);
+        }
+
+        public void UpdatePosition(GameTime gameTime)
+        {
+            X = (int)GameObject.Position.X;
+            Y = (int)GameObject.Position.Y;
         }
 
         /// <summary>
@@ -52,7 +67,7 @@ namespace MonoGamePortal3Practise
         /// </summary>
         public void CheckCollision(BoxCollider other)
 		{
-			if (X + Width < other.X || other.X + other.Width < X || Y + Height < other.Y || other.Y + other.Height < Y)
+			if (Right < other.Left || other.Right < Left || Bottom < other.Top || other.Bottom < Top)
 			{
 				// no collision
 				if (collidingColliders.Contains(other))
@@ -78,5 +93,5 @@ namespace MonoGamePortal3Practise
 			if (OnCollisionEnter != null)
 				OnCollisionEnter(other);
 		}
-	}
+    }
 }

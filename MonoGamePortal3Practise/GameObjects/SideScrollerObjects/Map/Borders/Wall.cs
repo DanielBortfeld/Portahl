@@ -17,7 +17,7 @@ namespace MonoGamePortal3Practise
             Position = new Vector2(x, y);
             this.height = height;
             this.width = 10;
-            floor = new BoxCollider(this, width, height);
+            floor = new BoxCollider(this, width, height, false);
         }
     }
 }
