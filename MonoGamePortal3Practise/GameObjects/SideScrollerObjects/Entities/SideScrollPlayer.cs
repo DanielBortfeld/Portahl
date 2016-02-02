@@ -21,7 +21,7 @@ namespace MonoGamePortal3Practise
 
         private bool isGrounded;
         private float isGroundedTimeStamp;
-        private float jumpCooldown = 0.5f;
+        private float jumpCooldown = 0.1f;
 
         public SideScrollPlayer(Vector2 position)
         {
@@ -89,22 +89,9 @@ namespace MonoGamePortal3Practise
 
         private void OnCollisionEnter(BoxCollider other)
         {
-            //if (other.GameObject is Floor)
-            //{
-            //    isGrounded = true;
-            //    timer = 0;
-            //    if (Position.Y != other.Y - spriteRect.Height)
-            //        Position.Y = other.Y-spriteRect.Height;
-            //    velocity.Y = 0f;
-            //}
-            //if (other.GameObject is Wall)
-            //{
-            //    velocity.X = 0f;
-            //    Position = lastPosition;
-            //}
             if (!other.IsTrigger)
             {
-                if (!(collider.Bottom < other.Top))
+                if (!(collider.Bottom < other.Top) && lastPosition.Y + collider.Height <= other.Top)
                 {
                     isGrounded = true;
                     timer = 0;
@@ -122,16 +109,19 @@ namespace MonoGamePortal3Practise
 
         private void OnCollisionStay(BoxCollider other)
         {
-            if (!(collider.Bottom < other.Top))
+            if (!(collider.Bottom <= other.Top))
             {
-                isGrounded = true;
+                if (isGrounded != true)
+                    isGrounded = true;
+                if (Position.Y != other.GameObject.Position.Y - spriteRect.Height)
+                    Position.Y = other.GameObject.Position.Y - spriteRect.Height;
+                if (velocity.Y != 0f)
+                    velocity.Y = 0f;
             }
         }
 
         private void OnCollisionExit(BoxCollider other)
         {
-            //if (other.GameObject is Floor)
-            //    isGrounded = false;
             if (!other.IsTrigger)
             {
                 if ((collider.Bottom < other.Top) || (!(collider.Right < other.Left) || !(collider.Left > other.Right)))

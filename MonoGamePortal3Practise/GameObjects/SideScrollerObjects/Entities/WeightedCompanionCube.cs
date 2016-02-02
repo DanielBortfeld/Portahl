@@ -11,13 +11,9 @@ namespace MonoGamePortal3Practise
         private Rectangle spriteRect;
 
         private Vector2 lastPosition;
-
-        private Vector2 velocity;
-        private float gravityForce = 2f;
+        private Movement movement;
 
         private bool isGrounded;
-        private float timer;
-        private float isGroundedTimeStamp;
 
         public WeightedCompanionCube():base()
         {
@@ -29,6 +25,8 @@ namespace MonoGamePortal3Practise
         {
             base.LoadContent();
 
+            movement = new Movement(this);
+
             spriteRect = GetSpriteRect();
             collider = new BoxCollider(this, spriteRect.Width, spriteRect.Height, false); 
             collider.OnCollisionEnter += OnCollisionEnter;
@@ -39,24 +37,14 @@ namespace MonoGamePortal3Practise
         public override void Update(GameTime gameTime)
         {
             lastPosition = Position;
-            Move();
+            movement.UpdatePosition();
 
             if (isGrounded)
-            {
-                isGroundedTimeStamp += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
+                movement.SetIsGroundedTimeStamp(gameTime);
             else
-            {
-                timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                velocity.Y += gravityForce * timer;
-            }
+                movement.ApplyGravity(gameTime);
 
             base.Update(gameTime);
-        }
-
-        private void Move()
-        {
-            Position += velocity;
         }
 
         private void OnCollisionEnter(BoxCollider other)
@@ -64,14 +52,14 @@ namespace MonoGamePortal3Practise
             if (other.GameObject is Floor)
             {
                 isGrounded = true;
-                timer = 0;
+                movement.AccelerationMultipier = 0;
                 if (Position.Y != other.Y - spriteRect.Height)
                     Position.Y = other.Y - spriteRect.Height;
-                velocity.Y = 0f;
+                movement.ResetVelocityY();
             }
             if (other.GameObject is Wall)
             {
-                velocity.X = 0f;
+                movement.ResetVelocityX();
                 Position = lastPosition;
             }
             if (!other.IsTrigger)

@@ -7,16 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
 {
-  public abstract class Portal : TopDownEntity
+    public abstract class Portal : TopDownEntity
     {
         private BoxCollider collider;
 
         public override void LoadContent()
         {
-            base.LoadContent();
-
             Rectangle spriteRect = GetSpriteRect();
-            collider = new BoxCollider(this, spriteRect.Width, spriteRect.Height, true); 
+            collider = new BoxCollider(this, spriteRect.Width, spriteRect.Height, true);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

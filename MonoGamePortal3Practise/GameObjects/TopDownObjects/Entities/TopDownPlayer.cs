@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-  public  class TopDownPlayer : TopDownEntity
+    public class TopDownPlayer : TopDownEntity
     {
         public ViewDirection viewDirection;
 

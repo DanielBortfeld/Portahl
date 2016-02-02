@@ -9,7 +9,7 @@ namespace MonoGamePortal3Practise
 {
     public enum ViewDirection { Up, Down, Left, Right }
 
-  public  class TopDownEntity : Entity
+    public class TopDownEntity : Entity
     {
         protected TopDownMap map;
 

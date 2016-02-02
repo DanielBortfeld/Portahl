@@ -39,10 +39,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GameObjects\SideScrollerObjects\Camera.cs" />
-    <Compile Include="GameObjects\SideScrollerObjects\CharacterController.cs" />
+    <Compile Include="GameObjects\SideScrollerObjects\Movement.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Collision\BoxCollider.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Collision\CollisionManager.cs" />
-    <Compile Include="GameObjects\SideScrollerObjects\Gravity.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\SideScrollEntity.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Map\Borders\Floor.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Map\Borders\Wall.cs" />

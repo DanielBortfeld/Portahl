@@ -18,7 +18,7 @@ namespace MonoGamePortal3Practise
 
             SideScrollMap chamberTwo = new SideScrollMap("ChamberTwo");
 
-            player = new SideScrollPlayer(new Vector2(10, 10));
+            player = new SideScrollPlayer(new Vector2(10, 1000));
             cube = new WeightedCompanionCube();
 
             camera = new Camera(player);
