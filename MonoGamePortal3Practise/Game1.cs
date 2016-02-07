@@ -41,6 +41,7 @@ namespace MonoGamePortal3Practise
                 Exit();
 
             SceneManager.UpdateScene(gameTime);
+            InputManager.Update();
             CollisionManager.UpdateColliders(gameTime);
 
             base.Update(gameTime);

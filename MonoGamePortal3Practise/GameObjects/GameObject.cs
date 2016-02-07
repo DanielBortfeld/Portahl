@@ -1,15 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-   public abstract class GameObject
+    public abstract class GameObject
     {
         public static Random Random = new Random();
+        public static Color White = Color.White;
 
         public string Name = "GameObject";
         public Vector2 Position = Vector2.Zero;
@@ -19,16 +17,16 @@ namespace MonoGamePortal3Practise
             SceneManager.CurrentScene.AddGameObject(this);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-        }
+        public abstract void Draw(SpriteBatch spriteBatch);
 
-        public virtual void Update(GameTime gameTime)
-        {
-        }
+        public abstract void Update(GameTime gameTime);
 
-        public virtual void LoadContent()
+        public abstract void LoadContent();
+
+        public virtual void Destroy()
         {
+            if (this != null)
+                SceneManager.CurrentScene.RemoveGameObject(this);
         }
     }
 }

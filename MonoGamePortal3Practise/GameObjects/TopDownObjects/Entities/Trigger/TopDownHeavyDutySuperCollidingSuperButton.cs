@@ -1,10 +1,4 @@
-﻿ using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-
-namespace MonoGamePortal3Practise
+﻿namespace MonoGamePortal3Practise
 {
     class TopDownHeavyDutySuperCollidingSuperButton : TopDownTrigger
     {
@@ -15,6 +9,7 @@ namespace MonoGamePortal3Practise
 
 		public override void Trigger_OnMove()
         {
+            // check if trigger is pressed
             foreach (var item in SceneManager.CurrentScene.GameObjects)
             {
                 if (item is TopDownHeavyDutySuperCollidingSuperButton)

@@ -23,6 +23,18 @@ namespace MonoGamePortal3Practise
 			this.player = player;
 		}
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+        }
+
+        public override void LoadContent()
+        {
+        }
+
         public void SetTarget(SideScrollPlayer player)
         {
             this.player = player;

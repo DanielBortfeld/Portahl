@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGamePortal3Practise
 {
@@ -11,15 +7,14 @@ namespace MonoGamePortal3Practise
 
     public class TopDownEntity : Entity
     {
+        protected int spriteWidth = 32;
+
         protected TopDownMap map;
+        protected TopDownPlayer player;
 
         protected Vector2 offset = Vector2.Zero;
         protected Vector2 directionDown = new Vector2(0, 1);
         protected Vector2 directionRight = new Vector2(1, 0);
-
-        protected int spriteWidth = 32;
-
-        protected TopDownPlayer player;
 
         public Vector2 OffsetPosition
         {
@@ -33,7 +28,7 @@ namespace MonoGamePortal3Practise
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(SceneManager.CurrentScene.SpriteSheet, Position * spriteWidth, SceneManager.CurrentScene.GetSpriteRect(Name), Color.White);
+            spriteBatch.Draw(SpriteSheet, Position * spriteWidth, SpriteRect, White);
         }
 
         public override void LoadContent()
@@ -42,7 +37,7 @@ namespace MonoGamePortal3Practise
             player = (TopDownPlayer)SceneManager.CurrentScene.FindGameObject("Chell");
         }
 
-        public virtual void Move(Vector2 direction)
+        public override void Move(Vector2 direction)
         {
             Vector2 targetPosition = GetTargetPosition(this, direction, offset);
             Tile targetTile = GetTargetTile(targetPosition);
@@ -53,7 +48,7 @@ namespace MonoGamePortal3Practise
             if (targetTile is ToxicGooAnim)
             {
                 Position = StandartPosition;
-                ResetPortals();
+                SceneManager.CurrentScene.ResetPortals();
             }
 
             else if (targetTile.IsWalkable)
@@ -62,7 +57,7 @@ namespace MonoGamePortal3Practise
             GameManager.ReportMove();
         }
 
-        public void MoveInViewDirection(TopDownEntity entity)
+        public void MoveInPlayersViewDirection(Entity entity)
         {
             switch (player.viewDirection)
             {
@@ -83,31 +78,23 @@ namespace MonoGamePortal3Practise
             }
         }
 
-        protected Portal GetDestinationPortal(Portal enteredPortal)
-        {
-            if (enteredPortal == portalOrange)
-                return portalBlue;
-            else
-                return portalOrange;
-        }
-
         private bool EntityBlocksPosition(Vector2 targetPosition)
         {
             foreach (var item in SceneManager.CurrentScene.GameObjects)
             {
-                if (item is TopDownEntity)
-                    if (((TopDownEntity)item).Position == targetPosition)
+                if (item is Entity)
+                    if (((Entity)item).Position == targetPosition)
                     {
                         if (item is TopDownMaterialEmancipationGrill)
                             HandleEmancipationGrill((TopDownMaterialEmancipationGrill)item);
 
                         else if (item is TopDownWeightedCompanionCube)
                         {
-                            MoveInViewDirection((TopDownEntity)item);
+                            MoveInPlayersViewDirection((TopDownEntity)item);
                             return true;
                         }
                         if (item is Portal)
-                            if (GetDestinationPortal((Portal)item).Position != Vector2.Zero)
+                            if (SceneManager.GetDestinationPortal((Portal)item).Position != Vector2.Zero)
                             {
                                 Teleport((Portal)item);
                                 return true;
@@ -122,7 +109,7 @@ namespace MonoGamePortal3Practise
             if (grill.isOn)
             {
                 if (this is TopDownPlayer)
-                    ResetPortals();
+                    SceneManager.CurrentScene.ResetPortals();
                 else if (this is TopDownWeightedCompanionCube)
                     Position = StandartPosition;
             }
@@ -130,7 +117,7 @@ namespace MonoGamePortal3Practise
 
         private void Teleport(Portal enteredPortal)
         {
-            Portal destinationPortal = GetDestinationPortal(enteredPortal);
+            Portal destinationPortal = SceneManager.GetDestinationPortal(enteredPortal);
             Vector2 direction = Vector2.Zero;
 
             for (int x = 0; x < 4; x++)
@@ -159,13 +146,11 @@ namespace MonoGamePortal3Practise
                 Tile targetTile = GetTargetTile(targetPosition);
 
                 if (targetTile.IsWalkable)
-                {
                     if (!EntityBlocksPosition(targetPosition))
                     {
                         Position = targetPosition - this.offset;
                         return;
                     }
-                }
             }
         }
 

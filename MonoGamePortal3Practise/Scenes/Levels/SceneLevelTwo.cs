@@ -18,15 +18,15 @@ namespace MonoGamePortal3Practise
 
             SideScrollMap chamberTwo = new SideScrollMap("ChamberTwo");
 
-            player = new SideScrollPlayer(new Vector2(10, 1000));
-            cube = new WeightedCompanionCube();
+            player = new SideScrollPlayer(new Vector2(500, chamberTwo.Background.Height-10));
+            cube = new WeightedCompanionCube(1000, 0);
 
             camera = new Camera(player);
-            camera.SetBackgroundResolution(chamberTwo.background.Width, chamberTwo.background.Height);
+            camera.SetBackgroundResolution(chamberTwo.Background.Width, chamberTwo.Background.Height);
 
             GameManager.Graphics.PreferredBackBufferWidth = 1920;
             GameManager.Graphics.PreferredBackBufferHeight = 1080;
-            GameManager.Graphics.IsFullScreen = true;
+            //GameManager.Graphics.IsFullScreen = true;
 
             GameManager.Graphics.ApplyChanges();
         }

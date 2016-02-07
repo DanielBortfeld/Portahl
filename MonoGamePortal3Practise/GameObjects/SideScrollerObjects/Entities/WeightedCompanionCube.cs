@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace MonoGamePortal3Practise
 {
     class WeightedCompanionCube : SideScrollEntity
     {
-        private Rectangle spriteRect;
-
         private Vector2 lastPosition;
         private Movement movement;
 
         private bool isGrounded;
 
-        public WeightedCompanionCube():base()
+        public WeightedCompanionCube(int x, int y)
         {
             Name = "Cube";
-            Position = new Vector2(400, 0);
+            Position = new Vector2(x, y);
         }
 
         public override void LoadContent()
@@ -27,11 +21,10 @@ namespace MonoGamePortal3Practise
 
             movement = new Movement(this);
 
-            spriteRect = GetSpriteRect();
-            collider = new BoxCollider(this, spriteRect.Width, spriteRect.Height, false); 
-            collider.OnCollisionEnter += OnCollisionEnter;
-            collider.OnCollisionStay += OnCollisionStay;
-            collider.OnCollisionExit += OnCollisionExit;
+            Collider = new BoxCollider(this, SpriteRect.Width, SpriteRect.Height, false);
+            Collider.OnCollisionEnter += OnCollisionEnter;
+            Collider.OnCollisionStay += OnCollisionStay;
+            Collider.OnCollisionExit += OnCollisionExit;
         }
 
         public override void Update(GameTime gameTime)
@@ -53,8 +46,8 @@ namespace MonoGamePortal3Practise
             {
                 isGrounded = true;
                 movement.AccelerationMultipier = 0;
-                if (Position.Y != other.Y - spriteRect.Height)
-                    Position.Y = other.Y - spriteRect.Height;
+                if (Position.Y != other.Y - SpriteRect.Height)
+                    Position.Y = other.Y - SpriteRect.Height;
                 movement.ResetVelocityY();
             }
             if (other.GameObject is Wall)
@@ -75,6 +68,15 @@ namespace MonoGamePortal3Practise
         {
             if (other.GameObject is Floor)
                 isGrounded = false;
+        }
+
+        public override void Destroy()
+        {
+            Collider.OnCollisionEnter -= OnCollisionEnter;
+            Collider.OnCollisionStay -= OnCollisionStay;
+            Collider.OnCollisionExit -= OnCollisionExit;
+
+            base.Destroy();
         }
     }
 }

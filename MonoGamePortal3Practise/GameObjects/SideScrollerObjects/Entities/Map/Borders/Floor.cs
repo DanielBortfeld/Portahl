@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
 {
@@ -18,6 +15,18 @@ namespace MonoGamePortal3Practise
             this.width = width;
             height = 50;
             floor = new BoxCollider(this, width, height, false);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+        }
+
+        public override void LoadContent()
+        {
         }
     }
 }

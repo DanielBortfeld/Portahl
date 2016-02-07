@@ -7,24 +7,30 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
 {
-    public abstract class Portal : TopDownEntity
+    public abstract class Portal : Entity
     {
-        private BoxCollider collider;
-
         public override void LoadContent()
         {
-            Rectangle spriteRect = GetSpriteRect();
-            collider = new BoxCollider(this, spriteRect.Width, spriteRect.Height, true);
+            Collider = new BoxCollider(this, SpriteRect.Width, SpriteRect.Height, true);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            Console.WriteLine("portal position is " + Position);
             if (Position != Vector2.Zero)
-                base.Draw(spriteBatch);
-        }
-
-        public override void Update(GameTime gameTime)
-        {
+            {
+                Console.WriteLine("Position is != 0");
+                if (SceneManager.CurrentScene is SceneLevelOne)
+                {
+                    spriteBatch.Draw(SpriteSheet, Position * SpriteRect.Width, SpriteRect, White);
+                    Console.WriteLine("draw lvl 1");
+                }
+                else if (SceneManager.CurrentScene is SceneLevelTwo)
+                {
+                    spriteBatch.Draw(SceneManager.CurrentScene.SpriteSheet, Position, SpriteRect, White);
+                    Console.WriteLine("draw lvl 2");
+                }
+            }
         }
     }
 }

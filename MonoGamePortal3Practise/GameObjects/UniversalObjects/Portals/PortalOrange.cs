@@ -6,9 +6,9 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-   public class PortalOrange :Portal
+    public class PortalOrange : Portal
     {
-        public PortalOrange(Vector2 position) :base()
+        public PortalOrange(Vector2 position)
         {
             Name = "PortalOrange";
             Position = position;

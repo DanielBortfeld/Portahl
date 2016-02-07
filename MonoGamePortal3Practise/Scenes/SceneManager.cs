@@ -18,6 +18,8 @@ namespace MonoGamePortal3Practise
             CollisionManager.Clear();
             CurrentScene = new T();
             CurrentScene.LoadContent();
+            CurrentScene.PortalBlue = new PortalBlue(Vector2.Zero);
+            CurrentScene.PortalOrange = new PortalOrange(Vector2.Zero);
         }
 
         public static void UpdateScene(GameTime gameTime)
@@ -32,5 +34,12 @@ namespace MonoGamePortal3Practise
             CurrentScene.Draw(spriteBatch);
         }
 
+        public static Portal GetDestinationPortal(Portal enteredPortal)
+        {
+            if (enteredPortal is PortalOrange)
+                return CurrentScene.PortalBlue;
+            else
+                return CurrentScene.PortalOrange;
+        }
     }
 }

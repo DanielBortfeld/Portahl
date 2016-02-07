@@ -1,30 +1,61 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGamePortal3Practise
 {
     public class Entity : GameObject
     {
-        protected static PortalBlue portalBlue = new PortalBlue(Vector2.Zero);
-        protected static PortalOrange portalOrange = new PortalOrange(Vector2.Zero);
-
         public Vector2 StandartPosition;
 
-        protected void ResetPortals()
+        public BoxCollider Collider { get; protected set; }
+
+        public Rectangle SpriteRect
         {
-            SceneManager.CurrentScene.RemoveGameObject(SceneManager.CurrentScene.FindGameObject("PortalOrange"));
-            SceneManager.CurrentScene.RemoveGameObject(SceneManager.CurrentScene.FindGameObject("PortalBlue"));
-            portalBlue = new PortalBlue(Vector2.Zero);
-            portalOrange = new PortalOrange(Vector2.Zero);
+            get { return GetSpriteRect(); }
+        }
+
+        public Texture2D SpriteSheet
+        {
+            get { return GetSpriteSheet(); }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+        }
+
+        public override void LoadContent()
+        {
+        }
+
+        public virtual void Move(Vector2 direction)
+        {
+            Position += direction;
+        }
+
+        public virtual void Teleport()
+        {
         }
 
         protected Rectangle GetSpriteRect()
         {
             return SceneManager.CurrentScene.GetSpriteRect(Name);
+        }
+
+        protected Texture2D GetSpriteSheet()
+        {
+            return SceneManager.CurrentScene.SpriteSheet;
+        }
+
+        public override void Destroy()
+        {
+            if (Collider != null)
+                Collider.Remove();
+            base.Destroy();
         }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Xml;
@@ -75,18 +72,5 @@ namespace MonoGamePortal3Practise
                 }
             }
         }
-
-        //public static void LoadTriggerConnections(string mapName, string dataPath)
-        //{
-        //    XmlReader xmlReader = XmlReader.Create(dataPath);
-
-        //    while (xmlReader.Read())
-        //    {
-        //        if (xmlReader.IsStartElement(mapName))
-        //        {
-
-        //        }
-        //    }
-        //}
     }
 }

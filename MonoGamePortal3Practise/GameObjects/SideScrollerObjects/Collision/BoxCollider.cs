@@ -6,38 +6,38 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-	public class BoxCollider
-	{
-		// rectangle:
-		public int X;
-		public int Y;
-		public int Width;
-		public int Height;
+    public class BoxCollider
+    {
+        public bool IsTrigger;
+
+        // rectangle:
+        public int X;
+        public int Y;
+        public int Width;
+        public int Height;
 
         public int Top { get { return Y; } }
         public int Bottom { get { return Y + Height; } }
         public int Left { get { return X; } }
         public int Right { get { return X + Width; } }
 
-        public bool IsTrigger;
+        public GameObject GameObject { get; private set; }
 
-        public GameObject GameObject;
+        public delegate void CollisionEvent(BoxCollider other);
+        public event CollisionEvent OnCollisionEnter, OnCollisionStay, OnCollisionExit;
 
-		public delegate void CollisionEvent(BoxCollider other);
-		public event CollisionEvent OnCollisionEnter, OnCollisionStay, OnCollisionExit;
+        private List<BoxCollider> collidingColliders = new List<BoxCollider>();
 
-		private List<BoxCollider> collidingColliders = new List<BoxCollider>();
-
-		public BoxCollider(int x, int y, int width, int height, bool isTrigger)
-		{
-			X = x;
-			Y = y;
-			Width = width;
-			Height = height;
+        public BoxCollider(int x, int y, int width, int height, bool isTrigger)
+        {
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
             IsTrigger = isTrigger;
 
-			CollisionManager.AddCollider(this);
-		}
+            CollisionManager.AddCollider(this);
+        }
 
         public BoxCollider(GameObject gameObject, int width, int height, bool isTrigger)
         {
@@ -66,32 +66,37 @@ namespace MonoGamePortal3Practise
         /// dann keine collision;
         /// </summary>
         public void CheckCollision(BoxCollider other)
-		{
-			if (Right < other.Left || other.Right < Left || Bottom < other.Top || other.Bottom < Top)
-			{
-				// no collision
-				if (collidingColliders.Contains(other))
-				{
-					// no more colliding
-					if (OnCollisionExit != null)
-						OnCollisionExit(other);
-					collidingColliders.Remove(other);
-				}
-				return;
-			}
+        {
+            if (Right < other.Left || other.Right < Left || Bottom < other.Top || other.Bottom < Top)
+            {
+                // no collision
+                if (collidingColliders.Contains(other))
+                {
+                    // no more colliding
+                    if (OnCollisionExit != null)
+                        OnCollisionExit(other);
+                    collidingColliders.Remove(other);
+                }
+                return;
+            }
 
-			if (collidingColliders.Contains(other))
-			{
-				// still colliding
-				if (OnCollisionStay != null)
-					OnCollisionStay(other);
-				return;
-			}
+            if (collidingColliders.Contains(other))
+            {
+                // still colliding
+                if (OnCollisionStay != null)
+                    OnCollisionStay(other);
+                return;
+            }
 
-			// new collison
-			collidingColliders.Add(other);
-			if (OnCollisionEnter != null)
-				OnCollisionEnter(other);
-		}
+            // new collison
+            collidingColliders.Add(other);
+            if (OnCollisionEnter != null)
+                OnCollisionEnter(other);
+        }
+
+        public void Remove()
+        {
+            CollisionManager.RemoveCollider(this);
+        }
     }
 }

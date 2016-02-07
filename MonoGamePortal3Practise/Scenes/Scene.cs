@@ -1,15 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGamePortal3Practise
 {
     abstract class Scene
     {
         public Texture2D SpriteSheet;
+
+        public PortalBlue PortalBlue;
+        public PortalOrange PortalOrange;
 
         protected List<SpriteFrame> sprites = new List<SpriteFrame>();
         protected List<GameObject> gameObjects = new List<GameObject>();
@@ -42,5 +42,17 @@ namespace MonoGamePortal3Practise
             removedGameObjects.Add(gameObject);
         }
 
+        public void RemoveGameObject(string name)
+        {
+            RemoveGameObject(FindGameObject(name));
+        }
+
+        public void ResetPortals()
+        {
+            PortalBlue.Destroy();
+            PortalOrange.Destroy();
+            PortalBlue = new PortalBlue(Vector2.Zero);
+            PortalOrange = new PortalOrange(Vector2.Zero);
+        }
     }
 }

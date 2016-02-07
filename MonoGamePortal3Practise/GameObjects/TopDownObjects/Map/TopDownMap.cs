@@ -7,18 +7,21 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-   public class TopDownMap : GameObject
+    public class TopDownMap : GameObject
     {
         private Tile[,] tileMap;
         private Texture2D tileset;
 
-        public int Width;
-        public int Height;
+        private int tileWidth = 32;
+        private int tileHeight = 32;
 
-        public int TileWidth = 32;
-        public int TileHeight = 32;
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
-        public TopDownMap(string name):base()
+        public int TileWidth { get { return tileWidth; } private set { tileWidth = value; } }
+        public int TileHeight { get { return tileHeight; } private set { tileHeight = value; } }
+
+        public TopDownMap(string name)
         {
             Name = name;
 
@@ -32,11 +35,19 @@ namespace MonoGamePortal3Practise
                 for (int x = 0; x < Width; x++)
                 {
                     Tile currentTileToBeDrawn = tileMap[x, y];
-                    Vector2 position/*OfTheTilesUpperLeftPixelOnTheScreen*/ = new Vector2(x * TileWidth, y * TileHeight);
-                    Rectangle frameOfTheFullTile = new Rectangle(currentTileToBeDrawn.TilesetPosX * TileWidth, currentTileToBeDrawn.TilesetPosY * TileHeight, TileWidth, TileHeight);
+                    Vector2 position/*OfTheTilesUpperLeftPixelOnTheScreen*/ = new Vector2(x * tileWidth, y * tileHeight);
+                    Rectangle frameOfTheFullTile = new Rectangle(currentTileToBeDrawn.TilesetPosX * tileWidth, currentTileToBeDrawn.TilesetPosY * tileHeight, tileWidth, tileHeight);
                     spriteBatch.Draw(tileset, position/*OfTheTilesUpperLeftPixelOnTheScreen*/, frameOfTheFullTile, Color.White);
                 }
             }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+        }
+
+        public override void LoadContent()
+        {
         }
 
         public Tile GetTile(Vector2 targetPosition)
@@ -101,7 +112,7 @@ namespace MonoGamePortal3Practise
         private Color[] GetColorsFromImage(Texture2D image)
         {
             Color[] allPixelsAsASnake = new Color[image.Width * image.Height];
-            image.GetData<Color>(allPixelsAsASnake); 
+            image.GetData<Color>(allPixelsAsASnake);
             return allPixelsAsASnake;
         } // makes a snake of pixels out of the small map
         private void InitTiles(Color[] pixelSnake)

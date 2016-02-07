@@ -1,0 +1,6 @@
+<ChamberTwo>
+	<Object type="WhiteWall" x="1800" y="2460"/>
+	<Object type="WhiteWall" x="1800" y="2040"/>
+	<Object type="WhiteWall" x="0" y="2460"/>
+	<Object type="WhiteWall" x="0" y="2040"/>
+</ChamberTwo>

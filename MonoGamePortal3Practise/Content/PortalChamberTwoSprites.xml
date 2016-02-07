@@ -1,8 +1,0 @@
-<TextureAtlas imagePath="spritesheetSS.png">
-	<SubTexture name="Portal_Blue.png" x="198" y="684" width="62" height="278"/>
-	<SubTexture name="Portal_Orange.png" x="130" y="684" width="66" height="276"/>
-	<SubTexture name="Chell_run.png" x="422" y="0" width="304" height="674"/>
-	<SubTexture name="Wall.png" x="0" y="0" width="420" height="420"/>
-	<SubTexture name="Cube.png" x="0" y="422" width="260" height="260"/>
-	<SubTexture name="Platform.png" x="0" y="684" width="128" height="68"/>
-</TextureAtlas>

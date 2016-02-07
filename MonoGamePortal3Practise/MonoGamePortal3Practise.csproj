@@ -39,12 +39,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GameObjects\SideScrollerObjects\Camera.cs" />
+    <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\MapObjects\WhiteWall.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Movement.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Collision\BoxCollider.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Collision\CollisionManager.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\SideScrollEntity.cs" />
-    <Compile Include="GameObjects\SideScrollerObjects\Map\Borders\Floor.cs" />
-    <Compile Include="GameObjects\SideScrollerObjects\Map\Borders\Wall.cs" />
+    <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\Borders\Floor.cs" />
+    <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\Borders\Wall.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\Conditionables\TopDownConditionable.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\Trigger\TopDownTrigger.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\Conditionables\TopDownDoor.cs" />
@@ -53,7 +54,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\Trigger\TopDownHeavyDutySuperCollidingSuperButton.cs" />
-    <Compile Include="GameObjects\SideScrollerObjects\Map\SideScrollMap.cs" />
+    <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\SideScrollMap.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\TopDownWeightedCompanionCube.cs" />
     <Compile Include="GameObjects\TopDownObjects\Map\TopDownMap.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\Conditionables\TopDownMaterialEmancipationGrill.cs" />
@@ -65,6 +66,8 @@
     <Compile Include="GameObjects\UniversalObjects\Portals\PortalGunShot.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\Trigger\TopDownVictoryTrigger.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\SideScrollPlayer.cs" />
+    <Compile Include="InputEventArgs.cs" />
+    <Compile Include="InputManager.cs" />
     <Compile Include="Scenes\Levels\SceneLevelTwo.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\Levels\SceneLevelOne.cs" />
@@ -104,6 +107,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PortalChamberOneTilesDEBUG.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\PortalChamberTwoMapSprites.xml">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\spritesheetOne.xml">

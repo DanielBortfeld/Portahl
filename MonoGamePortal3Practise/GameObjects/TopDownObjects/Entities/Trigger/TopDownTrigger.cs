@@ -16,5 +16,12 @@ namespace MonoGamePortal3Practise
 		}
 
 		public virtual void Trigger_OnMove() { }
-	}
+
+        public override void Destroy()
+        {
+            GameManager.OnMove -= Trigger_OnMove;
+
+            base.Destroy();
+        }
+    }
 }
