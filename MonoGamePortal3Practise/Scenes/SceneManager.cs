@@ -18,8 +18,7 @@ namespace MonoGamePortal3Practise
             CollisionManager.Clear();
             CurrentScene = new T();
             CurrentScene.LoadContent();
-            CurrentScene.PortalBlue = new PortalBlue(Vector2.Zero);
-            CurrentScene.PortalOrange = new PortalOrange(Vector2.Zero);
+            CurrentScene.ResetPortals();
         }
 
         public static void UpdateScene(GameTime gameTime)

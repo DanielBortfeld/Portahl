@@ -38,14 +38,14 @@ namespace MonoGamePortal3Practise
 
         public override void Update(GameTime gameTime)
         {
-            gameObjects.AddRange(addedGameObjects);
             addedGameObjects.ForEach(e => e.LoadContent());
+            gameObjects.AddRange(addedGameObjects);
             addedGameObjects.Clear();
-
-            gameObjects.ForEach(e => e.Update(gameTime));
 
             removedGameObjects.ForEach(e => gameObjects.Remove(e));
             removedGameObjects.Clear();
+
+            gameObjects.ForEach(e => e.Update(gameTime));
         }
 
         public override void Draw(SpriteBatch spriteBatch)

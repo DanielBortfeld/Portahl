@@ -28,17 +28,6 @@ namespace MonoGamePortal3Practise
 
         private List<BoxCollider> collidingColliders = new List<BoxCollider>();
 
-        public BoxCollider(int x, int y, int width, int height, bool isTrigger)
-        {
-            X = x;
-            Y = y;
-            Width = width;
-            Height = height;
-            IsTrigger = isTrigger;
-
-            CollisionManager.AddCollider(this);
-        }
-
         public BoxCollider(GameObject gameObject, int width, int height, bool isTrigger)
         {
             GameObject = gameObject;
@@ -53,8 +42,17 @@ namespace MonoGamePortal3Practise
 
         public void UpdatePosition(GameTime gameTime)
         {
-            X = (int)GameObject.Position.X;
-            Y = (int)GameObject.Position.Y;
+            if (GameObject is Entity && ((Entity)GameObject).SpriteRect != Rectangle.Empty)
+            {
+                /// center the collider to the middle of the <"SpriteRect">
+                X = (int)GameObject.Position.X + (((Entity)GameObject).SpriteRect.Width / 2) - (Width / 2);
+                Y = (int)GameObject.Position.Y + (((Entity)GameObject).SpriteRect.Height / 2) - (Height / 2);
+            }
+            else
+            {
+                X = (int)GameObject.Position.X;
+                Y = (int)GameObject.Position.Y;
+            }
         }
 
         /// <summary>

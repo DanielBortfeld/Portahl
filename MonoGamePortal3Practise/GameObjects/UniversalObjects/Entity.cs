@@ -37,10 +37,6 @@ namespace MonoGamePortal3Practise
             Position += direction;
         }
 
-        public virtual void Teleport()
-        {
-        }
-
         protected Rectangle GetSpriteRect()
         {
             return SceneManager.CurrentScene.GetSpriteRect(Name);

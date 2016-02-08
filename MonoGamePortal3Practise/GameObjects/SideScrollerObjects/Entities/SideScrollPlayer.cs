@@ -20,7 +20,7 @@ namespace MonoGamePortal3Practise
         private float isGroundedTimeStamp;
         private float jumpCooldown = 0.1f;
 
-        //private MouseState previousState;
+        private Direction viewDirection = Direction.None;
 
         public SideScrollPlayer(Vector2 position)
         {
@@ -65,9 +65,11 @@ namespace MonoGamePortal3Practise
             {
                 case Keys.D:
                     velocity.X = moveForce;
+                    viewDirection = Direction.Right;
                     break;
                 case Keys.A:
                     velocity.X = -moveForce;
+                    viewDirection = Direction.Left;
                     break;
                 default:
                     break;
@@ -126,16 +128,18 @@ namespace MonoGamePortal3Practise
 
         private void Shoot(Portal portal)
         {
-            PortalGunShot shot = new PortalGunShot(Position + new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2), ref portal);
+            PortalGunShot shot = new PortalGunShot(Position + new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2), portal);
 
-            if (lastPosition.X > Position.X)
+            if (viewDirection == Direction.Left)
                 shot.Velocity.X = -50;
-            else
+            else if (viewDirection == Direction.Right)
                 shot.Velocity.X = 50;
         }
 
         private void OnCollisionEnter(BoxCollider other)
         {
+            Console.WriteLine("chell hit " + other.GameObject.Name);
+
             if (!other.IsTrigger)
             {
                 if (!(Collider.Bottom < other.Top) && lastPosition.Y + Collider.Height <= other.Top)
@@ -151,6 +155,37 @@ namespace MonoGamePortal3Practise
                     velocity.X = 0f;
                     Position = lastPosition;
                 }
+            }
+
+            if (other.GameObject is Portal)
+            {
+                Portal destinationPortal = SceneManager.GetDestinationPortal((Portal)other.GameObject);
+
+                if (destinationPortal.Position == Vector2.Zero)
+                    return;
+
+                // colliding from left
+                if (!(Collider.Right < other.Left) && viewDirection == Direction.Right)
+                {
+                    Position = new Vector2(destinationPortal.Collider.Right + 10, destinationPortal.Collider.Top);
+                }
+                //colliding from right
+                else if (!(Collider.Left > other.Right) && viewDirection == Direction.Left)
+                {
+                    Position = new Vector2(destinationPortal.Collider.Left - SpriteRect.Width - 10, destinationPortal.Collider.Top);
+                }
+                // colliding from above
+                else if (!(other.Bottom < Collider.Top) && lastPosition.Y >= other.Bottom)
+                {
+                    isGrounded = false;
+                    Position = new Vector2(destinationPortal.Collider.X, destinationPortal.Collider.Top - SpriteRect.Height - 10);
+                }
+                // colliding from beneigh
+                else if (!(Collider.Bottom < other.Top) && lastPosition.Y + Collider.Height <= other.Top)
+                {
+                    Position = new Vector2(destinationPortal.Collider.X, destinationPortal.Collider.Bottom + 10);
+                }
+                velocity = -velocity;
             }
         }
 
@@ -191,6 +226,8 @@ namespace MonoGamePortal3Practise
 
             base.Destroy();
         }
+
+        //private MouseState previousState;
 
         //public void ProcessInput()
         //{

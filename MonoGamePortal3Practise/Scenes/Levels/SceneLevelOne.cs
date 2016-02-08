@@ -28,12 +28,6 @@ namespace MonoGamePortal3Practise
             GameManager.Graphics.ApplyChanges();
         }
 
-		void OnVictory()
-		{
-			SceneManager.LoadScene<SceneLevelTwo>();
-			victoryTrigger.OnVictory -= OnVictory;
-		}
-
         public override void Update(GameTime gameTime)
         {
             gameObjects.AddRange(addedGameObjects);
@@ -71,6 +65,11 @@ namespace MonoGamePortal3Practise
                     sprites.Add(sprite);
                 }
             }
+        }
+        void OnVictory()
+        {
+            SceneManager.LoadScene<SceneLevelTwo>();
+            victoryTrigger.OnVictory -= OnVictory;
         }
     }
 }

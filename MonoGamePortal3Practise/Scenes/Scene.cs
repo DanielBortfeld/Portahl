@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace MonoGamePortal3Practise
@@ -24,7 +25,9 @@ namespace MonoGamePortal3Practise
 
         public Rectangle GetSpriteRect(string name)
         {
-            return (sprites.Find(s => s.Name.Contains(name))).SourceRect;
+            if (sprites.Exists(s => s.Name.Contains(name)))
+                return (sprites.Find(s => s.Name.Contains(name))).SourceRect;
+            else return Rectangle.Empty;
         }
 
         public GameObject FindGameObject(string name)
@@ -49,8 +52,10 @@ namespace MonoGamePortal3Practise
 
         public void ResetPortals()
         {
-            PortalBlue.Destroy();
-            PortalOrange.Destroy();
+            if (PortalBlue != null)
+                PortalBlue.Destroy();
+            if (PortalOrange != null)
+                PortalOrange.Destroy();
             PortalBlue = new PortalBlue(Vector2.Zero);
             PortalOrange = new PortalOrange(Vector2.Zero);
         }

@@ -104,17 +104,6 @@ namespace MonoGamePortal3Practise
             return false;
         }
 
-        private void HandleEmancipationGrill(TopDownMaterialEmancipationGrill grill)
-        {
-            if (grill.isOn)
-            {
-                if (this is TopDownPlayer)
-                    SceneManager.CurrentScene.ResetPortals();
-                else if (this is TopDownWeightedCompanionCube)
-                    Position = StandartPosition;
-            }
-        }
-
         private void Teleport(Portal enteredPortal)
         {
             Portal destinationPortal = SceneManager.GetDestinationPortal(enteredPortal);
@@ -151,6 +140,17 @@ namespace MonoGamePortal3Practise
                         Position = targetPosition - this.offset;
                         return;
                     }
+            }
+        }
+
+        private void HandleEmancipationGrill(TopDownMaterialEmancipationGrill grill)
+        {
+            if (grill.isOn)
+            {
+                if (this is TopDownPlayer)
+                    SceneManager.CurrentScene.ResetPortals();
+                else if (this is TopDownWeightedCompanionCube)
+                    Position = StandartPosition;
             }
         }
 

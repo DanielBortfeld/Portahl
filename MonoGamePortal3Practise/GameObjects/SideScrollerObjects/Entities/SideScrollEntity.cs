@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
 {
@@ -9,8 +10,9 @@ namespace MonoGamePortal3Practise
             spriteBatch.Draw(SceneManager.CurrentScene.SpriteSheet, Position, GetSpriteRect(), White);
         }
 
-        public override void Teleport()
+        public virtual void Teleport(Vector2 targetPosition)
         {
+            Position = targetPosition;
         }
     }
 }
