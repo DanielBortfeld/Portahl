@@ -10,6 +10,10 @@ namespace MonoGamePortal3Practise
         private readonly Keys key;
         private readonly MouseButtons button;
 
+        public Keys Key { get { return key; } }
+
+        public MouseButtons MouseButton { get { return button; } }
+
         public InputEventArgs(Keys key)
         {
             this.key = key;
@@ -20,16 +24,6 @@ namespace MonoGamePortal3Practise
         {
             this.button = button;
             key = Keys.None;
-        }
-
-        public Keys Key
-        {
-            get { return key; }
-        }
-
-        public MouseButtons MouseButton
-        {
-            get { return button; }
         }
     }
 }

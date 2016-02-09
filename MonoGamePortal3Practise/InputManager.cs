@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 
 namespace MonoGamePortal3Practise
@@ -14,7 +13,7 @@ namespace MonoGamePortal3Practise
         private static Dictionary<MouseButtons, ButtonState> lastButtonStates = new Dictionary<MouseButtons, ButtonState>();
         private static Dictionary<MouseButtons, ButtonState> currentButtonStates = new Dictionary<MouseButtons, ButtonState>();
 
-        static MouseState mouseStateCurrent, mouseStatePrevious;
+        private static MouseState mouseStateCurrent, mouseStatePrevious;
 
         public static void Update()
         {

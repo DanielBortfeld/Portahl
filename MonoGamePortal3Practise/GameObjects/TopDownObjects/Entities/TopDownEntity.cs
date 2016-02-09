@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
 {
-    public enum ViewDirection { Up, Down, Left, Right }
+    public enum MainDirections { None, Up, Down, Left, Right }
 
     public class TopDownEntity : Entity
     {
@@ -61,16 +61,16 @@ namespace MonoGamePortal3Practise
         {
             switch (player.viewDirection)
             {
-                case ViewDirection.Up:
+                case MainDirections.Up:
                     entity.Move(-directionDown);
                     break;
-                case ViewDirection.Down:
+                case MainDirections.Down:
                     entity.Move(directionDown);
                     break;
-                case ViewDirection.Left:
+                case MainDirections.Left:
                     entity.Move(-directionRight);
                     break;
-                case ViewDirection.Right:
+                case MainDirections.Right:
                     entity.Move(directionRight);
                     break;
                 default:
@@ -115,19 +115,19 @@ namespace MonoGamePortal3Practise
                 {
                     case 0:
                         direction = directionRight;
-                        player.viewDirection = ViewDirection.Right;
+                        player.viewDirection = MainDirections.Right;
                         break;
                     case 1:
                         direction = -directionRight;
-                        player.viewDirection = ViewDirection.Left;
+                        player.viewDirection = MainDirections.Left;
                         break;
                     case 2:
                         direction = directionDown;
-                        player.viewDirection = ViewDirection.Down;
+                        player.viewDirection = MainDirections.Down;
                         break;
                     case 3:
                         direction = -directionDown;
-                        player.viewDirection = ViewDirection.Up;
+                        player.viewDirection = MainDirections.Up;
                         break;
                 }
 

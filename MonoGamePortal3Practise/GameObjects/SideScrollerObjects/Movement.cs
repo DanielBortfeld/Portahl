@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-    public enum Direction { Left, Right, None }
+    public enum SideDirections { None, Left, Right }
 
     public class Movement
     {
@@ -36,17 +36,17 @@ namespace MonoGamePortal3Practise
         }
 
         // ProcessInput Options:
-        public void Move(Direction direction)
+        public void Move(SideDirections direction)
         {
             switch (direction)
             {
-                case Direction.Right:
+                case SideDirections.Right:
                     velocity.X = MoveForce;
                     break;
-                case Direction.Left:
+                case SideDirections.Left:
                     velocity.X = -MoveForce;
                     break;
-                case Direction.None:
+                case SideDirections.None:
                     velocity.X = 0f;
                     break;
                 default:

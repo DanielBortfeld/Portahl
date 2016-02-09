@@ -6,11 +6,13 @@ namespace MonoGamePortal3Practise
 {
     class PortalGunShot : Entity
     {
-        public Portal Portal { get; private set; }
         public Vector2 Velocity = Vector2.Zero;
+        public SideDirections ViewDirection;
 
         private float timer;
         private float lifeTime = 3f;
+
+        public Portal Portal { get; private set; }
 
         public PortalGunShot(Vector2 position)
         {
@@ -55,6 +57,17 @@ namespace MonoGamePortal3Practise
             }
         }
 
+        public override void Destroy()
+        {
+            Velocity = Vector2.Zero;
+
+            if (Collider != null)
+                Collider.OnCollisionEnter -= OnCollisionEnter;
+
+            base.Destroy();
+            Console.WriteLine("shot destroyed");
+        }
+
         private void OnCollisionEnter(BoxCollider other)
         {
             Console.WriteLine("shot hit " + other.GameObject.Name);
@@ -69,11 +82,18 @@ namespace MonoGamePortal3Practise
             {
                 if (other.GameObject is WhiteWall)
                 {
-
-                    //if (Velocity.X < 0)
-                    //    Portal.Position = new Vector2(Position.X - Portal.SpriteRect.Width, Position.Y - (Portal.SpriteRect.Height / 2));
-                    //else
-                        Portal.Position = new Vector2(Position.X, Position.Y - (Portal.SpriteRect.Height / 2));
+                    // colliding from left
+                    if (!(Collider.Right < other.Left) && ViewDirection == SideDirections.Right)
+                    {
+                        Portal.Position = new Vector2(other.Left, Position.Y - (Portal.SpriteRect.Height / 2));
+                        Portal.ViewDirection = SideDirections.Left;
+                    }
+                    //colliding from right
+                    else if (!(Collider.Left > other.Right) && ViewDirection == SideDirections.Left)
+                    {
+                        Portal.Position = new Vector2(other.Right - Portal.SpriteRect.Width, Position.Y - (Portal.SpriteRect.Height / 2));
+                        Portal.ViewDirection = SideDirections.Right;
+                    }
 
                     //Console.WriteLine("portal position is " + Portal.Position);
                     //Console.WriteLine("other portal position is " + SceneManager.GetDestinationPortal(Portal).Position);
@@ -81,17 +101,6 @@ namespace MonoGamePortal3Practise
 
                 Destroy();
             }
-        }
-
-        public override void Destroy()
-        {
-            Velocity = Vector2.Zero;
-
-            if (Collider != null)
-                Collider.OnCollisionEnter -= OnCollisionEnter;
-
-            base.Destroy();
-            Console.WriteLine("shot destroyed");
         }
     }
 }

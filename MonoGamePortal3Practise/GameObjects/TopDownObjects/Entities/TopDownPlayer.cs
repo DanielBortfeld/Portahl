@@ -6,7 +6,7 @@ namespace MonoGamePortal3Practise
 {
     public class TopDownPlayer : TopDownEntity
     {
-        public ViewDirection viewDirection;
+        public MainDirections viewDirection;
 
         private KeyboardState previousState;
 
@@ -31,19 +31,19 @@ namespace MonoGamePortal3Practise
             switch (eventArgs.Key)
             {
                 case Keys.W:
-                    viewDirection = ViewDirection.Up;
+                    viewDirection = MainDirections.Up;
                     Move(-directionDown);
                     break;
                 case Keys.A:
-                    viewDirection = ViewDirection.Left;
+                    viewDirection = MainDirections.Left;
                     Move(-directionRight);
                     break;
                 case Keys.S:
-                    viewDirection = ViewDirection.Down;
+                    viewDirection = MainDirections.Down;
                     Move(directionDown);
                     break;
                 case Keys.D:
-                    viewDirection = ViewDirection.Right;
+                    viewDirection = MainDirections.Right;
                     Move(directionRight);
                     break;
                 default:

@@ -1,19 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
 {
     public abstract class Portal : Entity
     {
+        public SideDirections ViewDirection = SideDirections.None;
+
         private float colliderExtension = 1.75f;
 
         public override void LoadContent()
         {
             Collider = new BoxCollider(this, (int)(SpriteRect.Width * colliderExtension), (int)(SpriteRect.Height * colliderExtension), true);
+            Collider.OnCollisionEnter += OnCollisionEnter;
+        }
+
+        private void OnCollisionEnter(BoxCollider other)
+        {
+            if (other.GameObject is PortalGunShot)
+            {
+                other.GameObject.Destroy();
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)

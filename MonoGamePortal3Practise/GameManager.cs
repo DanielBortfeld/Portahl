@@ -2,30 +2,27 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Linq;
-using System.Xml;
 
 namespace MonoGamePortal3Practise
 {
     static class GameManager
     {
+        public delegate void MoveEvent();
+        public static event MoveEvent OnMove;
+
         public static ContentManager Content;
         public static GraphicsDeviceManager Graphics;
 
-		public delegate void MoveEvent();
-		public static event MoveEvent OnMove;
-
-		public static void ReportMove()
-		{
-			if (OnMove != null)
-				OnMove();
-		}
+        public static void ReportMove()
+        {
+            if (OnMove != null)
+                OnMove();
+        }
 
         public static Texture2D LoadTexture2D(string name)
         {
             return Content.Load<Texture2D>(name);
         }
-
 
         //###### OLD BELOW ######
 
@@ -61,8 +58,6 @@ namespace MonoGamePortal3Practise
         //    removedGameObjects.ForEach(e => gameObjects.Remove(e));
         //    removedGameObjects.Clear();
         //}
-
-
 
         //public static Rectangle GetSpriteRect(string name)
         //{

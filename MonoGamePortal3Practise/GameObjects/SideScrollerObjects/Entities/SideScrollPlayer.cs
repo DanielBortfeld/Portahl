@@ -20,7 +20,9 @@ namespace MonoGamePortal3Practise
         private float isGroundedTimeStamp;
         private float jumpCooldown = 0.1f;
 
-        private Direction viewDirection = Direction.None;
+        private SideDirections viewDirection = SideDirections.None;
+
+        public SideDirections ViewDirection { get { return viewDirection; } }
 
         public SideScrollPlayer(Vector2 position)
         {
@@ -46,6 +48,39 @@ namespace MonoGamePortal3Practise
             base.LoadContent();
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            lastPosition = Position;
+            Move();
+
+            //ProcessInput();
+
+            if (isGrounded)
+            {
+                isGroundedTimeStamp += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else
+            {
+                timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                velocity.Y += gravityForce * timer;
+            }
+
+            base.Update(gameTime);
+        }
+
+        public override void Destroy()
+        {
+            InputManager.OnKeyPressed -= OnKeyPressed;
+            InputManager.OnKeyDown -= OnKeyDown;
+            InputManager.OnKeyUp -= OnKeyUp;
+
+            Collider.OnCollisionEnter -= OnCollisionEnter;
+            Collider.OnCollisionStay -= OnCollisionStay;
+            Collider.OnCollisionExit -= OnCollisionExit;
+
+            base.Destroy();
+        }
+
         private void OnKeyUp(InputEventArgs eventArgs)
         {
             switch (eventArgs.Key)
@@ -65,11 +100,11 @@ namespace MonoGamePortal3Practise
             {
                 case Keys.D:
                     velocity.X = moveForce;
-                    viewDirection = Direction.Right;
+                    viewDirection = SideDirections.Right;
                     break;
                 case Keys.A:
                     velocity.X = -moveForce;
-                    viewDirection = Direction.Left;
+                    viewDirection = SideDirections.Left;
                     break;
                 default:
                     break;
@@ -100,26 +135,6 @@ namespace MonoGamePortal3Practise
             }
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            lastPosition = Position;
-            Move();
-
-            //ProcessInput();
-
-            if (isGrounded)
-            {
-                isGroundedTimeStamp += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
-            else
-            {
-                timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                velocity.Y += gravityForce * timer;
-            }
-
-            base.Update(gameTime);
-        }
-
         private void Move()
         {
             Position += velocity;
@@ -130,10 +145,16 @@ namespace MonoGamePortal3Practise
         {
             PortalGunShot shot = new PortalGunShot(Position + new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2), portal);
 
-            if (viewDirection == Direction.Left)
+            if (viewDirection == SideDirections.Left)
+            {
                 shot.Velocity.X = -50;
-            else if (viewDirection == Direction.Right)
+                shot.ViewDirection = viewDirection;
+            }
+            else if (viewDirection == SideDirections.Right)
+            {
                 shot.Velocity.X = 50;
+                shot.ViewDirection = viewDirection;
+            }
         }
 
         private void OnCollisionEnter(BoxCollider other)
@@ -165,27 +186,27 @@ namespace MonoGamePortal3Practise
                     return;
 
                 // colliding from left
-                if (!(Collider.Right < other.Left) && viewDirection == Direction.Right)
+                if (!(Collider.Right < other.Left) && viewDirection == SideDirections.Right)
                 {
-                    Position = new Vector2(destinationPortal.Collider.Right + 10, destinationPortal.Collider.Top);
+                    if (destinationPortal.ViewDirection == SideDirections.Right)
+                        Position = new Vector2(destinationPortal.Collider.Right + velocity.X, destinationPortal.Position.Y + destinationPortal.SpriteRect.Height / 2 - SpriteRect.Height / 2);
+                    else if (destinationPortal.ViewDirection == SideDirections.Left)
+                    {
+                        Position = new Vector2(destinationPortal.Collider.Left - velocity.X - SpriteRect.Width, destinationPortal.Position.Y + destinationPortal.SpriteRect.Height / 2 - SpriteRect.Height / 2);
+                        velocity = -velocity;
+                    }
                 }
                 //colliding from right
-                else if (!(Collider.Left > other.Right) && viewDirection == Direction.Left)
+                else if (!(Collider.Left > other.Right) && viewDirection == SideDirections.Left)
                 {
-                    Position = new Vector2(destinationPortal.Collider.Left - SpriteRect.Width - 10, destinationPortal.Collider.Top);
+                    if (destinationPortal.ViewDirection == SideDirections.Right)
+                    {
+                        Position = new Vector2(destinationPortal.Collider.Right - velocity.X, destinationPortal.Position.Y + destinationPortal.SpriteRect.Height / 2 - SpriteRect.Height / 2);
+                        velocity = -velocity;
+                    }
+                    else if (destinationPortal.ViewDirection == SideDirections.Left)
+                        Position = new Vector2(destinationPortal.Collider.Left + velocity.X - SpriteRect.Width, destinationPortal.Position.Y + destinationPortal.SpriteRect.Height / 2 - SpriteRect.Height / 2);
                 }
-                // colliding from above
-                else if (!(other.Bottom < Collider.Top) && lastPosition.Y >= other.Bottom)
-                {
-                    isGrounded = false;
-                    Position = new Vector2(destinationPortal.Collider.X, destinationPortal.Collider.Top - SpriteRect.Height - 10);
-                }
-                // colliding from beneigh
-                else if (!(Collider.Bottom < other.Top) && lastPosition.Y + Collider.Height <= other.Top)
-                {
-                    Position = new Vector2(destinationPortal.Collider.X, destinationPortal.Collider.Bottom + 10);
-                }
-                velocity = -velocity;
             }
         }
 
@@ -212,19 +233,6 @@ namespace MonoGamePortal3Practise
                     isGrounded = false;
                 }
             }
-        }
-
-        public override void Destroy()
-        {
-            InputManager.OnKeyPressed -= OnKeyPressed;
-            InputManager.OnKeyDown -= OnKeyDown;
-            InputManager.OnKeyUp -= OnKeyUp;
-
-            Collider.OnCollisionEnter -= OnCollisionEnter;
-            Collider.OnCollisionStay -= OnCollisionStay;
-            Collider.OnCollisionExit -= OnCollisionExit;
-
-            base.Destroy();
         }
 
         //private MouseState previousState;
