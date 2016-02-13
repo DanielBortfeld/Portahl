@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace MonoGamePortal3Practise
 {
@@ -20,8 +21,45 @@ namespace MonoGamePortal3Practise
         public List<GameObject> GameObjects { get { return gameObjects; } }
 
         public abstract void LoadContent();
-        public abstract void Update(GameTime gameTime);
-        public abstract void Draw(SpriteBatch spriteBatch);
+
+        public virtual void Update(GameTime gameTime)
+        {
+            addedGameObjects.ForEach(e => e.LoadContent());
+            gameObjects.AddRange(addedGameObjects);
+            addedGameObjects.Clear();
+
+            removedGameObjects.ForEach(e => gameObjects.Remove(e));
+            removedGameObjects.Clear();
+
+            gameObjects.ForEach(e => e.Update(gameTime));
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin();
+            gameObjects.ForEach(e => e.Draw(spriteBatch));
+            spriteBatch.End();
+        }
+
+        public void LoadSprites(string dataPath)
+        {
+            XmlReader xmlReader = XmlReader.Create(dataPath);
+
+            while (xmlReader.Read())
+            {
+                if (xmlReader.IsStartElement("SubTexture"))
+                {
+                    SpriteFrame sprite = new SpriteFrame();
+
+                    sprite.Name = xmlReader.GetAttribute("name"); ;
+                    sprite.SourceRect.X = Convert.ToInt32(xmlReader.GetAttribute("x"));
+                    sprite.SourceRect.Y = Convert.ToInt32(xmlReader.GetAttribute("y"));
+                    sprite.SourceRect.Width = Convert.ToInt32(xmlReader.GetAttribute("width"));
+                    sprite.SourceRect.Height = Convert.ToInt32(xmlReader.GetAttribute("height"));
+                    sprites.Add(sprite);
+                }
+            }
+        }
 
         public Rectangle GetSpriteRect(string name)
         {

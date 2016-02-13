@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace MonoGamePortal3Practise
 {
@@ -14,7 +11,7 @@ namespace MonoGamePortal3Practise
     {
         private GrillDirection direction;
 
-        public TopDownMaterialEmancipationGrill(GrillDirection direction)
+        public TopDownMaterialEmancipationGrill(int index, GrillDirection direction) : base(index)
         {
             Name = "Grill" + direction;
             this.direction = direction;
@@ -31,7 +28,6 @@ namespace MonoGamePortal3Practise
 
             if (isOn)
                 Name = "Grill" + direction;
-
             else Name = "Grill" + direction + "Offline";
 
             base.Update(gameTime);

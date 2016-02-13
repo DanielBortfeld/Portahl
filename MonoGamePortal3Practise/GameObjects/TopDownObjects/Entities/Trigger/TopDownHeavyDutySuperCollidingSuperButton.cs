@@ -2,12 +2,12 @@
 {
     class TopDownHeavyDutySuperCollidingSuperButton : TopDownTrigger
     {
-        public TopDownHeavyDutySuperCollidingSuperButton()
+        public TopDownHeavyDutySuperCollidingSuperButton(int index) : base(index)
         {
             Name = "Button";
         }
 
-		public override void Trigger_OnMove()
+        public override void Trigger_OnMove()
         {
             // check if trigger is pressed
             foreach (var item in SceneManager.CurrentScene.GameObjects)
@@ -20,7 +20,7 @@
                     if (Position == ((TopDownEntity)item).OffsetPosition)
                     {
                         IsPressed = true;
-                        SceneManager.CurrentScene.RemoveGameObject(item);
+                        item.Destroy();
                         SceneManager.CurrentScene.AddGameObject(item);
                         triggeringEntity = (TopDownEntity)item;
                     }

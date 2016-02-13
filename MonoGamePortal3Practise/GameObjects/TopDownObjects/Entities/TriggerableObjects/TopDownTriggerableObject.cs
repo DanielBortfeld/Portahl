@@ -1,16 +1,19 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 
 namespace MonoGamePortal3Practise
 {
-    class TopDownConditionable : TopDownEntity
+    public abstract class TopDownTriggerableObject : TopDownEntity
     {
         public bool isOn;
 
         protected TopDownTrigger trigger;
+
+        public int ID { get; private set; }
+
+        public TopDownTriggerableObject(int index)
+        {
+            ID = index;
+        }
 
         public void AssignTrigger(string triggerName)
         {

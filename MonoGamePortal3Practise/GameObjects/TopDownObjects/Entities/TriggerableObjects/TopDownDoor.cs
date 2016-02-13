@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
 {
@@ -12,7 +8,7 @@ namespace MonoGamePortal3Practise
 
     class TopDownDoor : TopDownConditionable
     {
-        public TopDownDoor(DoorPosition doorPosition) : base()
+        public TopDownDoor(int index, DoorPosition doorPosition) : base(index)
         {
             Name = "Door" + doorPosition;
         }

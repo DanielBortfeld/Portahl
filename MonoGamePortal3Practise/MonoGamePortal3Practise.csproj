@@ -68,9 +68,10 @@
     <Compile Include="GameObjects\SideScrollerObjects\Entities\SideScrollPlayer.cs" />
     <Compile Include="InputEventArgs.cs" />
     <Compile Include="InputManager.cs" />
-    <Compile Include="Scenes\Levels\SceneLevelTwo.cs" />
+    <Compile Include="Scenes\Levels\SceneSideScroller.cs" />
+    <Compile Include="Scenes\Levels\SceneTutorialTD.cs" />
     <Compile Include="Scenes\Scene.cs" />
-    <Compile Include="Scenes\Levels\SceneLevelOne.cs" />
+    <Compile Include="Scenes\Levels\SceneLevelOneTD.cs" />
     <Compile Include="Scenes\Menues\SceneMainMenu.cs" />
     <Compile Include="Scenes\SceneManager.cs" />
     <Compile Include="Scenes\SplashScreens\FinalScreen.cs" />

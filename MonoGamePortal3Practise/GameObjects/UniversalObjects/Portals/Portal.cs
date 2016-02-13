@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace MonoGamePortal3Practise
 {
@@ -16,30 +16,30 @@ namespace MonoGamePortal3Practise
             Collider.OnCollisionEnter += OnCollisionEnter;
         }
 
-        private void OnCollisionEnter(BoxCollider other)
-        {
-            if (other.GameObject is PortalGunShot)
-            {
-                other.GameObject.Destroy();
-            }
-        }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             //Console.WriteLine("portal position is " + Position);
             if (Position != Vector2.Zero)
             {
                 //Console.WriteLine("Position is != 0");
-                if (SceneManager.CurrentScene is SceneLevelOne)
+                if (SceneManager.CurrentScene is SceneLevelOneTD)
                 {
                     spriteBatch.Draw(SpriteSheet, Position * SpriteRect.Width, SpriteRect, White);
                     //Console.WriteLine("draw lvl 1");
                 }
-                else if (SceneManager.CurrentScene is SceneLevelTwo)
+                else if (SceneManager.CurrentScene is SceneSideScroller)
                 {
                     spriteBatch.Draw(SceneManager.CurrentScene.SpriteSheet, Position, SpriteRect, White);
                     //Console.WriteLine("draw lvl 2");
                 }
+            }
+        }
+
+        private void OnCollisionEnter(BoxCollider other)
+        {
+            if (other.GameObject is PortalGunShot)
+            {
+                other.GameObject.Destroy();
             }
         }
     }
