@@ -20,7 +20,10 @@
                     if (Position == ((TopDownEntity)item).OffsetPosition)
                     {
                         IsPressed = true;
+<<<<<<< HEAD
                         TriggerEvent();
+=======
+>>>>>>> 8bb0c244afa36d2bc646a220d65ddd1690d4801d
                         item.Destroy();
                         SceneManager.CurrentScene.AddGameObject(item);
                         triggeringEntity = (TopDownEntity)item;

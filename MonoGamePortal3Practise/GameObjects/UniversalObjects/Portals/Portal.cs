@@ -22,7 +22,16 @@ namespace MonoGamePortal3Practise
             if (Position != Vector2.Zero)
             {
                 //Console.WriteLine("Position is != 0");
+<<<<<<< HEAD
                 if (SceneManager.CurrentScene is SceneSideScroller)
+=======
+                if (SceneManager.CurrentScene is SceneLevelOneTD)
+                {
+                    spriteBatch.Draw(SpriteSheet, Position * SpriteRect.Width, SpriteRect, White);
+                    //Console.WriteLine("draw lvl 1");
+                }
+                else if (SceneManager.CurrentScene is SceneSideScroller)
+>>>>>>> 8bb0c244afa36d2bc646a220d65ddd1690d4801d
                 {
                     spriteBatch.Draw(SceneManager.CurrentScene.SpriteSheet, Position, SpriteRect, White);
                     //Console.WriteLine("draw lvl 2");
@@ -38,7 +47,13 @@ namespace MonoGamePortal3Practise
         private void OnCollisionEnter(BoxCollider other)
         {
             if (other.GameObject is PortalGunShot)
+<<<<<<< HEAD
                 other.GameObject.Destroy();
+=======
+            {
+                other.GameObject.Destroy();
+            }
+>>>>>>> 8bb0c244afa36d2bc646a220d65ddd1690d4801d
         }
     }
 }

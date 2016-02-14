@@ -102,11 +102,16 @@ namespace MonoGamePortal3Practise
             if (color == new Color(185, 122, 87))
                 return new TopDownMaterialEmancipationGrill(++GrillID, GrillDirection.Down);
 
+<<<<<<< HEAD
             if (color == new Color(200, 122, 87))
                 return new TopDownMaterialEmancipationGrill(++GrillID, GrillDirection.Left);
 
             if (color == new Color(0, 255, 0))
                 return new TopDownVictoryTrigger(++VictoryID);
+=======
+            if (color == new Color(0, 255, 0))
+                return new TopDownVictoryTrigger();
+>>>>>>> 8bb0c244afa36d2bc646a220d65ddd1690d4801d
             else return null;
         }
 
