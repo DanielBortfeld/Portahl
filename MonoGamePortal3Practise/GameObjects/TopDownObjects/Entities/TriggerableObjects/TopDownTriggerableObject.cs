@@ -20,5 +20,11 @@ namespace MonoGamePortal3Practise
             if (triggerName != null)
                 trigger = (TopDownTrigger)SceneManager.CurrentScene.FindGameObject(triggerName);
         }
+
+        public void AssignTrigger(TopDownTrigger trigger)
+        {
+            if (trigger != null)
+                this.trigger = trigger;
+        }
     }
 }

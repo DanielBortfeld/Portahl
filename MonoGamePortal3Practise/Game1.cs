@@ -28,11 +28,7 @@ namespace MonoGamePortal3Practise
             GameManager.Graphics = this.graphics;
             SceneManager.graphicsDevice = this.GraphicsDevice;
 
-<<<<<<< HEAD
             SceneManager.LoadScene<SceneTDTutorial>();
-=======
-            SceneManager.LoadScene<SceneLevelOneTD>();
->>>>>>> 8bb0c244afa36d2bc646a220d65ddd1690d4801d
         }
 
         protected override void UnloadContent()

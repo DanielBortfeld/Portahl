@@ -38,10 +38,7 @@ namespace MonoGamePortal3Practise
         {
             spriteBatch.Begin();
             gameObjects.ForEach(e => e.Draw(spriteBatch));
-<<<<<<< HEAD
             UIManager.Draw(spriteBatch);
-=======
->>>>>>> 8bb0c244afa36d2bc646a220d65ddd1690d4801d
             spriteBatch.End();
         }
 
