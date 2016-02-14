@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGamePortal3Practise
 {
@@ -15,6 +12,7 @@ namespace MonoGamePortal3Practise
         private int tileWidth = 32;
         private int tileHeight = 32;
 
+        private int ButtonID, DoorID, GrillID, VictoryID, CubeID;
         public int Width { get; private set; }
         public int Height { get; private set; }
 
@@ -24,8 +22,17 @@ namespace MonoGamePortal3Practise
         public TopDownMap(string name)
         {
             Name = name;
+            Tag = "TDMap";
 
             tileset = GameManager.LoadTexture2D("Tileset");
+        }
+
+        public override void LoadContent()
+        {
+        }
+
+        public override void Update(GameTime gameTime)
+        {
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -42,17 +49,16 @@ namespace MonoGamePortal3Practise
             }
         }
 
-        public override void Update(GameTime gameTime)
-        {
-        }
-
-        public override void LoadContent()
-        {
-        }
-
         public Tile GetTile(Vector2 targetPosition)
         {
             return tileMap[(int)targetPosition.X, (int)targetPosition.Y];
+        }
+
+        public void LoadMapFromImage(Texture2D image)
+        {
+            InitMapSize(40, 24);
+            Color[] colors = GetColorsFromImage(image);
+            InitTiles(colors);
         }
 
         public void LoadSpritesFromImage(Texture2D image)
@@ -60,6 +66,7 @@ namespace MonoGamePortal3Practise
             Color[] colors = GetColorsFromImage(image);
             InitSprites(colors);
         }
+
         private void InitSprites(Color[] pixelSnake)
         {
             for (int y = 0; y < Height; y++)
@@ -77,44 +84,47 @@ namespace MonoGamePortal3Practise
                 }
             }
         }
+
         private TopDownEntity GetSpriteByType(Color color)
         {
             if (color == new Color(237, 28, 36))
-                return new TopDownHeavyDutySuperCollidingSuperButton();
+                return new TopDownHeavyDutySuperCollidingSuperButton(++ButtonID);
 
             if (color == new Color(255, 174, 201))
-                return new TopDownWeightedCompanionCube();
+                return new TopDownWeightedCompanionCube(++CubeID);
 
             if (color == new Color(255, 127, 39))
-                return new TopDownDoor(DoorPosition.Left);
+                return new TopDownDoor(++DoorID, DoorPosition.Left);
+
+            if (color == new Color(255, 127, 40))
+                return new TopDownDoor(++DoorID, DoorPosition.Right);
 
             if (color == new Color(185, 122, 87))
-                return new TopDownMaterialEmancipationGrill(GrillDirection.Down);
+                return new TopDownMaterialEmancipationGrill(++GrillID, GrillDirection.Down);
+
+            if (color == new Color(200, 122, 87))
+                return new TopDownMaterialEmancipationGrill(++GrillID, GrillDirection.Left);
 
             if (color == new Color(0, 255, 0))
-                return new TopDownVictoryTrigger();
-
+                return new TopDownVictoryTrigger(++VictoryID);
             else return null;
         }
 
-        public void LoadMapFromImage(Texture2D image)
-        {
-            InitMapSize(40, 24);
-            Color[] colors = GetColorsFromImage(image);
-            InitTiles(colors);
-        } // generates map
+        // generates map
         private void InitMapSize(int width, int height)
         {
             this.Width = width;
             this.Height = height;
             tileMap = new Tile[width, height];
         } // sets the size of the map in amount-of-tiles
+
         private Color[] GetColorsFromImage(Texture2D image)
         {
             Color[] allPixelsAsASnake = new Color[image.Width * image.Height];
             image.GetData<Color>(allPixelsAsASnake);
             return allPixelsAsASnake;
         } // makes a snake of pixels out of the small map
+
         private void InitTiles(Color[] pixelSnake)
         {
             for (int y = 0; y < Height; y++)
@@ -127,6 +137,7 @@ namespace MonoGamePortal3Practise
                 }
             }
         } // puts a tile for every pixel of the snake into the tileMap
+
         private Tile GetTileByType(Color color)
         {
             if (color == new Color(0, 0, 0))
@@ -137,7 +148,6 @@ namespace MonoGamePortal3Practise
 
             if (color == new Color(255, 255, 255))
                 return new Tile(1, Random.Next(3), false, true); // portal wall
-
             else
                 return new Tile(0, Random.Next(3), true); // floor
         } // determines which colors refers to which tile and returns the tile

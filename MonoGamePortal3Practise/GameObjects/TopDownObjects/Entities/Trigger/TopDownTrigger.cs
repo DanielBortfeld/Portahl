@@ -1,21 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGamePortal3Practise
 {
-	class TopDownTrigger : TopDownEntity
-	{
-		public bool IsPressed;
-		protected TopDownEntity triggeringEntity;
+    public abstract class TopDownTrigger : TopDownEntity
+    {
+        public delegate void TriggerEventhandler();
+        public event TriggerEventhandler OnActivation;
 
-		public TopDownTrigger()
-		{
-			GameManager.OnMove += Trigger_OnMove;
-		}
+        public bool IsPressed;
+        protected TopDownEntity triggeringEntity;
 
-		public virtual void Trigger_OnMove() { }
+        public int ID { get; private set; }
+
+        public TopDownTrigger(int index)
+        {
+            ID = index;
+            GameManager.OnMove += Trigger_OnMove;
+        }
+
+        public void TriggerEvent()
+        {
+            if (OnActivation != null)
+                OnActivation();
+        }
+
+        public abstract void Trigger_OnMove();
 
         public override void Destroy()
         {

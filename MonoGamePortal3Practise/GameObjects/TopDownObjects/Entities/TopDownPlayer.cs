@@ -10,13 +10,13 @@ namespace MonoGamePortal3Practise
 
         private KeyboardState previousState;
 
-        public TopDownPlayer()
+        public TopDownPlayer(Vector2 position)
         {
             Name = "Chell";
 
             offset = new Vector2(0, 1); // only for 32x64p sized chell! moves "collider" to chell's lower part
 
-            StandartPosition = new Vector2(1, 3);
+            StandartPosition = position;
             Position = StandartPosition;
         }
 
@@ -65,7 +65,12 @@ namespace MonoGamePortal3Practise
 
         public override void Update(GameTime gameTime)
         {
-            //ProcessInput();
+            if (!IsActive)
+            {
+                Position = StandartPosition;
+                SceneManager.CurrentScene.ResetPortals();
+                IsActive = true;
+            }
         }
 
         private bool PlayerCanMove(KeyboardState keyState, Keys key)

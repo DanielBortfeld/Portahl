@@ -1,15 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGamePortal3Practise
 {
     public enum SideDirections { None, Left, Right }
 
-    public class Movement
+    public class Movement ///<"'Component'">
     {
         public float MoveForce = 10f;
         public float JumpForce = 30f;
@@ -24,6 +20,7 @@ namespace MonoGamePortal3Practise
 
         public Vector2 Velocity { get { return velocity; } }
         public GameObject GameObject { get; private set; }
+        public SideDirections ViewDirection { get; private set; }
 
         public Movement(GameObject gameObject)
         {
@@ -38,6 +35,7 @@ namespace MonoGamePortal3Practise
         // ProcessInput Options:
         public void Move(SideDirections direction)
         {
+            ViewDirection = direction;
             switch (direction)
             {
                 case SideDirections.Right:
@@ -88,6 +86,16 @@ namespace MonoGamePortal3Practise
         public void ResetVelocity()
         {
             velocity = Vector2.Zero;
+            ViewDirection = SideDirections.None;
+        }
+
+        public void RevertVelocity()
+        {
+            velocity = -velocity;
+            if (ViewDirection == SideDirections.Left)
+                ViewDirection = SideDirections.Right;
+            else
+                ViewDirection = SideDirections.Left;
         }
     }
 }

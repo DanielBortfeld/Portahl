@@ -179,35 +179,7 @@ namespace MonoGamePortal3Practise
             }
 
             if (other.GameObject is Portal)
-            {
-                Portal destinationPortal = SceneManager.GetDestinationPortal((Portal)other.GameObject);
-
-                if (destinationPortal.Position == Vector2.Zero)
-                    return;
-
-                // colliding from left
-                if (!(Collider.Right < other.Left) && viewDirection == SideDirections.Right)
-                {
-                    if (destinationPortal.ViewDirection == SideDirections.Right)
-                        Position = new Vector2(destinationPortal.Collider.Right + velocity.X, destinationPortal.Position.Y + destinationPortal.SpriteRect.Height / 2 - SpriteRect.Height / 2);
-                    else if (destinationPortal.ViewDirection == SideDirections.Left)
-                    {
-                        Position = new Vector2(destinationPortal.Collider.Left - velocity.X - SpriteRect.Width, destinationPortal.Position.Y + destinationPortal.SpriteRect.Height / 2 - SpriteRect.Height / 2);
-                        velocity = -velocity;
-                    }
-                }
-                //colliding from right
-                else if (!(Collider.Left > other.Right) && viewDirection == SideDirections.Left)
-                {
-                    if (destinationPortal.ViewDirection == SideDirections.Right)
-                    {
-                        Position = new Vector2(destinationPortal.Collider.Right - velocity.X, destinationPortal.Position.Y + destinationPortal.SpriteRect.Height / 2 - SpriteRect.Height / 2);
-                        velocity = -velocity;
-                    }
-                    else if (destinationPortal.ViewDirection == SideDirections.Left)
-                        Position = new Vector2(destinationPortal.Collider.Left + velocity.X - SpriteRect.Width, destinationPortal.Position.Y + destinationPortal.SpriteRect.Height / 2 - SpriteRect.Height / 2);
-                }
-            }
+                Teleport(other, viewDirection, velocity);
         }
 
         private void OnCollisionStay(BoxCollider other)

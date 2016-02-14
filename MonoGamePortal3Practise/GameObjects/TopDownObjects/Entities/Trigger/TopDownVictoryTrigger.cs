@@ -2,25 +2,22 @@
 
 namespace MonoGamePortal3Practise
 {
-	class TopDownVictoryTrigger : TopDownTrigger
-	{
-		public delegate void VictoryEvent();
-		public event VictoryEvent OnVictory;
+    class TopDownVictoryTrigger : TopDownTrigger
+    {
+        public TopDownVictoryTrigger(int index) : base(index)
+        {
+            Name = "VictoryTrigger";
+        }
 
-		public TopDownVictoryTrigger()
-		{
-			Name = "VictoryTrigger";
-		}
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            // dont draw this
+        }
 
-		public override void Draw(SpriteBatch spriteBatch)
-		{
-		}
-
-		public override void Trigger_OnMove()
-		{
-			if (Position == player.OffsetPosition)
-				if (OnVictory != null)
-					OnVictory();
-		}
-	}
+        public override void Trigger_OnMove()
+        {
+            if (Position == player.OffsetPosition)
+                TriggerEvent();
+        }
+    }
 }

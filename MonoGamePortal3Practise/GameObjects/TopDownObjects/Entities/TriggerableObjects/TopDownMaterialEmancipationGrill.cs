@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace MonoGamePortal3Practise
 {
@@ -10,28 +7,26 @@ namespace MonoGamePortal3Practise
 
     public enum GrillDirection { Down, Left }
 
-    class TopDownMaterialEmancipationGrill : TopDownConditionable
+    class TopDownMaterialEmancipationGrill : TopDownTriggerableObject
     {
         private GrillDirection direction;
 
-        public TopDownMaterialEmancipationGrill(GrillDirection direction)
+        public TopDownMaterialEmancipationGrill(int index, GrillDirection direction) : base(index)
         {
             Name = "Grill" + direction;
             this.direction = direction;
         }
 
-        public override void LoadContent()
-        {
-            trigger = (TopDownTrigger)SceneManager.CurrentScene.FindGameObject("Button");
-        }
 
         public override void Update(GameTime gameTime)
         {
-            isOn = !trigger.IsPressed;
+            if (trigger != null)
+                isOn = !trigger.IsPressed;
+            else
+                isOn = true;
 
             if (isOn)
                 Name = "Grill" + direction;
-
             else Name = "Grill" + direction + "Offline";
 
             base.Update(gameTime);

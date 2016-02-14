@@ -46,9 +46,9 @@
     <Compile Include="GameObjects\SideScrollerObjects\Entities\SideScrollEntity.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\Borders\Floor.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\Borders\Wall.cs" />
-    <Compile Include="GameObjects\TopDownObjects\Entities\Conditionables\TopDownConditionable.cs" />
+    <Compile Include="GameObjects\TopDownObjects\Entities\TriggerableObjects\TopDownTriggerableObject.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\Trigger\TopDownTrigger.cs" />
-    <Compile Include="GameObjects\TopDownObjects\Entities\Conditionables\TopDownDoor.cs" />
+    <Compile Include="GameObjects\TopDownObjects\Entities\TriggerableObjects\TopDownDoor.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\TopDownEntity.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Game1.cs" />
@@ -57,7 +57,7 @@
     <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\SideScrollMap.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\TopDownWeightedCompanionCube.cs" />
     <Compile Include="GameObjects\TopDownObjects\Map\TopDownMap.cs" />
-    <Compile Include="GameObjects\TopDownObjects\Entities\Conditionables\TopDownMaterialEmancipationGrill.cs" />
+    <Compile Include="GameObjects\TopDownObjects\Entities\TriggerableObjects\TopDownMaterialEmancipationGrill.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\TopDownPlayer.cs" />
     <Compile Include="GameObjects\UniversalObjects\Entity.cs" />
     <Compile Include="GameObjects\UniversalObjects\Portals\Portal.cs" />
@@ -68,9 +68,10 @@
     <Compile Include="GameObjects\SideScrollerObjects\Entities\SideScrollPlayer.cs" />
     <Compile Include="InputEventArgs.cs" />
     <Compile Include="InputManager.cs" />
-    <Compile Include="Scenes\Levels\SceneLevelTwo.cs" />
+    <Compile Include="Scenes\Levels\SceneSideScroller.cs" />
+    <Compile Include="Scenes\Levels\SceneTDTutorial.cs" />
     <Compile Include="Scenes\Scene.cs" />
-    <Compile Include="Scenes\Levels\SceneLevelOne.cs" />
+    <Compile Include="Scenes\Levels\SceneTDLevelOne.cs" />
     <Compile Include="Scenes\Menues\SceneMainMenu.cs" />
     <Compile Include="Scenes\SceneManager.cs" />
     <Compile Include="Scenes\SplashScreens\FinalScreen.cs" />
@@ -82,6 +83,12 @@
     <Compile Include="GameObjects\TopDownObjects\Map\Tiles\Tile.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\WeightedCompanionCube.cs" />
     <Compile Include="GameObjects\TopDownObjects\Map\Tiles\ToxicGooAnim.cs" />
+    <Compile Include="UI\Fonts.cs" />
+    <Compile Include="UI\UIButton.cs" />
+    <Compile Include="UI\UIElement.cs" />
+    <Compile Include="UI\UIImage.cs" />
+    <Compile Include="UI\UILabel.cs" />
+    <Compile Include="UI\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -107,6 +114,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PortalChamberOneTilesDEBUG.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\PortalChamberTutorialSprites.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\PortalChamberTutorialTiles.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PortalChamberTwoMapSprites.xml">

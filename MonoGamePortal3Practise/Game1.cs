@@ -28,7 +28,7 @@ namespace MonoGamePortal3Practise
             GameManager.Graphics = this.graphics;
             SceneManager.graphicsDevice = this.GraphicsDevice;
 
-            SceneManager.LoadScene<SceneLevelOne>();
+            SceneManager.LoadScene<SceneTDTutorial>();
         }
 
         protected override void UnloadContent()
@@ -41,6 +41,7 @@ namespace MonoGamePortal3Practise
                 Exit();
 
             SceneManager.UpdateScene(gameTime);
+            UIManager.Update(gameTime);
             InputManager.Update();
             CollisionManager.UpdateColliders(gameTime);
 
@@ -54,6 +55,7 @@ namespace MonoGamePortal3Practise
         protected override void Draw(GameTime gameTime)
         {
             SceneManager.DrawScene(spriteBatch);
+            UIManager.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }

@@ -10,6 +10,7 @@ namespace MonoGamePortal3Practise
         public static Color White = Color.White;
 
         public string Name = "GameObject";
+        public string Tag = "default";
         public Vector2 Position = Vector2.Zero;
 
         public GameObject()

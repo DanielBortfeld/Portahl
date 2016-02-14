@@ -24,6 +24,18 @@ namespace MonoGamePortal3Practise
             return Content.Load<Texture2D>(name);
         }
 
+        public static void SetPreferredBackBufferSize(int width, int height)
+        {
+            Graphics.PreferredBackBufferWidth = width;
+            Graphics.PreferredBackBufferHeight = height;
+            Graphics.ApplyChanges();
+        }
+
+        public static void ToggleFullScreen()
+        {
+            Graphics.ToggleFullScreen();
+        }
+
         //###### OLD BELOW ######
 
         //public static Texture2D SpriteSheet;

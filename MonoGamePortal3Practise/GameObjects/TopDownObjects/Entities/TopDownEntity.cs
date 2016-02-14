@@ -7,8 +7,8 @@ namespace MonoGamePortal3Practise
 
     public class TopDownEntity : Entity
     {
+        public bool IsActive = true;
         protected int spriteWidth = 32;
-
         protected TopDownMap map;
         protected TopDownPlayer player;
 
@@ -33,7 +33,7 @@ namespace MonoGamePortal3Practise
 
         public override void LoadContent()
         {
-            map = (TopDownMap)SceneManager.CurrentScene.FindGameObject("ChamberOne");
+            map = (TopDownMap)SceneManager.CurrentScene.FindGameObjectTag("TDMap");
             player = (TopDownPlayer)SceneManager.CurrentScene.FindGameObject("Chell");
         }
 
@@ -46,11 +46,7 @@ namespace MonoGamePortal3Practise
                 return;
 
             if (targetTile is ToxicGooAnim)
-            {
-                Position = StandartPosition;
-                SceneManager.CurrentScene.ResetPortals();
-            }
-
+                IsActive = false;
             else if (targetTile.IsWalkable)
                 Position += direction;
 
@@ -82,24 +78,26 @@ namespace MonoGamePortal3Practise
         {
             foreach (var item in SceneManager.CurrentScene.GameObjects)
             {
-                if (item is Entity)
-                    if (((Entity)item).Position == targetPosition)
-                    {
-                        if (item is TopDownMaterialEmancipationGrill)
-                            HandleEmancipationGrill((TopDownMaterialEmancipationGrill)item);
-
-                        else if (item is TopDownWeightedCompanionCube)
+                if (item.Position == targetPosition)
+                {
+                    if (item is TopDownEntity)
+                        if (((TopDownEntity)item).IsActive)
                         {
-                            MoveInPlayersViewDirection((TopDownEntity)item);
-                            return true;
-                        }
-                        if (item is Portal)
-                            if (SceneManager.GetDestinationPortal((Portal)item).Position != Vector2.Zero)
+                            if (item is TopDownMaterialEmancipationGrill)
+                                HandleEmancipationGrill((TopDownMaterialEmancipationGrill)item);
+                            else if (item is TopDownWeightedCompanionCube)
                             {
-                                Teleport((Portal)item);
+                                MoveInPlayersViewDirection((TopDownEntity)item);
                                 return true;
                             }
-                    }
+                        }
+                    if (item is Portal)
+                        if (SceneManager.GetDestinationPortal((Portal)item).Position != Vector2.Zero)
+                        {
+                            Teleport((Portal)item);
+                            return true;
+                        }
+                }
             }
             return false;
         }
@@ -150,7 +148,8 @@ namespace MonoGamePortal3Practise
                 if (this is TopDownPlayer)
                     SceneManager.CurrentScene.ResetPortals();
                 else if (this is TopDownWeightedCompanionCube)
-                    Position = StandartPosition;
+                    IsActive = false;
+                //Position = StandartPosition;
             }
         }
 

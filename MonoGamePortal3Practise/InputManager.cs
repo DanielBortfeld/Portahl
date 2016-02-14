@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace MonoGamePortal3Practise
@@ -13,7 +14,8 @@ namespace MonoGamePortal3Practise
         private static Dictionary<MouseButtons, ButtonState> lastButtonStates = new Dictionary<MouseButtons, ButtonState>();
         private static Dictionary<MouseButtons, ButtonState> currentButtonStates = new Dictionary<MouseButtons, ButtonState>();
 
-        private static MouseState mouseStateCurrent, mouseStatePrevious;
+        private static MouseState mouseStatePrevious;
+        public static MouseState MouseStateCurrent { get; private set; }
 
         public static void Update()
         {
@@ -53,9 +55,9 @@ namespace MonoGamePortal3Practise
 
         private static void CheckButtonStates()
         {
-            mouseStateCurrent = Mouse.GetState();
+            MouseStateCurrent = Mouse.GetState();
 
-            MapButtons(ref currentButtonStates, mouseStateCurrent);
+            MapButtons(ref currentButtonStates, MouseStateCurrent);
             if (mouseStatePrevious != null)
                 MapButtons(ref lastButtonStates, mouseStatePrevious);
 
@@ -81,7 +83,7 @@ namespace MonoGamePortal3Practise
                     OnKeyUp(new InputEventArgs(state.Key));
             }
 
-            mouseStatePrevious = mouseStateCurrent;
+            mouseStatePrevious = MouseStateCurrent;
         }
 
         private static void MapButtons(ref Dictionary<MouseButtons, ButtonState> buttonStates, MouseState mouseState)

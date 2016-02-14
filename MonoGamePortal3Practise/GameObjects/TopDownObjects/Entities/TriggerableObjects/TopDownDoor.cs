@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
 {
@@ -10,9 +6,9 @@ namespace MonoGamePortal3Practise
 
     public enum DoorPosition { Top, Bottom, Left, Right }
 
-    class TopDownDoor : TopDownConditionable
+    class TopDownDoor : TopDownTriggerableObject
     {
-        public TopDownDoor(DoorPosition doorPosition) : base()
+        public TopDownDoor(int index, DoorPosition doorPosition) : base(index)
         {
             Name = "Door" + doorPosition;
         }
