@@ -5,6 +5,7 @@
         public TopDownHeavyDutySuperCollidingSuperButton(int index) : base(index)
         {
             Name = "Button";
+            Tag = "Button";
         }
 
         public override void Trigger_OnMove()

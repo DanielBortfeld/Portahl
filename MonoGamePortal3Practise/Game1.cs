@@ -6,8 +6,8 @@ namespace MonoGamePortal3Practise
 {
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
         public Game1()
         {
@@ -24,15 +24,20 @@ namespace MonoGamePortal3Practise
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            GameManager.Content = this.Content;
-            GameManager.Graphics = this.graphics;
-            SceneManager.graphicsDevice = this.GraphicsDevice;
+            GameManager.Content = Content;
+            GameManager.Graphics = graphics;
+            GameManager.SetMouseVisibility(IsMouseVisible);
+            GameManager.OnToggleMouseVisibilitiy += OnToggleMouseVisibilitiy;
+            GameManager.OnSetMouseVisibility += OnSetMouseVisibility;
+            SceneManager.graphicsDevice = GraphicsDevice;
 
-            SceneManager.LoadScene<SceneTDTutorial>();
+            SceneManager.LoadScene<TitleScreen>();
         }
 
         protected override void UnloadContent()
         {
+            GameManager.OnToggleMouseVisibilitiy -= OnToggleMouseVisibilitiy;
+            GameManager.OnSetMouseVisibility -= OnSetMouseVisibility;
         }
 
         protected override void Update(GameTime gameTime)
@@ -48,16 +53,21 @@ namespace MonoGamePortal3Practise
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             SceneManager.DrawScene(spriteBatch);
-            UIManager.Draw(spriteBatch);
 
             base.Draw(gameTime);
+        }
+
+        private void OnSetMouseVisibility()
+        {
+            IsMouseVisible = GameManager.IsMouseVisible;
+        }
+
+        private void OnToggleMouseVisibilitiy()
+        {
+            IsMouseVisible = !IsMouseVisible;
         }
     }
 }

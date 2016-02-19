@@ -2,12 +2,12 @@
 
 namespace MonoGamePortal3Practise
 {
-    class WhiteWall : SideScrollEntity
+    class Platform : SideScrollEntity
     {
-        public WhiteWall(int x, int y)
+        public Platform(int x, int y, string name)
         {
-            Name = "WhiteWall";
-            Tag = "Wall";
+            Name = name;
+            Tag = "Ground";
             Position.X = x;
             Position.Y = y;
         }

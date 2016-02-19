@@ -9,6 +9,7 @@ namespace MonoGamePortal3Practise
         public MainDirections viewDirection;
 
         private KeyboardState previousState;
+        private bool hasMoved;
 
         public TopDownPlayer(Vector2 position)
         {
@@ -26,6 +27,23 @@ namespace MonoGamePortal3Practise
             base.LoadContent();
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            if (!IsActive)
+            {
+                Position = StandartPosition;
+                SceneManager.CurrentScene.ResetPortals();
+                IsActive = true;
+            }
+        }
+
+        public override void Destroy()
+        {
+            InputManager.OnKeyPressed -= OnKeyPressed;
+
+            base.Destroy();
+        }
+
         private void OnKeyPressed(InputEventArgs eventArgs)
         {
             switch (eventArgs.Key)
@@ -33,18 +51,22 @@ namespace MonoGamePortal3Practise
                 case Keys.W:
                     viewDirection = MainDirections.Up;
                     Move(-directionDown);
+                    hasMoved = true;
                     break;
                 case Keys.A:
                     viewDirection = MainDirections.Left;
                     Move(-directionRight);
+                    hasMoved = true;
                     break;
                 case Keys.S:
                     viewDirection = MainDirections.Down;
                     Move(directionDown);
+                    hasMoved = true;
                     break;
                 case Keys.D:
                     viewDirection = MainDirections.Right;
                     Move(directionRight);
+                    hasMoved = true;
                     break;
                 default:
                     break;
@@ -60,16 +82,6 @@ namespace MonoGamePortal3Practise
                     break;
                 default:
                     break;
-            }
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            if (!IsActive)
-            {
-                Position = StandartPosition;
-                SceneManager.CurrentScene.ResetPortals();
-                IsActive = true;
             }
         }
 
@@ -96,7 +108,7 @@ namespace MonoGamePortal3Practise
         {
             PortalGunShot shot = new PortalGunShot(Position + offset);
 
-            while (true)
+            while (hasMoved)
             {
                 Tile currentTile = map.GetTile(shot.Position);
 
@@ -124,13 +136,6 @@ namespace MonoGamePortal3Practise
             }
             shot.Destroy();
             return portalPosition;
-        }
-
-        public override void Destroy()
-        {
-            InputManager.OnKeyPressed -= OnKeyPressed;
-
-            base.Destroy();
         }
 
         //public void ProcessInput()

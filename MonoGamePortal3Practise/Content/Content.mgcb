@@ -31,3 +31,9 @@
 /processorParam:TextureFormat=Compressed
 /build:monkirtaPursuitNC72.spritefont
 
+#begin verdana72.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:verdana72.spritefont
+

@@ -8,17 +8,16 @@ namespace MonoGamePortal3Practise
 {
     class SideScrollMap : GameObject
     {
-        public Texture2D Background { get; private set; }
-
         private Floor floor;
         private Wall leftWall;
         private Wall rightWall;
-
         private List<Entity> mapObjects = new List<Entity>();
+        public Texture2D Background { get; private set; }
 
         public SideScrollMap(string name)
         {
             Name = name;
+            Tag = "SSMap";
             Background = GameManager.LoadTexture2D("backgroundForest");
         }
 
@@ -57,11 +56,12 @@ namespace MonoGamePortal3Practise
                         case "WhiteWall":
                             mapObjects.Add(new WhiteWall(x, y));
                             break;
-                        case "IronWall":
-                            break;
                         case "Cube":
+                            mapObjects.Add(new WeightedCompanionCube(x, y));
                             break;
-                        case "Platform":
+                        case "Platform_Left":
+                        case "Platform_Down":
+                            mapObjects.Add(new Platform(x, y, typeName));
                             break;
                         default:
                             break;

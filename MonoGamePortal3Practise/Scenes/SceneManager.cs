@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGamePortal3Practise
 {
@@ -15,7 +12,7 @@ namespace MonoGamePortal3Practise
 
         public static void LoadScene<T>() where T : Scene, new()
         {
-            CollisionManager.Clear();
+            ClearManagers();
             CurrentScene = new T();
             CurrentScene.LoadContent();
             CurrentScene.ResetPortals();
@@ -28,7 +25,7 @@ namespace MonoGamePortal3Practise
 
         public static void DrawScene(SpriteBatch spriteBatch)
         {
-            graphicsDevice.Clear(Color.CornflowerBlue);
+            graphicsDevice.Clear(Color.Black);
 
             CurrentScene.Draw(spriteBatch);
         }
@@ -39,6 +36,12 @@ namespace MonoGamePortal3Practise
                 return CurrentScene.PortalBlue;
             else
                 return CurrentScene.PortalOrange;
+        }
+
+        private static void ClearManagers()
+        {
+            UIManager.Clear();
+            CollisionManager.Clear();
         }
     }
 }

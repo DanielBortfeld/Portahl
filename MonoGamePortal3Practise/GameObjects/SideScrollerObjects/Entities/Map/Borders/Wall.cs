@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace MonoGamePortal3Practise
 {
@@ -12,6 +12,7 @@ namespace MonoGamePortal3Practise
 
         public Wall(int x, int y, int height)
         {
+            Tag = "Wall";
             Position = new Vector2(x, y);
             this.height = height;
             this.width = 10;

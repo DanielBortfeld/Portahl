@@ -1,17 +1,18 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace MonoGamePortal3Practise
 {
     class TopDownWeightedCompanionCube : TopDownEntity
     {
-        public int ID { get; private set; }
         public bool IsRespawnable;
+        public int ID { get; private set; }
 
         public TopDownWeightedCompanionCube(int index)
         {
             Name = "CompanionCube";
+            Tag = "Cube";
             ID = index;
             IsRespawnable = true;
         }

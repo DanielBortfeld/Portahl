@@ -26,7 +26,16 @@ namespace MonoGamePortal3Practise
             Image = image;
             bounds = image.Bounds;
 
-            InputManager.OnKeyDown += OnClick;
+            InputManager.OnKeyPressed += OnClick;
+        }
+
+        public UIButton(Texture2D image, Vector2 position)
+        {
+            Image = image;
+            bounds = image.Bounds;
+            Position = position;
+
+            InputManager.OnKeyPressed += OnClick;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

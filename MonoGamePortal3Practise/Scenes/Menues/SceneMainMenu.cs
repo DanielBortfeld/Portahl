@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace MonoGamePortal3Practise
 {
@@ -11,14 +8,7 @@ namespace MonoGamePortal3Practise
     {
         public override void LoadContent()
         {
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
+            throw new NotImplementedException();
         }
     }
 }

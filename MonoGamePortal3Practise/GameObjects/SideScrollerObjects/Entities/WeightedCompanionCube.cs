@@ -13,6 +13,7 @@ namespace MonoGamePortal3Practise
         public WeightedCompanionCube(int x, int y)
         {
             Name = "Cube";
+            Tag = "Cube";
             Position = new Vector2(x, y);
         }
 
@@ -66,7 +67,7 @@ namespace MonoGamePortal3Practise
                     movement.ResetVelocityY();
                 }
                 // colliding from beneigh
-                else if (Position.Y >= other.GameObject.Position.Y + ((Entity)other.GameObject).SpriteRect.Height)
+                else if (Position.Y >= other.Bottom)
                 {
                 }
                 //colliding from right or left
@@ -88,7 +89,7 @@ namespace MonoGamePortal3Practise
             //colliding from left or right
             if (!(Collider.Right < other.Left) || !(Collider.Left > other.Right))
             {
-                if (!(other.GameObject is SideScrollPlayer) && !(other.GameObject is WeightedCompanionCube) && !(other.GameObject is Floor))
+                if (!(other.GameObject is SideScrollPlayer) && !(other.GameObject is WeightedCompanionCube) && other.GameObject.Tag != "Ground")
                     movement.ResetVelocityX();
             }
         }

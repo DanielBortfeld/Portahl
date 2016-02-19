@@ -12,6 +12,7 @@ namespace MonoGamePortal3Practise
 
         public override void LoadContent()
         {
+            Tag = "Portal";
             Collider = new BoxCollider(this, (int)(SpriteRect.Width * colliderExtension), (int)(SpriteRect.Height * colliderExtension), true);
             Collider.OnCollisionEnter += OnCollisionEnter;
         }

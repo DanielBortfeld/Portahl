@@ -11,6 +11,7 @@ namespace MonoGamePortal3Practise
         public TopDownDoor(int index, DoorPosition doorPosition) : base(index)
         {
             Name = "Door" + doorPosition;
+            Tag = "Door";
         }
     }
 }

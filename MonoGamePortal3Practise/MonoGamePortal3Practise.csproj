@@ -37,8 +37,12 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>MonoGamePortal3Practise.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="GameObjects\SideScrollerObjects\Camera.cs" />
+    <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\MapObjects\Platform.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\MapObjects\WhiteWall.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Movement.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Collision\BoxCollider.cs" />
@@ -66,8 +70,8 @@
     <Compile Include="GameObjects\UniversalObjects\Portals\PortalGunShot.cs" />
     <Compile Include="GameObjects\TopDownObjects\Entities\Trigger\TopDownVictoryTrigger.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\SideScrollPlayer.cs" />
-    <Compile Include="InputEventArgs.cs" />
-    <Compile Include="InputManager.cs" />
+    <Compile Include="Input\InputEventArgs.cs" />
+    <Compile Include="Input\InputManager.cs" />
     <Compile Include="Scenes\Levels\SceneSideScroller.cs" />
     <Compile Include="Scenes\Levels\SceneTDTutorial.cs" />
     <Compile Include="Scenes\Scene.cs" />
@@ -79,16 +83,18 @@
     <Compile Include="GameObjects\TopDownObjects\Map\Tiles\IronWall.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpriteFrame.cs" />
+    <Compile Include="Utility\SpriteFrame.cs" />
     <Compile Include="GameObjects\TopDownObjects\Map\Tiles\Tile.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\WeightedCompanionCube.cs" />
     <Compile Include="GameObjects\TopDownObjects\Map\Tiles\ToxicGooAnim.cs" />
+    <Compile Include="Utility\TextWrapper.cs" />
     <Compile Include="UI\Fonts.cs" />
     <Compile Include="UI\UIButton.cs" />
     <Compile Include="UI\UIElement.cs" />
     <Compile Include="UI\UIImage.cs" />
     <Compile Include="UI\UILabel.cs" />
     <Compile Include="UI\UIManager.cs" />
+    <Compile Include="UI\UITextBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -105,6 +111,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\backgroundForest.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\BUTTON.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PortalChamberOneSprites.png">
@@ -126,19 +135,22 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\spritesheetOne.xml">
+    <Content Include="Content\spritesheetSS.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SpriteSheetTwo.png">
+    <Content Include="Content\spritesheetSS.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\spritesheetTwo.xml">
+    <Content Include="Content\SpriteSheetTD.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\spritesheetTD.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TEXTBOX.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Tileset.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\SpriteSheetOne.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

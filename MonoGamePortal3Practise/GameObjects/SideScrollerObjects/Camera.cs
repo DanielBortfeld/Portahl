@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace MonoGamePortal3Practise
 {
@@ -18,10 +18,11 @@ namespace MonoGamePortal3Practise
         private int backgroundWidth = 1920;
         private int backgroundHeight = 1080;
 
-		public Camera(SideScrollPlayer player)
-		{
-			this.player = player;
-		}
+        public Camera(SideScrollPlayer player)
+        {
+            Tag = "MainCamera";
+            this.player = player;
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

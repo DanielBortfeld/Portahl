@@ -7,6 +7,7 @@ namespace MonoGamePortal3Practise
         public TopDownVictoryTrigger(int index) : base(index)
         {
             Name = "VictoryTrigger";
+            Tag = "VictoryTrigger";
         }
 
         public override void Draw(SpriteBatch spriteBatch)

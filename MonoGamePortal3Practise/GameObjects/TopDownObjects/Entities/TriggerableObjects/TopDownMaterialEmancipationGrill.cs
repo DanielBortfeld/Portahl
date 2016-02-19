@@ -14,9 +14,9 @@ namespace MonoGamePortal3Practise
         public TopDownMaterialEmancipationGrill(int index, GrillDirection direction) : base(index)
         {
             Name = "Grill" + direction;
+            Tag = "Grill";
             this.direction = direction;
         }
-
 
         public override void Update(GameTime gameTime)
         {

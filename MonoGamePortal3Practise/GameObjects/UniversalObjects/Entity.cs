@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace MonoGamePortal3Practise
 {
@@ -37,6 +37,13 @@ namespace MonoGamePortal3Practise
             Position += direction;
         }
 
+        public override void Destroy()
+        {
+            if (Collider != null)
+                Collider.Remove();
+            base.Destroy();
+        }
+
         protected Rectangle GetSpriteRect()
         {
             return SceneManager.CurrentScene.GetSpriteRect(Name);
@@ -45,13 +52,6 @@ namespace MonoGamePortal3Practise
         protected Texture2D GetSpriteSheet()
         {
             return SceneManager.CurrentScene.SpriteSheet;
-        }
-
-        public override void Destroy()
-        {
-            if (Collider != null)
-                Collider.Remove();
-            base.Destroy();
         }
     }
 }

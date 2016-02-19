@@ -11,7 +11,7 @@ namespace MonoGamePortal3Practise
 
         private Vector2 velocity;
         private int moveForce = 10;
-        private int jumpForce = 20;
+        private int jumpForce = 15;
 
         private float gravityForce = 2f;
         private float timer;
@@ -27,6 +27,7 @@ namespace MonoGamePortal3Practise
         public SideScrollPlayer(Vector2 position)
         {
             Name = "Chell";
+            Tag = "Player";
 
             StandartPosition = position;
             Position = position;
@@ -171,7 +172,13 @@ namespace MonoGamePortal3Practise
                         Position.Y = other.GameObject.Position.Y - SpriteRect.Height;
                     velocity.Y = 0f;
                 }
-                else if (!(Collider.Right < other.Left) || !(Collider.Left > other.Right))
+                // colliding from beneigh
+                else if (!(Collider.Top >= other.Bottom) && lastPosition.Y > other.Bottom)
+                {
+                    velocity.Y = 0f;
+                    Position.Y = other.Bottom + 1;
+                }
+                else /*if (!(Collider.Right < other.Left) || !(Collider.Left > other.Right))*/
                 {
                     velocity.X = 0f;
                     Position = lastPosition;
@@ -185,7 +192,7 @@ namespace MonoGamePortal3Practise
         private void OnCollisionStay(BoxCollider other)
         {
             if (!other.IsTrigger)
-                if (!(Collider.Bottom <= other.Top))
+                if (!(Collider.Bottom <= other.Top) && lastPosition.Y < other.Bottom)
                 {
                     if (isGrounded != true)
                         isGrounded = true;
@@ -199,12 +206,8 @@ namespace MonoGamePortal3Practise
         private void OnCollisionExit(BoxCollider other)
         {
             if (!other.IsTrigger)
-            {
                 if ((Collider.Bottom < other.Top) || (!(Collider.Right < other.Left) || !(Collider.Left > other.Right)))
-                {
                     isGrounded = false;
-                }
-            }
         }
 
         //private MouseState previousState;
