@@ -10,14 +10,13 @@ namespace MonoGamePortal3Practise
         public delegate void MoveEvent();
         public static event MoveEvent OnMove;
 
+        public delegate void GameEvent();
+        public static event GameEvent OnToggleMouseVisibilitiy, OnSetMouseVisibility;
+
         public static ContentManager Content;
         public static GraphicsDeviceManager Graphics;
 
-        public static void ReportMove()
-        {
-            if (OnMove != null)
-                OnMove();
-        }
+        public static bool IsMouseVisible { get; private set; }
 
         public static Texture2D LoadTexture2D(string name)
         {
@@ -31,9 +30,28 @@ namespace MonoGamePortal3Practise
             Graphics.ApplyChanges();
         }
 
+        public static void ReportMove()
+        {
+            if (OnMove != null)
+                OnMove();
+        }
+
         public static void ToggleFullScreen()
         {
             Graphics.ToggleFullScreen();
+        }
+
+        public static void SetMouseVisibility(bool isVisible)
+        {
+            IsMouseVisible = isVisible;
+            if (OnSetMouseVisibility != null)
+                OnSetMouseVisibility();
+        }
+
+        public static void ToggleMouseVisibility()
+        {
+            if (OnToggleMouseVisibilitiy != null)
+                OnToggleMouseVisibilitiy();
         }
 
         //###### OLD BELOW ######

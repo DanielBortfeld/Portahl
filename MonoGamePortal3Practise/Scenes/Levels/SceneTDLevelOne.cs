@@ -11,8 +11,8 @@ namespace MonoGamePortal3Practise
 
         public override void LoadContent()
         {
-            SpriteSheet = GameManager.LoadTexture2D("SpriteSheetOne");
-            LoadSprites(GameManager.Content.RootDirectory + "/spritesheetOne.xml");
+            SpriteSheet = GameManager.LoadTexture2D("SpriteSheetTD");
+            LoadSprites(GameManager.Content.RootDirectory + "/spritesheetTD.xml");
 
             TopDownMap chamberOne = new TopDownMap("ChamberOne");
             chamberOne.LoadMapFromImage(GameManager.LoadTexture2D("PortalChamberOneTilesDEBUG"));

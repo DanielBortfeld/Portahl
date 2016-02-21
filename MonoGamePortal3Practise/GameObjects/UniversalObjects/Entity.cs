@@ -1,12 +1,18 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace MonoGamePortal3Practise
 {
     public class Entity : GameObject
     {
         public Vector2 StandartPosition;
+
+        public Vector2 Center
+        {
+            get { return Position + new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2); }
+            set  { Position = value - new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2); }
+        }
 
         public BoxCollider Collider { get; protected set; }
 
@@ -22,6 +28,7 @@ namespace MonoGamePortal3Practise
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(SpriteSheet, Position, SpriteRect, White);
         }
 
         public override void Update(GameTime gameTime)
@@ -37,6 +44,13 @@ namespace MonoGamePortal3Practise
             Position += direction;
         }
 
+        public override void Destroy()
+        {
+            if (Collider != null)
+                Collider.Remove();
+            base.Destroy();
+        }
+
         protected Rectangle GetSpriteRect()
         {
             return SceneManager.CurrentScene.GetSpriteRect(Name);
@@ -45,13 +59,6 @@ namespace MonoGamePortal3Practise
         protected Texture2D GetSpriteSheet()
         {
             return SceneManager.CurrentScene.SpriteSheet;
-        }
-
-        public override void Destroy()
-        {
-            if (Collider != null)
-                Collider.Remove();
-            base.Destroy();
         }
     }
 }

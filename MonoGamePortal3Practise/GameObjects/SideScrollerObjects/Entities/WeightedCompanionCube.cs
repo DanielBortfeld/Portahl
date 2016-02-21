@@ -13,6 +13,7 @@ namespace MonoGamePortal3Practise
         public WeightedCompanionCube(int x, int y)
         {
             Name = "Cube";
+            Tag = "Cube";
             Position = new Vector2(x, y);
         }
 
@@ -41,6 +42,16 @@ namespace MonoGamePortal3Practise
             base.Update(gameTime);
         }
 
+        public override void Move(Vector2 direction)
+        {
+            throw new Exception("Use other Move pls.");
+        }
+
+        public void Move(SideDirections direction)
+        {
+            movement.Move(direction);
+        }
+
         public override void Destroy()
         {
             Collider.OnCollisionEnter -= OnCollisionEnter;
@@ -65,40 +76,67 @@ namespace MonoGamePortal3Practise
                         Position.Y = other.GameObject.Position.Y - SpriteRect.Height;
                     movement.ResetVelocityY();
                 }
-                // colliding from beneigh
-                else if (Position.Y >= other.GameObject.Position.Y + ((Entity)other.GameObject).SpriteRect.Height)
-                {
-                }
-                //colliding from right or left
-                else /*if (!(Collider.Right < other.Left && Collider.Left < other.Right) || !(Collider.Left > other.Right && Collider.Right > other.Left))*/
-                {
-                    if (!(other.GameObject is SideScrollPlayer) && !(other.GameObject is WeightedCompanionCube))
-                        return;
-                    else
-                        movement.Move(((SideScrollPlayer)other.GameObject).ViewDirection);
-                }
+                #region
+                //// colliding from beneigh
+                //else if (!(Collider.Top > other.Bottom) && lastPosition.Y >= other.Bottom)
+                //{
+                //}
+                ////colliding from right or left
+                //else /*if (!(Collider.Right < other.Left && Collider.Left < other.Right) || !(Collider.Left > other.Right && Collider.Right > other.Left))*/
+                //{
+                //    if (!(other.GameObject is SideScrollPlayer))
+                //        return;
+                //    else
+                //        movement.Move(((SideScrollPlayer)other.GameObject).ViewDirection);
+                //}
+                #endregion
             }
 
             if (other.GameObject is Portal)
+            {
+                float temp = movement.MoveForce;
+                movement.MoveForce = 300;
                 Teleport(other, movement);
+                movement.MoveForce = temp;
+            }
         }
 
         private void OnCollisionStay(BoxCollider other)
         {
-            //colliding from left or right
-            if (!(Collider.Right < other.Left) || !(Collider.Left > other.Right))
+            #region
+            ////colliding from above
+            //if (!(Collider.Bottom < other.Top) && lastPosition.Y + Collider.Height <= other.Top)
+            //{
+            //}
+            //// colliding from beneigh
+            //else if (!(Collider.Top > other.Bottom) && lastPosition.Y >= other.Bottom)
+            //{
+            //}
+            ////colliding from left or right
+            //else
+            //{
+            //    if (!(other.GameObject is SideScrollPlayer) && !(other.GameObject is WeightedCompanionCube) && other.GameObject.Tag != "Ground")
+            //        movement.ResetVelocityX();
+            //    else if (other.GameObject is SideScrollPlayer)
+            //        movement.Move(((SideScrollPlayer)other.GameObject).ViewDirection);
+            //}
+            #endregion
+
+            if (other.GameObject is Portal)
             {
-                if (!(other.GameObject is SideScrollPlayer) && !(other.GameObject is WeightedCompanionCube) && !(other.GameObject is Floor))
-                    movement.ResetVelocityX();
+                float temp = movement.MoveForce;
+                movement.MoveForce = 300;
+                Teleport(other, movement);
+                movement.MoveForce = temp;
             }
         }
 
         private void OnCollisionExit(BoxCollider other)
         {
-            if (other.GameObject is Floor)
+            if (other.GameObject.Tag == "Grounded")
                 isGrounded = false;
-            if (other.GameObject is SideScrollPlayer)
-                movement.ResetVelocityX();
+            //if (other.GameObject is SideScrollPlayer)
+            //    movement.ResetVelocityX();
         }
     }
 }

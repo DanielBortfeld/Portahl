@@ -3,6 +3,7 @@
 namespace MonoGamePortal3Practise
 {
 #if WINDOWS || LINUX
+
     /// <summary>
     /// The main class.
     /// </summary>
@@ -18,5 +19,6 @@ namespace MonoGamePortal3Practise
                 game.Run();
         }
     }
+
 #endif
 }

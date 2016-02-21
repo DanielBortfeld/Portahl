@@ -1,25 +1,32 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 namespace MonoGamePortal3Practise
 {
-	class TitleScreen : Scene
-	{
-		Texture2D splashScreen;
+    class TitleScreen : Scene
+    {
+        private Texture2D splashScreen;
+        private UIButton button;
+        private UILabel title;
 
         public override void LoadContent()
         {
             splashScreen = GameManager.LoadTexture2D("background");
+            button = new UIButton(splashScreen);
+            button.OnLeftClick += OnClick;
+            button.OnRightClick += OnClick;
+
+            title = new UILabel(Fonts.MonkirtaPursuitNC, "PORTAHL", new Vector2(100, 100), Color.White, 1);
+
+            GameManager.SetPreferredBackBufferSize(1920, 1080);
+            //GameManager.ToggleFullScreen();
         }
 
-        public override void Update(GameTime gameTime)
+        void OnClick()
         {
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin();
-            spriteBatch.Draw(splashScreen, splashScreen.Bounds, Color.White);
-            spriteBatch.End();
+            button.OnLeftClick -= OnClick;
+            button.OnRightClick -= OnClick;
+            SceneManager.LoadScene<SceneSideScroller>();
         }
     }
 }

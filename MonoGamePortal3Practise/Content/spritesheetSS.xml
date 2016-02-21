@@ -1,0 +1,9 @@
+<TextureAtlas imagePath="spritesheet.png">
+	<SubTexture name="PortalBlue.png" x="400" y="422" width="62" height="278" />
+	<SubTexture name="PortalOrange.png" x="332" y="492" width="66" height="276" />
+	<SubTexture name="WhiteWall.png" x="0" y="0" width="420" height="420" />
+	<SubTexture name="Chell.png" x="0" y="754" width="156" height="261" />
+	<SubTexture name="Cube.png" x="0" y="492" width="260" height="260" />
+	<SubTexture name="Platform_Left.png" x="0" y="422" width="384" height="68" />
+	<SubTexture name="Platform_Down.png" x="262" y="492" width="68" height="384" />
+</TextureAtlas>

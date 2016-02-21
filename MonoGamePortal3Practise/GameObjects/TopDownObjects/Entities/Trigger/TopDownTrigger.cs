@@ -14,6 +14,7 @@ namespace MonoGamePortal3Practise
 
         public TopDownTrigger(int index)
         {
+            Tag = "Trigger";
             ID = index;
             GameManager.OnMove += Trigger_OnMove;
         }

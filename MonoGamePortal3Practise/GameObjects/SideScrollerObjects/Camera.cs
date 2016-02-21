@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace MonoGamePortal3Practise
 {
@@ -11,17 +11,18 @@ namespace MonoGamePortal3Practise
 
         private SideScrollPlayer player;
 
-        private float viewMargin = 0.25f;
+        private float viewMargin = 0.3f;
         private float cameraTranslationX;
         private float cameraTranslationY;
 
         private int backgroundWidth = 1920;
         private int backgroundHeight = 1080;
 
-		public Camera(SideScrollPlayer player)
-		{
-			this.player = player;
-		}
+        public Camera(SideScrollPlayer player)
+        {
+            Tag = "MainCamera";
+            this.player = player;
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -55,7 +56,7 @@ namespace MonoGamePortal3Practise
 
             //borders top and floor
             float marginHeight = viewport.Height * viewMargin;
-            float marginTop = Y + marginHeight;
+            float marginTop = Y + marginHeight /**/ + player.SpriteRect.Height;
             float marginFloor = Y + viewport.Height - marginHeight;
 
             // resets translation:

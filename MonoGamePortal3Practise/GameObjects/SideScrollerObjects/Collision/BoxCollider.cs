@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MonoGamePortal3Practise
 {
     public class BoxCollider
     {
+        public delegate void CollisionEvent(BoxCollider other);
+        public event CollisionEvent OnCollisionEnter, OnCollisionStay, OnCollisionExit;
+
         public bool IsTrigger;
 
         // rectangle:
@@ -16,17 +17,14 @@ namespace MonoGamePortal3Practise
         public int Width;
         public int Height;
 
+        private List<BoxCollider> collidingColliders = new List<BoxCollider>();
+
         public int Top { get { return Y; } }
         public int Bottom { get { return Y + Height; } }
         public int Left { get { return X; } }
         public int Right { get { return X + Width; } }
 
         public GameObject GameObject { get; private set; }
-
-        public delegate void CollisionEvent(BoxCollider other);
-        public event CollisionEvent OnCollisionEnter, OnCollisionStay, OnCollisionExit;
-
-        private List<BoxCollider> collidingColliders = new List<BoxCollider>();
 
         public BoxCollider(GameObject gameObject, int width, int height, bool isTrigger)
         {

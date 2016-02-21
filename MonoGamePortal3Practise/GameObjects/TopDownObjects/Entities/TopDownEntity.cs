@@ -7,6 +7,9 @@ namespace MonoGamePortal3Practise
 
     public class TopDownEntity : Entity
     {
+        public delegate void TopDownEventHandler();
+        public event TopDownEventHandler OnDeathThroughToxicGoo, OnTraversingEmancipationGrill;
+
         public bool IsActive = true;
         protected int spriteWidth = 32;
         protected TopDownMap map;
@@ -46,7 +49,11 @@ namespace MonoGamePortal3Practise
                 return;
 
             if (targetTile is ToxicGooAnim)
+            {
                 IsActive = false;
+                if (OnDeathThroughToxicGoo != null)
+                    OnDeathThroughToxicGoo();
+            }
             else if (targetTile.IsWalkable)
                 Position += direction;
 
@@ -149,8 +156,11 @@ namespace MonoGamePortal3Practise
                     SceneManager.CurrentScene.ResetPortals();
                 else if (this is TopDownWeightedCompanionCube)
                     IsActive = false;
-                //Position = StandartPosition;
             }
+            if (OnTraversingEmancipationGrill != null)
+                OnTraversingEmancipationGrill();
+            if (grill.OnTraversingEmancipationGrill != null)
+                grill.OnTraversingEmancipationGrill();
         }
 
         private Tile GetTargetTile(Vector2 targetPosition)

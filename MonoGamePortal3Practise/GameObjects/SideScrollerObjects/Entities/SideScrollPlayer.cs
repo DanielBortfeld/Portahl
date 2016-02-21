@@ -11,22 +11,25 @@ namespace MonoGamePortal3Practise
 
         private Vector2 velocity;
         private int moveForce = 10;
-        private int jumpForce = 20;
+        private int jumpForce = 15;
 
         private float gravityForce = 2f;
-        private float timer;
+        private float accelerationMultipier;
 
         private bool isGrounded;
         private float isGroundedTimeStamp;
         private float jumpCooldown = 0.1f;
 
-        private SideDirections viewDirection = SideDirections.None;
+        public WeightedCompanionCube HeldCube { get; private set; }
+        private WeightedCompanionCube cubeInReach;
 
+        private SideDirections viewDirection = SideDirections.None;
         public SideDirections ViewDirection { get { return viewDirection; } }
 
         public SideScrollPlayer(Vector2 position)
         {
             Name = "Chell";
+            Tag = "Player";
 
             StandartPosition = position;
             Position = position;
@@ -61,8 +64,8 @@ namespace MonoGamePortal3Practise
             }
             else
             {
-                timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                velocity.Y += gravityForce * timer;
+                accelerationMultipier += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                velocity.Y += gravityForce * accelerationMultipier;
             }
 
             base.Update(gameTime);
@@ -79,6 +82,49 @@ namespace MonoGamePortal3Practise
             Collider.OnCollisionExit -= OnCollisionExit;
 
             base.Destroy();
+        }
+
+        private void Move()
+        {
+            Position += velocity;
+            Pivot = new Vector2(SpriteRect.Width / 2, SpriteRect.Height) + Position;
+
+            if (HeldCube != null)
+            {
+                float gap = 20f;
+
+                if (viewDirection == SideDirections.Right)
+                    HeldCube.Center = new Vector2(Center.X + SpriteRect.Width / 2 + HeldCube.SpriteRect.Width / 2 + gap, Center.Y);
+                if (viewDirection == SideDirections.Left)
+                    HeldCube.Center = new Vector2(Center.X - SpriteRect.Width / 2 - HeldCube.SpriteRect.Width / 2 - gap, Center.Y);
+            }
+        }
+
+        private void Shoot(Portal portal)
+        {
+            PortalGunShot shot = new PortalGunShot(Position + new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2), portal);
+
+            if (viewDirection == SideDirections.Left)
+            {
+                shot.Velocity.X = -50;
+                shot.ViewDirection = viewDirection;
+            }
+            else if (viewDirection == SideDirections.Right)
+            {
+                shot.Velocity.X = 50;
+                shot.ViewDirection = viewDirection;
+            }
+        }
+
+        private void ToggleCubeHolding()
+        {
+            if (HeldCube != null)
+            {
+                HeldCube = null;
+                return;
+            }
+            if (cubeInReach != null)
+                HeldCube = cubeInReach;
         }
 
         private void OnKeyUp(InputEventArgs eventArgs)
@@ -129,31 +175,10 @@ namespace MonoGamePortal3Practise
                     Shoot(SceneManager.CurrentScene.PortalOrange);
                     break;
                 case MouseButtons.MiddleButton:
+                    ToggleCubeHolding();
                     break;
                 default:
                     break;
-            }
-        }
-
-        private void Move()
-        {
-            Position += velocity;
-            Pivot = new Vector2(SpriteRect.Width / 2, SpriteRect.Height) + Position;
-        }
-
-        private void Shoot(Portal portal)
-        {
-            PortalGunShot shot = new PortalGunShot(Position + new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2), portal);
-
-            if (viewDirection == SideDirections.Left)
-            {
-                shot.Velocity.X = -50;
-                shot.ViewDirection = viewDirection;
-            }
-            else if (viewDirection == SideDirections.Right)
-            {
-                shot.Velocity.X = 50;
-                shot.ViewDirection = viewDirection;
             }
         }
 
@@ -166,12 +191,18 @@ namespace MonoGamePortal3Practise
                 if (!(Collider.Bottom < other.Top) && lastPosition.Y + Collider.Height <= other.Top)
                 {
                     isGrounded = true;
-                    timer = 0;
+                    accelerationMultipier = 0;
                     if (Position.Y != other.GameObject.Position.Y - SpriteRect.Height)
                         Position.Y = other.GameObject.Position.Y - SpriteRect.Height;
                     velocity.Y = 0f;
                 }
-                else if (!(Collider.Right < other.Left) || !(Collider.Left > other.Right))
+                // colliding from beneigh
+                else if (!(Collider.Top >= other.Bottom) && lastPosition.Y > other.Bottom)
+                {
+                    velocity.Y = 0f;
+                    Position.Y = other.Bottom + 1;
+                }
+                else /*if (!(Collider.Right < other.Left) || !(Collider.Left > other.Right))*/
                 {
                     velocity.X = 0f;
                     Position = lastPosition;
@@ -180,12 +211,15 @@ namespace MonoGamePortal3Practise
 
             if (other.GameObject is Portal)
                 Teleport(other, viewDirection, velocity);
+
+            if (other.GameObject is WeightedCompanionCube)
+                cubeInReach = (WeightedCompanionCube)other.GameObject;
         }
 
         private void OnCollisionStay(BoxCollider other)
         {
             if (!other.IsTrigger)
-                if (!(Collider.Bottom <= other.Top))
+                if (!(Collider.Bottom <= other.Top) && lastPosition.Y < other.Bottom)
                 {
                     if (isGrounded != true)
                         isGrounded = true;
@@ -199,12 +233,11 @@ namespace MonoGamePortal3Practise
         private void OnCollisionExit(BoxCollider other)
         {
             if (!other.IsTrigger)
-            {
                 if ((Collider.Bottom < other.Top) || (!(Collider.Right < other.Left) || !(Collider.Left > other.Right)))
-                {
                     isGrounded = false;
-                }
-            }
+
+            if (other.GameObject is WeightedCompanionCube)
+                cubeInReach = null;
         }
 
         //private MouseState previousState;

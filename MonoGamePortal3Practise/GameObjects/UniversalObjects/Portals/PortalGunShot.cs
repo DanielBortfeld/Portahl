@@ -17,6 +17,7 @@ namespace MonoGamePortal3Practise
         public PortalGunShot(Vector2 position)
         {
             Name = "PortalGunShot";
+            Tag = "Projectile";
 
             Position = position;
         }

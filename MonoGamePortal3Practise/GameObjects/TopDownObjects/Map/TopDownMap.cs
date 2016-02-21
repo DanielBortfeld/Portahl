@@ -107,7 +107,6 @@ namespace MonoGamePortal3Practise
 
             if (color == new Color(0, 255, 0))
                 return new TopDownVictoryTrigger(++VictoryID);
-
             else return null;
         }
 

@@ -1,6 +1,45 @@
-<ChamberTwo>
-	<Object type="WhiteWall" x="1800" y="2460"/>
-	<Object type="WhiteWall" x="1800" y="2040"/>
-	<Object type="WhiteWall" x="0" y="2460"/>
-	<Object type="WhiteWall" x="0" y="2040"/>
-</ChamberTwo>
+<SideScrollChamberOne>
+  <Object type="Platform_Down" x="2338" y="1620" />
+  <Object type="Platform_Down" x="2338" y="2004" />
+  <Object type="Platform_Down" x="2338" y="2388" />
+  <Object type="Platform_Down" x="2338" y="2772" />
+
+  <Object type="Platform_Left" x="525" y="990" />
+  <Object type="Platform_Left" x="909" y="990" />
+  <Object type="Platform_Left" x="1677" y="990" />
+  <Object type="Platform_Left" x="2061" y="990" />
+  <Object type="Platform_Left" x="2445" y="990" />
+  <Object type="Platform_Left" x="3212" y="1410" />
+  <Object type="Platform_Left" x="210" y="1972" />
+  <Object type="Platform_Left" x="737" y="1734" />
+  <Object type="Platform_Left" x="1385" y="1620" />
+  <Object type="Platform_Left" x="1568" y="2250" />
+  <Object type="Platform_Left" x="3212" y="2040" />
+  <Object type="Platform_Left" x="4052" y="1620" />
+
+  <Object type="WhiteWall" x="-210" y="-60" />
+	<Object type="WhiteWall" x="-210" y="780" />
+	<Object type="WhiteWall" x="-210" y="1200" />
+  <Object type="WhiteWall" x="-210" y="1620" />
+  <Object type="WhiteWall" x="-450" y="2040" />
+  <Object type="WhiteWall" x="-450" y="2460" />
+	<Object type="WhiteWall" x="1952" y="1620" />
+	<Object type="WhiteWall" x="1952" y="2040" />
+	<Object type="WhiteWall" x="1952" y="2460" />
+	<Object type="WhiteWall" x="1532" y="2460" />
+	<Object type="WhiteWall" x="1112" y="2460" />
+	<Object type="WhiteWall" x="2792" y="1200" />
+	<Object type="WhiteWall" x="2792" y="1620" />
+	<Object type="WhiteWall" x="2792" y="2040" />
+	<Object type="WhiteWall" x="4700" y="-60" />
+	<Object type="WhiteWall" x="4700" y="360" />
+	<Object type="WhiteWall" x="4700" y="780" />
+	<Object type="WhiteWall" x="4700" y="1200" />
+	<Object type="WhiteWall" x="4700" y="1620" />
+	<Object type="WhiteWall" x="4700" y="2040" />
+	<Object type="WhiteWall" x="4700" y="2460" />
+	<Object type="WhiteWall" x="4280" y="2460" />
+
+	<Object type="Cube" x="250" y="2460" />
+	<Object type="Cube" x="3212" y="2460" />
+</SideScrollChamberOne>
