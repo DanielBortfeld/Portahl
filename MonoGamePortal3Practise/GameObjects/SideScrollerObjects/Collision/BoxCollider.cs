@@ -26,6 +26,11 @@ namespace MonoGamePortal3Practise
 
         public GameObject GameObject { get; private set; }
 
+        public delegate void CollisionEvent(BoxCollider other);
+        public event CollisionEvent OnCollisionEnter, OnCollisionStay, OnCollisionExit;
+
+        private List<BoxCollider> collidingColliders = new List<BoxCollider>();
+
         public BoxCollider(GameObject gameObject, int width, int height, bool isTrigger)
         {
             GameObject = gameObject;
