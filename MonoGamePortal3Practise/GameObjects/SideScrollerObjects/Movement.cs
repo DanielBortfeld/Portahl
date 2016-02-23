@@ -20,7 +20,7 @@ namespace MonoGamePortal3Practise
 
         public Vector2 Velocity { get { return velocity; } }
         public GameObject GameObject { get; private set; }
-        public SideDirections ViewDirection { get; private set; }
+        public SideDirections ViewDirection { get; set; }
 
         public Movement(GameObject gameObject)
         {

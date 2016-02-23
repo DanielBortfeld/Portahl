@@ -11,6 +11,7 @@ namespace MonoGamePortal3Practise
 
         public Floor(int x, int y, int width)
         {
+            Name = "Floor";
             Tag = "Ground";
             Position = new Vector2(x, y);
             this.width = width;

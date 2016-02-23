@@ -12,6 +12,7 @@ namespace MonoGamePortal3Practise
 
         public Wall(int x, int y, int height)
         {
+            Name = "BorderWall";
             Tag = "Wall";
             Position = new Vector2(x, y);
             this.height = height;

@@ -30,7 +30,6 @@ namespace MonoGamePortal3Practise
         public override void Destroy()
         {
             GameManager.OnMove -= Trigger_OnMove;
-
             base.Destroy();
         }
     }

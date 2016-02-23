@@ -54,7 +54,7 @@ namespace MonoGamePortal3Practise
                 OnToggleMouseVisibilitiy();
         }
 
-        //###### OLD BELOW ######
+        #region Old GameManager
 
         //public static Texture2D SpriteSheet;
 
@@ -128,5 +128,7 @@ namespace MonoGamePortal3Practise
         //{
         //    removedGameObjects.Add(gameObject);
         //}
+
+        #endregion Old GameManager
     }
 }

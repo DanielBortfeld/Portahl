@@ -106,7 +106,7 @@ namespace MonoGamePortal3Practise
                 return new TopDownMaterialEmancipationGrill(++GrillID, GrillDirection.Left);
 
             if (color == new Color(0, 255, 0))
-                return new TopDownVictoryTrigger(++VictoryID);
+                return new VictoryTrigger(++VictoryID);
             else return null;
         }
 

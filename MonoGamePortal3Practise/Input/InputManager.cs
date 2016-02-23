@@ -6,6 +6,12 @@ namespace MonoGamePortal3Practise
 {
     public static class InputManager
     {
+        /// <summary>
+        /// OnKeyDown -> called as long as it's down
+        /// OnKeyPressed -> called once per press
+        /// OnKeyUp -> called once per release
+        /// </summary>
+        /// the <param name="eventArgs"> returns <see cref="Keys"/> and <seealso cref="MouseButtons"/>></param>
         public delegate void InputEventHandler(InputEventArgs eventArgs);
         public static event InputEventHandler OnKeyPressed, OnKeyDown, OnKeyUp;
 

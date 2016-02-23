@@ -10,8 +10,18 @@ namespace MonoGamePortal3Practise
 
         public Vector2 Center
         {
-            get { return Position + new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2); }
-            set  { Position = value - new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2); }
+            get
+            {
+                if (SpriteRect != Rectangle.Empty)
+                    return Position + new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2);
+                else return Position;
+            }
+            set
+            {
+                if (SpriteRect != Rectangle.Empty)
+                    Position = value - new Vector2(SpriteRect.Width / 2, SpriteRect.Height / 2);
+                else Position = value;
+            }
         }
 
         public BoxCollider Collider { get; protected set; }

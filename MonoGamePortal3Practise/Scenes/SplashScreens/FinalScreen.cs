@@ -8,6 +8,7 @@ namespace MonoGamePortal3Practise
         private Texture2D splashScreen;
         private UIButton button;
         private UILabel endText;
+        private UILabel endTextShadow;
 
         public override void LoadContent()
         {
@@ -16,7 +17,10 @@ namespace MonoGamePortal3Practise
             button.OnLeftClick += OnClick;
             button.OnRightClick += OnClick;
 
-            endText = new UILabel(Fonts.MonkirtaPursuitNC, "That was a triumph!\nI'm making a note here:\nHuge success!\n\nIt's hard to overstate\nmy satisfaction.", new Vector2(100, 75), Color.DarkGoldenrod, 0.5f);
+            string firstVerse = "That was a triumph!\nI'm making a note here:\nHuge success!\n\nIt's hard to overstate\nmy satisfaction.";
+
+            endTextShadow = new UILabel(Fonts.MonkirtaPursuitNC, firstVerse, new Vector2(102, 77), Color.Black, 0.5f);
+            endText = new UILabel(Fonts.MonkirtaPursuitNC, firstVerse, new Vector2(100, 75), Color.DarkGoldenrod, 0.5f);
 
             GameManager.SetPreferredBackBufferSize(1920, 1080);
         }

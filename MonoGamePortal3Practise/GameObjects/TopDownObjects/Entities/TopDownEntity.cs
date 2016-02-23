@@ -37,7 +37,8 @@ namespace MonoGamePortal3Practise
         public override void LoadContent()
         {
             map = (TopDownMap)SceneManager.CurrentScene.FindGameObjectTag("TDMap");
-            player = (TopDownPlayer)SceneManager.CurrentScene.FindGameObject("Chell");
+            if (player is TopDownPlayer)
+                player = (TopDownPlayer)SceneManager.CurrentScene.FindGameObject("Chell");
         }
 
         public override void Move(Vector2 direction)

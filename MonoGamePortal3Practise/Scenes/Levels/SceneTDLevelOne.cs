@@ -6,7 +6,7 @@ namespace MonoGamePortal3Practise
 {
     class SceneTDLevelOne : Scene
     {
-        private TopDownVictoryTrigger victoryTrigger;
+        private VictoryTrigger victoryTrigger;
         private TopDownWeightedCompanionCube cubeTheOneAndOnly;
 
         public override void LoadContent()
@@ -20,7 +20,7 @@ namespace MonoGamePortal3Practise
 
             TopDownPlayer player = new TopDownPlayer(new Vector2(1, 3));
 
-            victoryTrigger = (TopDownVictoryTrigger)FindGameObject("VictoryTrigger");
+            victoryTrigger = (VictoryTrigger)FindGameObject("VictoryTrigger");
             victoryTrigger.OnActivation += OnVictory;
 
             AssignTriggers();

@@ -16,7 +16,7 @@ namespace MonoGamePortal3Practise
 
         public static void Clear()
         {
-            colliders.Clear();
+            removedColliders.AddRange(colliders);
         }
 
         public static void RemoveCollider(BoxCollider collider)
@@ -38,7 +38,8 @@ namespace MonoGamePortal3Practise
             foreach (var colliderA in colliders)
                 foreach (var colliderB in colliders)
                     if (!colliderA.Equals(colliderB))
-                        colliderA.CheckCollision(colliderB);
+                        if (colliderA.IsActive && colliderB.IsActive)
+                            colliderA.CheckCollision(colliderB);
         }
     }
 }

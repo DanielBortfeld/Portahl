@@ -68,7 +68,7 @@
     <Compile Include="GameObjects\UniversalObjects\Portals\PortalBlue.cs" />
     <Compile Include="GameObjects\UniversalObjects\Portals\PortalOrange.cs" />
     <Compile Include="GameObjects\UniversalObjects\Portals\PortalGunShot.cs" />
-    <Compile Include="GameObjects\TopDownObjects\Entities\Trigger\TopDownVictoryTrigger.cs" />
+    <Compile Include="GameObjects\TopDownObjects\Entities\Trigger\VictoryTrigger.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\SideScrollPlayer.cs" />
     <Compile Include="Input\InputEventArgs.cs" />
     <Compile Include="Input\InputManager.cs" />
