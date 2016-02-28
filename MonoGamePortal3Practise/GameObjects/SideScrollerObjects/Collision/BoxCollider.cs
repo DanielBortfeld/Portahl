@@ -24,10 +24,7 @@ namespace MonoGamePortal3Practise
 
         public bool IsActive
         {
-            get
-            {
-                return isActive;
-            }
+            get { return isActive; }
             set
             {
                 if (IsActive == value)
