@@ -8,7 +8,7 @@ namespace MonoGamePortal3Practise
     public class TopDownEntity : Entity
     {
         public delegate void TopDownEventHandler();
-        public event TopDownEventHandler OnDeathThroughToxicGoo, OnTraversingEmancipationGrill;
+        public event TopDownEventHandler OnStepOnToxicGoo, OnTraversingEmancipationGrill;
 
         public bool IsActive = true;
         protected int spriteWidth = 32;
@@ -36,8 +36,10 @@ namespace MonoGamePortal3Practise
 
         public override void LoadContent()
         {
-            map = (TopDownMap)SceneManager.CurrentScene.FindGameObjectTag("TDMap");
-            player = (TopDownPlayer)SceneManager.CurrentScene.FindGameObject("Chell");
+            map = (TopDownMap)SceneManager.CurrentScene.FindGameObjectByTag("TDMap");
+            Entity tempPlayer = (Entity)SceneManager.CurrentScene.FindGameObjectByTag("Player");
+            if (tempPlayer is TopDownPlayer)
+                player = (TopDownPlayer)tempPlayer;
         }
 
         public override void Move(Vector2 direction)
@@ -51,8 +53,8 @@ namespace MonoGamePortal3Practise
             if (targetTile is ToxicGooAnim)
             {
                 IsActive = false;
-                if (OnDeathThroughToxicGoo != null)
-                    OnDeathThroughToxicGoo();
+                if (OnStepOnToxicGoo != null)
+                    OnStepOnToxicGoo();
             }
             else if (targetTile.IsWalkable)
                 Position += direction;
@@ -62,7 +64,7 @@ namespace MonoGamePortal3Practise
 
         public void MoveInPlayersViewDirection(Entity entity)
         {
-            switch (player.viewDirection)
+            switch (player.ViewDirection)
             {
                 case MainDirections.Up:
                     entity.Move(-directionDown);
@@ -102,6 +104,8 @@ namespace MonoGamePortal3Practise
                         if (SceneManager.GetDestinationPortal((Portal)item).Position != Vector2.Zero)
                         {
                             Teleport((Portal)item);
+                            if (this is TopDownWeightedCompanionCube)
+                                MoveInPlayersViewDirection((TopDownEntity)this);
                             return true;
                         }
                 }
@@ -120,19 +124,19 @@ namespace MonoGamePortal3Practise
                 {
                     case 0:
                         direction = directionRight;
-                        player.viewDirection = MainDirections.Right;
+                        player.ViewDirection = MainDirections.Right;
                         break;
                     case 1:
                         direction = -directionRight;
-                        player.viewDirection = MainDirections.Left;
+                        player.ViewDirection = MainDirections.Left;
                         break;
                     case 2:
                         direction = directionDown;
-                        player.viewDirection = MainDirections.Down;
+                        player.ViewDirection = MainDirections.Down;
                         break;
                     case 3:
                         direction = -directionDown;
-                        player.viewDirection = MainDirections.Up;
+                        player.ViewDirection = MainDirections.Up;
                         break;
                 }
 

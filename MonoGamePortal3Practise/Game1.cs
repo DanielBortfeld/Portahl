@@ -32,12 +32,15 @@ namespace MonoGamePortal3Practise
             SceneManager.graphicsDevice = GraphicsDevice;
 
             SceneManager.LoadScene<TitleScreen>();
+
+            InputManager.OnKeyPressed += OnKeyPressed;
         }
 
         protected override void UnloadContent()
         {
             GameManager.OnToggleMouseVisibilitiy -= OnToggleMouseVisibilitiy;
             GameManager.OnSetMouseVisibility -= OnSetMouseVisibility;
+            InputManager.OnKeyPressed -= OnKeyPressed;
         }
 
         protected override void Update(GameTime gameTime)
@@ -58,6 +61,18 @@ namespace MonoGamePortal3Practise
             SceneManager.DrawScene(spriteBatch);
 
             base.Draw(gameTime);
+        }
+
+        void OnKeyPressed(InputEventArgs eventArgs)
+        {
+            switch (eventArgs.Key)
+            {
+                case Keys.F12:
+                    ShowcaseCommands.Toggle();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void OnSetMouseVisibility()

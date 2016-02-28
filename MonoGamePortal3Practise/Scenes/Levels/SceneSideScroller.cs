@@ -9,6 +9,8 @@ namespace MonoGamePortal3Practise
         private Camera camera;
         private SideScrollPlayer player;
 
+        private VictoryTrigger victoryTrigger;
+
         public override void LoadContent()
         {
             SpriteSheet = GameManager.LoadTexture2D("SpriteSheetSS");
@@ -16,12 +18,22 @@ namespace MonoGamePortal3Practise
 
             SideScrollMap sideScrollMap = new SideScrollMap("SideScrollMap");
 
-            player = new SideScrollPlayer(new Vector2(20, sideScrollMap.Background.Height - 20));
+            player = new SideScrollPlayer(new Vector2(20, sideScrollMap.Background.Height - 400));
 
             camera = new Camera(player);
             camera.SetBackgroundResolution(sideScrollMap.Background.Width, sideScrollMap.Background.Height);
 
+            victoryTrigger = new VictoryTrigger(1);
+            victoryTrigger.Position = new Vector2(0, 360);
+            victoryTrigger.SetSize(200, 420);
+            victoryTrigger.OnActivation += OnVictory;
+
             GameManager.SetPreferredBackBufferSize(1920, 1080);
+        }
+
+        public override void UnloadContent()
+        {
+            victoryTrigger.OnActivation -= OnVictory;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -37,6 +49,7 @@ namespace MonoGamePortal3Practise
 
         private void OnVictory()
         {
+            victoryTrigger.OnActivation -= OnVictory;
             SceneManager.LoadScene<FinalScreen>();
         }
     }

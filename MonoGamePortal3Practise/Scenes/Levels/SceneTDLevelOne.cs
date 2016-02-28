@@ -6,8 +6,9 @@ namespace MonoGamePortal3Practise
 {
     class SceneTDLevelOne : Scene
     {
-        private TopDownVictoryTrigger victoryTrigger;
+        private VictoryTrigger victoryTrigger;
         private TopDownWeightedCompanionCube cubeTheOneAndOnly;
+        private TopDownHeavyDutySuperCollidingSuperButton respawnButton;
 
         public override void LoadContent()
         {
@@ -15,19 +16,26 @@ namespace MonoGamePortal3Practise
             LoadSprites(GameManager.Content.RootDirectory + "/spritesheetTD.xml");
 
             TopDownMap chamberOne = new TopDownMap("ChamberOne");
-            chamberOne.LoadMapFromImage(GameManager.LoadTexture2D("PortalChamberOneTilesDEBUG"));
+            chamberOne.LoadMapFromImage(GameManager.LoadTexture2D("PortalChamberOneTiles"));
             chamberOne.LoadSpritesFromImage(GameManager.LoadTexture2D("PortalChamberOneSprites"));
 
             TopDownPlayer player = new TopDownPlayer(new Vector2(1, 3));
 
-            victoryTrigger = (TopDownVictoryTrigger)FindGameObject("VictoryTrigger");
+            victoryTrigger = (VictoryTrigger)FindGameObject("VictoryTrigger");
             victoryTrigger.OnActivation += OnVictory;
 
             AssignTriggers();
 
             cubeTheOneAndOnly = ((TopDownWeightedCompanionCube)FindGameObject("Cube"));
+            respawnButton.OnActivation += respawnButton_OnActivation;
 
             GameManager.SetPreferredBackBufferSize(chamberOne.Width * chamberOne.TileWidth, chamberOne.Height * chamberOne.TileHeight);
+        }
+
+        public override void UnloadContent()
+        {
+            victoryTrigger.OnActivation -= OnVictory;
+            respawnButton.OnActivation -= respawnButton_OnActivation;
         }
 
         public override void Update(GameTime gameTime)
@@ -39,16 +47,22 @@ namespace MonoGamePortal3Practise
 
         private void AssignTriggers()
         {
-            List<TopDownTriggerableObject> conds = new List<TopDownTriggerableObject>();
+            List<TopDownTriggerableObject> triggerableObj = new List<TopDownTriggerableObject>();
             List<TopDownTrigger> triggers = new List<TopDownTrigger>();
             foreach (var item in addedGameObjects)
             {
                 if (item is TopDownTrigger)
                     triggers.Add((TopDownTrigger)item);
                 if (item is TopDownTriggerableObject)
-                    conds.Add((TopDownTriggerableObject)item);
+                    triggerableObj.Add((TopDownTriggerableObject)item);
             }
-            conds.Find(c => c.Name.Contains("Grill") && c.ID == 1).AssignTrigger(triggers.Find(t => t.Name.Contains("Button") && t.ID == 1));
+            triggerableObj.Find(c => c.Name.Contains("Grill") && c.ID == 1).AssignTrigger(triggers.Find(t => t.Name.Contains("Button") && t.ID == 2));
+            respawnButton = (TopDownHeavyDutySuperCollidingSuperButton)triggers.Find(t => t.Name.Contains("Button") && t.ID == 1);
+        }
+
+        private void respawnButton_OnActivation()
+        {
+            cubeTheOneAndOnly.Respawn();
         }
 
         private void OnVictory()

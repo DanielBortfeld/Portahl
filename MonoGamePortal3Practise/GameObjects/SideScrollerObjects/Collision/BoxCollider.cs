@@ -10,6 +10,7 @@ namespace MonoGamePortal3Practise
         public event CollisionEvent OnCollisionEnter, OnCollisionStay, OnCollisionExit;
 
         public bool IsTrigger;
+        public bool AutoPositionUpdateIsEnabled = true;
 
         // rectangle:
         public int X;
@@ -17,19 +18,41 @@ namespace MonoGamePortal3Practise
         public int Width;
         public int Height;
 
-        private List<BoxCollider> collidingColliders = new List<BoxCollider>();
+        private List<BoxCollider> collisions = new List<BoxCollider>();
+
+        private bool isActive = true;
+
+        public bool IsActive
+        {
+            get
+            {
+                return isActive;
+            }
+            set
+            {
+                if (IsActive == value)
+                    return;
+                isActive = value;
+                if (!IsActive)
+                {
+                    collisions.ForEach(c => c.CheckCollision(this));
+                    collisions.Clear();
+                }
+            }
+        }
 
         public int Top { get { return Y; } }
         public int Bottom { get { return Y + Height; } }
         public int Left { get { return X; } }
         public int Right { get { return X + Width; } }
 
+        public Vector2 Center
+        {
+            get { return new Vector2(X, Y) + new Vector2(Width / 2, Height / 2); }
+            set { X = (int)value.X - Width / 2; Y = (int)value.Y - Height / 2; }
+        }
+
         public GameObject GameObject { get; private set; }
-
-        public delegate void CollisionEvent(BoxCollider other);
-        public event CollisionEvent OnCollisionEnter, OnCollisionStay, OnCollisionExit;
-
-        private List<BoxCollider> collidingColliders = new List<BoxCollider>();
 
         public BoxCollider(GameObject gameObject, int width, int height, bool isTrigger)
         {
@@ -45,11 +68,20 @@ namespace MonoGamePortal3Practise
 
         public void UpdatePosition(GameTime gameTime)
         {
+            if (!AutoPositionUpdateIsEnabled)
+                return;
+
+            /// center the collider to the middle of the <"SpriteRect">
             if (GameObject is Entity && ((Entity)GameObject).SpriteRect != Rectangle.Empty)
             {
-                /// center the collider to the middle of the <"SpriteRect">
-                X = (int)GameObject.Position.X + (((Entity)GameObject).SpriteRect.Width / 2) - (Width / 2);
-                Y = (int)GameObject.Position.Y + (((Entity)GameObject).SpriteRect.Height / 2) - (Height / 2);
+                Center = ((Entity)GameObject).Center;
+
+                #region Old Calculation
+
+                //X = (int)GameObject.Position.X + (((Entity)GameObject).SpriteRect.Width / 2) - (Width / 2);
+                //Y = (int)GameObject.Position.Y + (((Entity)GameObject).SpriteRect.Height / 2) - (Height / 2);
+
+                #endregion Old Calculation
             }
             else
             {
@@ -68,20 +100,33 @@ namespace MonoGamePortal3Practise
         /// </summary>
         public void CheckCollision(BoxCollider other)
         {
-            if (Right < other.Left || other.Right < Left || Bottom < other.Top || other.Bottom < Top)
+            if (!isActive || !other.isActive)
             {
                 // no collision
-                if (collidingColliders.Contains(other))
+                if (collisions.Contains(other))
                 {
                     // no more colliding
                     if (OnCollisionExit != null)
                         OnCollisionExit(other);
-                    collidingColliders.Remove(other);
+                    collisions.Remove(other);
                 }
                 return;
             }
 
-            if (collidingColliders.Contains(other))
+            if (Right < other.Left || other.Right < Left || Bottom < other.Top || other.Bottom < Top)
+            {
+                // no collision
+                if (collisions.Contains(other))
+                {
+                    // no more colliding
+                    if (OnCollisionExit != null)
+                        OnCollisionExit(other);
+                    collisions.Remove(other);
+                }
+                return;
+            }
+
+            if (collisions.Contains(other))
             {
                 // still colliding
                 if (OnCollisionStay != null)
@@ -90,10 +135,81 @@ namespace MonoGamePortal3Practise
             }
 
             // new collison
-            collidingColliders.Add(other);
+            collisions.Add(other);
             if (OnCollisionEnter != null)
                 OnCollisionEnter(other);
         }
+
+        public bool Intersects(BoxCollider other) // or "Collides" so to say
+        {
+            if (Equals(other))
+                throw new Exception("This and the other Collider are identical. A collider cannot intersect with itself.");
+
+            if ((other.Right >= X && other.X <= Right) && (other.Bottom >= X && other.Y <= Bottom))
+                return true;
+            return false;
+        }
+
+        public bool Contains(BoxCollider other)
+        {
+            if (Equals(other))
+                throw new Exception("This and the other Collider are identical. A collider cannot contain itself.");
+
+            // other top left is contained
+            if (other.X > X && other.Right < Right && other.Y > Y && other.Y < Bottom)
+                // other top right is contained
+                if (other.Right > X && other.Right < Right && other.Y > Y && other.Y < Bottom)
+                    // other bot left is contained
+                    if (other.X > X && other.X < Right && other.Bottom > Y && other.Bottom < Bottom)
+                        // other bot right is contained
+                        if (other.Right > X && other.Right < Right && other.Bottom > Y && other.Bottom < Bottom)
+                            return true;
+            return false;
+        }
+
+        #region Minkowsky sum (Magic)
+
+        public bool CollidesWithTopOf(BoxCollider other)
+        {
+            float wy = (Width + other.Width) * (Center.Y - other.Center.Y);
+            float hx = (Height + other.Height) * (Center.X - other.Center.X);
+
+            if (wy <= -hx && wy <= hx)
+                return true;
+            return false;
+        }
+
+        public bool CollidesWithBottomOf(BoxCollider other)
+        {
+            float wy = (Width + other.Width) * (Center.Y - other.Center.Y);
+            float hx = (Height + other.Height) * (Center.X - other.Center.X);
+
+            if (wy > -hx && wy > hx)
+                return true;
+            return false;
+        }
+
+        public bool CollidesWithLeftOf(BoxCollider other)
+        {
+            float wy = (Width + other.Width) * (Center.Y - other.Center.Y);
+            float hx = (Height + other.Height) * (Center.X - other.Center.X);
+
+            if (wy <= -hx && wy > hx)
+                return true;
+            return false;
+        }
+
+        public bool CollidesWithRightOf(BoxCollider other)
+        {
+            float wy = (Width + other.Width) * (Center.Y - other.Center.Y);
+            float hx = (Height + other.Height) * (Center.X - other.Center.X);
+
+            if (wy > -hx && wy <= hx)
+                return true;
+            return false;
+        }
+
+        #endregion Minkowsky sum (Magic)
 
         public void Remove()
         {

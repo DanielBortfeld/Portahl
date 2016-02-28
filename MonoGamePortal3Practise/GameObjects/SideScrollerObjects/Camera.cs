@@ -56,7 +56,7 @@ namespace MonoGamePortal3Practise
 
             //borders top and floor
             float marginHeight = viewport.Height * viewMargin;
-            float marginTop = Y + marginHeight /**/ + player.SpriteRect.Height;
+            float marginTop = Y + marginHeight /*Extra->*/ + player.SpriteRect.Height;
             float marginFloor = Y + viewport.Height - marginHeight;
 
             // resets translation:
@@ -64,15 +64,15 @@ namespace MonoGamePortal3Practise
             cameraTranslationY = 0f;
 
             // translation:
-            if (player.Pivot.X < marginLeft) // wenn der player weiter links als die linke grenze ist...
-                cameraTranslationX = player.Pivot.X - marginLeft;
-            else if (player.Pivot.X > marginRight) // wenn der player weiter rechts als die rechte grenze ist...
-                cameraTranslationX = player.Pivot.X - marginRight;
+            if (player.CameraTranslationPivot.X < marginLeft) // wenn der player weiter links als die linke grenze ist...
+                cameraTranslationX = player.CameraTranslationPivot.X - marginLeft;
+            else if (player.CameraTranslationPivot.X > marginRight) // wenn der player weiter rechts als die rechte grenze ist...
+                cameraTranslationX = player.CameraTranslationPivot.X - marginRight;
 
-            if (player.Pivot.Y < marginTop) // wenn der player weiter oben ist als die obere grenze...
-                cameraTranslationY = player.Pivot.Y - marginTop;
-            else if (player.Pivot.Y > marginFloor) // wenn der player weiter unten als die untere grenze...
-                cameraTranslationY = player.Pivot.Y - marginFloor;
+            if (player.CameraTranslationPivot.Y < marginTop) // wenn der player weiter oben ist als die obere grenze...
+                cameraTranslationY = player.CameraTranslationPivot.Y - marginTop;
+            else if (player.CameraTranslationPivot.Y > marginFloor) // wenn der player weiter unten als die untere grenze...
+                cameraTranslationY = player.CameraTranslationPivot.Y - marginFloor;
             //--> ...dann sag an, wie weit die cam verschoben werden muss
 
             // apply translation:

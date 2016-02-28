@@ -19,14 +19,21 @@ namespace MonoGamePortal3Practise
             title = new UILabel(Fonts.MonkirtaPursuitNC, "PORTAHL", new Vector2(100, 100), Color.White, 1);
 
             GameManager.SetPreferredBackBufferSize(1920, 1080);
-            //GameManager.ToggleFullScreen();
+            if (!GameManager.Graphics.IsFullScreen)
+                GameManager.ToggleFullScreen();
         }
 
-        void OnClick()
+        public override void UnloadContent()
         {
             button.OnLeftClick -= OnClick;
             button.OnRightClick -= OnClick;
-            SceneManager.LoadScene<SceneSideScroller>();
+        }
+
+        private void OnClick()
+        {
+            button.OnLeftClick -= OnClick;
+            button.OnRightClick -= OnClick;
+            SceneManager.LoadScene<SceneTDTutorial>();
         }
     }
 }

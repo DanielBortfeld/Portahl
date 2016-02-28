@@ -6,7 +6,7 @@ namespace MonoGamePortal3Practise
 {
     public class TopDownPlayer : TopDownEntity
     {
-        public MainDirections viewDirection;
+        public MainDirections ViewDirection;
 
         private KeyboardState previousState;
         private bool hasMoved;
@@ -14,8 +14,10 @@ namespace MonoGamePortal3Practise
         public TopDownPlayer(Vector2 position)
         {
             Name = "Chell";
+            Tag = "Player";
 
-            offset = new Vector2(0, 1); // only for 32x64p sized chell! moves "collider" to chell's lower part
+            //offset is only for 32x64p sized chell! moves "collider" to chell's lower part
+            offset = new Vector2(0, 1);
 
             StandartPosition = position;
             Position = StandartPosition;
@@ -40,7 +42,6 @@ namespace MonoGamePortal3Practise
         public override void Destroy()
         {
             InputManager.OnKeyPressed -= OnKeyPressed;
-
             base.Destroy();
         }
 
@@ -49,22 +50,22 @@ namespace MonoGamePortal3Practise
             switch (eventArgs.Key)
             {
                 case Keys.W:
-                    viewDirection = MainDirections.Up;
+                    ViewDirection = MainDirections.Up;
                     Move(-directionDown);
                     hasMoved = true;
                     break;
                 case Keys.A:
-                    viewDirection = MainDirections.Left;
+                    ViewDirection = MainDirections.Left;
                     Move(-directionRight);
                     hasMoved = true;
                     break;
                 case Keys.S:
-                    viewDirection = MainDirections.Down;
+                    ViewDirection = MainDirections.Down;
                     Move(directionDown);
                     hasMoved = true;
                     break;
                 case Keys.D:
-                    viewDirection = MainDirections.Right;
+                    ViewDirection = MainDirections.Right;
                     Move(directionRight);
                     hasMoved = true;
                     break;
@@ -138,6 +139,8 @@ namespace MonoGamePortal3Practise
             return portalPosition;
         }
 
+        #region Old ProcessInput
+
         //public void ProcessInput()
         //{
         //    KeyboardState keyState = Keyboard.GetState();
@@ -181,5 +184,7 @@ namespace MonoGamePortal3Practise
 
         //    previousState = keyState;
         //}
+
+        #endregion Old ProcessInput
     }
 }

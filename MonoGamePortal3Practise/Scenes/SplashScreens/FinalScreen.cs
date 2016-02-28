@@ -16,12 +16,21 @@ namespace MonoGamePortal3Practise
             button.OnLeftClick += OnClick;
             button.OnRightClick += OnClick;
 
-            endText = new UILabel(Fonts.MonkirtaPursuitNC, "That was a triumph!\nI'm making a note here:\nHuge success!\n\nIt's hard to overstate\nmy satisfaction.", new Vector2(100, 75), Color.DarkGoldenrod, 0.5f);
+            string firstVerse = "That was a triumph!\nI'm making a note here:\nHuge success!\n\nIt's hard to overstate\nmy satisfaction.";
+
+            endText = new UILabel(Fonts.MonkirtaPursuitNC, firstVerse, new Vector2(100, 75), Color.DarkGoldenrod, 0.5f);
+            endText.AddShadow(Color.Black, new Vector2(2, 2));
 
             GameManager.SetPreferredBackBufferSize(1920, 1080);
         }
 
-        void OnClick()
+        public override void UnloadContent()
+        {
+            button.OnLeftClick -= OnClick;
+            button.OnRightClick -= OnClick;
+        }
+
+        private void OnClick()
         {
             button.OnLeftClick -= OnClick;
             button.OnRightClick -= OnClick;

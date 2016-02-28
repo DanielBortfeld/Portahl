@@ -6,6 +6,6 @@ namespace MonoGamePortal3Practise
     class SpriteFrame
     {
         public string Name;
-        public Rectangle SourceRect;
+        public Rectangle SourceRect = new Rectangle();
     }
 }

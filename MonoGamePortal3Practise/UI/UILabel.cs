@@ -13,6 +13,8 @@ namespace MonoGamePortal3Practise
         public float MaxLineWidth = 0;
         public Color Color = Color.Black;
 
+        private UILabel shadow;
+
         public UILabel()
         {
         }
@@ -42,6 +44,19 @@ namespace MonoGamePortal3Practise
                 spriteBatch.DrawString(Font, TextWrapper.WrapText(Font, Text, MaxLineWidth / Scale), Position, Color, 0f /*Rotation*/, Vector2.Zero /*Origin*/, Scale, SpriteEffects.None /*Flip*/, 0 /*LayerDepth*/);
             else
                 spriteBatch.DrawString(Font, Text, Position, Color, 0f /*Rotation*/, Vector2.Zero /*Origin*/, Scale, SpriteEffects.None /*Flip*/, 0 /*LayerDepth*/);
+        }
+
+        public void AddShadow(Color color, Vector2 offset)
+        {
+            if (shadow != null)
+                UIManager.RemoveElement(shadow);
+
+            UIManager.RemoveElement(this);
+            if (MaxLineWidth != 0)
+                shadow = new UILabel(Font, Text, Position + offset, MaxLineWidth, color, Scale);
+            else
+                shadow = new UILabel(Font, Text, Position + offset, MaxLineWidth, color, Scale);
+            UIManager.AddElement(this);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace MonoGamePortal3Practise
         private int tileHeight = 32;
 
         private int ButtonID, DoorID, GrillID, VictoryID, CubeID;
+
         public int Width { get; private set; }
         public int Height { get; private set; }
 
@@ -38,7 +39,6 @@ namespace MonoGamePortal3Practise
         public override void Draw(SpriteBatch spriteBatch)
         {
             for (int y = 0; y < Height; y++)
-            {
                 for (int x = 0; x < Width; x++)
                 {
                     Tile currentTileToBeDrawn = tileMap[x, y];
@@ -46,7 +46,6 @@ namespace MonoGamePortal3Practise
                     Rectangle frameOfTheFullTile = new Rectangle(currentTileToBeDrawn.TilesetPosX * tileWidth, currentTileToBeDrawn.TilesetPosY * tileHeight, tileWidth, tileHeight);
                     spriteBatch.Draw(tileset, position/*OfTheTilesUpperLeftPixelOnTheScreen*/, frameOfTheFullTile, Color.White);
                 }
-            }
         }
 
         public Tile GetTile(Vector2 targetPosition)
@@ -106,7 +105,7 @@ namespace MonoGamePortal3Practise
                 return new TopDownMaterialEmancipationGrill(++GrillID, GrillDirection.Left);
 
             if (color == new Color(0, 255, 0))
-                return new TopDownVictoryTrigger(++VictoryID);
+                return new VictoryTrigger(++VictoryID);
             else return null;
         }
 

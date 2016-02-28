@@ -12,6 +12,7 @@ namespace MonoGamePortal3Practise
         private Wall leftWall;
         private Wall rightWall;
         private List<Entity> mapObjects = new List<Entity>();
+
         public Texture2D Background { get; private set; }
 
         public SideScrollMap(string name)
@@ -62,6 +63,11 @@ namespace MonoGamePortal3Practise
                         case "Platform_Left":
                         case "Platform_Down":
                             mapObjects.Add(new Platform(x, y, typeName));
+                            break;
+                        case "PortalResetter":
+                            int width = Convert.ToInt32(xmlReader.GetAttribute("width"));
+                            int height = Convert.ToInt32(xmlReader.GetAttribute("height"));
+                            mapObjects.Add(new PortalResetter(x, y, width, height));
                             break;
                         default:
                             break;

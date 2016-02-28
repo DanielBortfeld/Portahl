@@ -1,9 +1,12 @@
-<ChamberTwo>
 <SideScrollChamberOne>
   <Object type="Platform_Down" x="2338" y="1620" />
   <Object type="Platform_Down" x="2338" y="2004" />
   <Object type="Platform_Down" x="2338" y="2388" />
   <Object type="Platform_Down" x="2338" y="2772" />
+
+  <Object type="Platform_Down" x="-88" y="2040" />
+  <Object type="Platform_Down" x="-88" y="2424" />
+  <Object type="Platform_Down" x="-88" y="2808" />
 
   <Object type="Platform_Left" x="525" y="990" />
   <Object type="Platform_Left" x="909" y="990" />
@@ -17,14 +20,12 @@
   <Object type="Platform_Left" x="1568" y="2250" />
   <Object type="Platform_Left" x="3212" y="2040" />
   <Object type="Platform_Left" x="4052" y="1620" />
-
+  PortalResetter
   <Object type="WhiteWall" x="-210" y="-60" />
-	<Object type="WhiteWall" x="-210" y="780" />
-	<Object type="WhiteWall" x="-210" y="1200" />
+  <Object type="WhiteWall" x="-210" y="780" />
+  <Object type="WhiteWall" x="-210" y="1200" />
   <Object type="WhiteWall" x="-210" y="1620" />
-  <Object type="WhiteWall" x="-450" y="2040" />
-  <Object type="WhiteWall" x="-450" y="2460" />
-	<Object type="WhiteWall" x="1952" y="1620" />
+  <Object type="WhiteWall" x="1952" y="1620" />
 	<Object type="WhiteWall" x="1952" y="2040" />
 	<Object type="WhiteWall" x="1952" y="2460" />
 	<Object type="WhiteWall" x="1532" y="2460" />
@@ -43,4 +44,6 @@
 
 	<Object type="Cube" x="250" y="2460" />
 	<Object type="Cube" x="3212" y="2460" />
+
+  <Object type="PortalResetter" x="2372" y="2040" width="420" height="420" />
 </SideScrollChamberOne>

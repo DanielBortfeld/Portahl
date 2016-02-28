@@ -12,7 +12,7 @@ namespace MonoGamePortal3Practise
 
         public static void LoadScene<T>() where T : Scene, new()
         {
-            ClearManagers();
+            Clear();
             CurrentScene = new T();
             CurrentScene.LoadContent();
             CurrentScene.ResetPortals();
@@ -36,6 +36,21 @@ namespace MonoGamePortal3Practise
                 return CurrentScene.PortalBlue;
             else
                 return CurrentScene.PortalOrange;
+        }
+
+        private static void Clear()
+        {
+            ClearCurrentScene();
+            ClearManagers();
+        }
+
+        private static void ClearCurrentScene()
+        {
+            if (CurrentScene != null)
+            {
+                CurrentScene.Clear();
+                CurrentScene.UnloadContent();
+            }
         }
 
         private static void ClearManagers()

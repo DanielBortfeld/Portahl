@@ -22,6 +22,11 @@ namespace MonoGamePortal3Practise
 
         public abstract void LoadContent();
 
+        public virtual void UnloadContent()
+        {
+            // use to unsubscribe events
+        }
+
         public virtual void Update(GameTime gameTime)
         {
             addedGameObjects.ForEach(e => e.LoadContent());
@@ -71,17 +76,17 @@ namespace MonoGamePortal3Practise
 
         public GameObject FindGameObject(string name)
         {
-            GameObject temp = gameObjects.Find(g => g.Name.Contains(name));
-            if (temp != null)
-                return temp;
+            GameObject desiredGameObject = gameObjects.Find(g => g.Name.Contains(name));
+            if (desiredGameObject != null)
+                return desiredGameObject;
             return addedGameObjects.Find(g => g.Name.Contains(name));
         }
 
-        public GameObject FindGameObjectTag(string tag)
+        public GameObject FindGameObjectByTag(string tag)
         {
-            GameObject temp = gameObjects.Find(g => g.Tag.Contains(tag));
-            if (temp != null)
-                return temp;
+            GameObject desiredGameObject = gameObjects.Find(g => g.Tag.Contains(tag));
+            if (desiredGameObject != null)
+                return desiredGameObject;
             return addedGameObjects.Find(g => g.Tag.Contains(tag));
         }
 
@@ -98,6 +103,12 @@ namespace MonoGamePortal3Practise
         public void RemoveGameObject(string name)
         {
             RemoveGameObject(FindGameObject(name));
+        }
+
+        public void Clear()
+        {
+            addedGameObjects.ForEach(g => g.Destroy());
+            gameObjects.ForEach(g => g.Destroy());
         }
 
         public void ResetPortals()

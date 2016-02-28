@@ -11,6 +11,7 @@ namespace MonoGamePortal3Practise
 
         public Floor(int x, int y, int width)
         {
+            Name = "Floor";
             Tag = "Ground";
             Position = new Vector2(x, y);
             this.width = width;
@@ -18,15 +19,15 @@ namespace MonoGamePortal3Practise
             floor = new BoxCollider(this, width, height, false);
         }
 
+        public override void LoadContent()
+        {
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
         }
 
         public override void Update(GameTime gameTime)
-        {
-        }
-
-        public override void LoadContent()
         {
         }
     }
