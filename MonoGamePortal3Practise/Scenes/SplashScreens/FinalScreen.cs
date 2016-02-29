@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace MonoGamePortal3Practise
 {
@@ -34,7 +35,9 @@ namespace MonoGamePortal3Practise
         {
             button.OnLeftClick -= OnClick;
             button.OnRightClick -= OnClick;
-            SceneManager.LoadScene<TitleScreen>();
+            //SceneManager.LoadScene<TitleScreen>();
+            Process.Start("https://youtu.be/Y6ljFaKRTrI?t=7s");
+            GameManager.Exit();
         }
     }
 }

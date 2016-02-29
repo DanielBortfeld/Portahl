@@ -295,13 +295,13 @@ namespace MonoGamePortal3Practise
                     velocity.Y = 0f;
                     Position.Y = other.Bottom + 1;
                 }
+                // colliding from left or right
                 else if (Collider.CollidesWithLeftOf(other) || Collider.CollidesWithRightOf(other))
                 #region
                 /*if (!(Collider.Right < other.Left) || !(Collider.Left > other.Right))*/
                 #endregion
                 {
                     velocity.X = 0f;
-                    //Position.X = lastPosition.X;
                     correction.X = lastPosition.X - Position.X;
                     if (correction.X < 0)
                         canMoveRight = false;
@@ -351,14 +351,6 @@ namespace MonoGamePortal3Practise
                     if (other.Contains(Collider) || Collider.CollidesWithTopOf(other))
                         Position.Y = other.GameObject.Position.Y - Collider.Height;
 
-                if (Collider.Left < other.Right && Collider.CollidesWithRightOf(other))
-                {
-                    //from right to left
-                }
-                if (Collider.Right > other.Left && Collider.CollidesWithLeftOf(other))
-                {
-                    //from left to right
-                }
                 if (Collider.Bottom > other.Top && Collider.CollidesWithTopOf(other))
                 {
                     //falling

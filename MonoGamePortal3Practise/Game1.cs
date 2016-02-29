@@ -24,11 +24,7 @@ namespace MonoGamePortal3Practise
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            GameManager.Content = Content;
-            GameManager.Graphics = graphics;
-            GameManager.SetMouseVisibility(IsMouseVisible);
-            GameManager.OnToggleMouseVisibilitiy += OnToggleMouseVisibilitiy;
-            GameManager.OnSetMouseVisibility += OnSetMouseVisibility;
+            LoadGameManager();
             SceneManager.graphicsDevice = GraphicsDevice;
 
             SceneManager.LoadScene<TitleScreen>();
@@ -40,6 +36,7 @@ namespace MonoGamePortal3Practise
         {
             GameManager.OnToggleMouseVisibilitiy -= OnToggleMouseVisibilitiy;
             GameManager.OnSetMouseVisibility -= OnSetMouseVisibility;
+            GameManager.OnGameCompletion -= OnGameCompletion;
             InputManager.OnKeyPressed -= OnKeyPressed;
         }
 
@@ -63,7 +60,17 @@ namespace MonoGamePortal3Practise
             base.Draw(gameTime);
         }
 
-        void OnKeyPressed(InputEventArgs eventArgs)
+        private void LoadGameManager()
+        {
+            GameManager.Content = Content;
+            GameManager.Graphics = graphics;
+            GameManager.SetMouseVisibility(IsMouseVisible);
+            GameManager.OnToggleMouseVisibilitiy += OnToggleMouseVisibilitiy;
+            GameManager.OnSetMouseVisibility += OnSetMouseVisibility;
+            GameManager.OnGameCompletion += OnGameCompletion;
+        }
+
+        private void OnKeyPressed(InputEventArgs eventArgs)
         {
             switch (eventArgs.Key)
             {
@@ -83,6 +90,11 @@ namespace MonoGamePortal3Practise
         private void OnToggleMouseVisibilitiy()
         {
             IsMouseVisible = !IsMouseVisible;
+        }
+
+        private void OnGameCompletion()
+        {
+            Exit();
         }
     }
 }

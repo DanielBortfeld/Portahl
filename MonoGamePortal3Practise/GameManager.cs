@@ -11,7 +11,7 @@ namespace MonoGamePortal3Practise
         public static event MoveEvent OnMove;
 
         public delegate void GameEvent();
-        public static event GameEvent OnToggleMouseVisibilitiy, OnSetMouseVisibility;
+        public static event GameEvent OnToggleMouseVisibilitiy, OnSetMouseVisibility, OnGameCompletion;
 
         public static ContentManager Content;
         public static GraphicsDeviceManager Graphics;
@@ -52,6 +52,12 @@ namespace MonoGamePortal3Practise
         {
             if (OnToggleMouseVisibilitiy != null)
                 OnToggleMouseVisibilitiy();
+        }
+
+        public static void Exit()
+        {
+            if (OnGameCompletion != null)
+                OnGameCompletion();
         }
 
         #region Old GameManager
