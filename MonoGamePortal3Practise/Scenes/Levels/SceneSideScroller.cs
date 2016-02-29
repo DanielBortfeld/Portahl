@@ -10,6 +10,7 @@ namespace MonoGamePortal3Practise
         private SideScrollPlayer player;
 
         private VictoryTrigger victoryTrigger;
+        private Cake cake;
 
         public override void LoadContent()
         {
@@ -27,6 +28,8 @@ namespace MonoGamePortal3Practise
             victoryTrigger.Position = new Vector2(0, 360);
             victoryTrigger.SetSize(200, 420);
             victoryTrigger.OnActivation += OnVictory;
+
+            cake = new Cake(0, 360);
 
             GameManager.SetPreferredBackBufferSize(1920, 1080);
         }

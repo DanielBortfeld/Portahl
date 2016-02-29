@@ -20,7 +20,7 @@
   <Object type="Platform_Left" x="1568" y="2250" />
   <Object type="Platform_Left" x="3212" y="2040" />
   <Object type="Platform_Left" x="4052" y="1620" />
-  PortalResetter
+  
   <Object type="WhiteWall" x="-210" y="-60" />
   <Object type="WhiteWall" x="-210" y="780" />
   <Object type="WhiteWall" x="-210" y="1200" />
