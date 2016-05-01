@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace MonoGamePortal3Practise

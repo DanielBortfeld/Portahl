@@ -1,0 +1,14 @@
+<TextureAtlas imagePath="spritesheet.png">
+  <sprite name="Chell_Idle_None_01.png" x="0" y="0" width="206" height="311"/>
+  <sprite name="Chell_Idle_Right_01.png" x="0" y="0" width="206" height="311"/>
+  <sprite name="Chell_Idle_Left_01.png" x="0" y="313" width="206" height="311"/>
+  <sprite name="Chell_Jump_None_01.png" x="416" y="0" width="206" height="311"/>
+  <sprite name="Chell_Jump_Right_01.png" x="416" y="0" width="206" height="311"/>
+  <sprite name="Chell_Jump_Left_01.png" x="208" y="0" width="206" height="311"/>
+  <sprite name="Chell_Shoot_None_01.png" x="208" y="313" width="206" height="311"/>
+  <sprite name="Chell_Shoot_Right_01.png" x="208" y="313" width="206" height="311"/>
+  <sprite name="Chell_Shoot_Left_01.png" x="208" y="626" width="206" height="311"/>
+  <sprite name="Chell_Walk_None_01.png" x="0" y="626" width="206" height="311"/>
+  <sprite name="Chell_Walk_Right_01.png" x="0" y="626" width="206" height="311"/>
+  <sprite name="Chell_Walk_Left_01.png" x="416" y="313" width="206" height="311"/>
+</TextureAtlas>

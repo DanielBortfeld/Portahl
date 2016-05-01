@@ -1,9 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace MonoGamePortal3Practise
 {
+    /// <summary>
+    /// The PortalResetter is a Trigger you can put into a SideScroll-Scene.
+    /// If the player passes it, the portals will be reset.
+    /// </summary>
     class PortalResetter : SideScrollEntity
     {
         private int width;

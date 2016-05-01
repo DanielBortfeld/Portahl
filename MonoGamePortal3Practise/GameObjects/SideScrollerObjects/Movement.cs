@@ -1,10 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using System;
 
 namespace MonoGamePortal3Practise
 {
     public enum SideDirections { None, Left, Right }
 
+    /// <summary>
+    /// Tried out, how Components work.
+    /// I have no actual ComponentSystem tho.
+    /// </summary>
     public class Movement ///<"'Component'">
     {
         public float MoveForce = 10f;
@@ -14,7 +19,7 @@ namespace MonoGamePortal3Practise
         public float GravityForce = 2f;
         public float AccelerationMultipier;
 
-        private float isGroundedTimeStamp;
+        private float isGroundedTimer;
 
         private Vector2 velocity;
 
@@ -55,10 +60,10 @@ namespace MonoGamePortal3Practise
 
         public void Jump()
         {
-            if (isGroundedTimeStamp > JumpCooldown)
+            if (isGroundedTimer > JumpCooldown)
             {
                 velocity.Y = -JumpForce;
-                isGroundedTimeStamp = 0;
+                isGroundedTimer = 0;
             }
         }
 
@@ -68,9 +73,9 @@ namespace MonoGamePortal3Practise
             velocity.Y += GravityForce * AccelerationMultipier;
         }
 
-        public void SetIsGroundedTimeStamp(GameTime gameTime)
+        public void SetIsGroundedTimer(GameTime gameTime)
         {
-            isGroundedTimeStamp += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            isGroundedTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void ResetVelocityY()

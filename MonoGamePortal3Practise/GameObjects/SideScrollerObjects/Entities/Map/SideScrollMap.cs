@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace MonoGamePortal3Practise
         {
             Name = name;
             Tag = "SSMap";
-            Background = GameManager.LoadTexture2D("backgroundForest");
+            Background = GameManager.LoadTexture2D("backgroundSS");
         }
 
         public override void LoadContent()

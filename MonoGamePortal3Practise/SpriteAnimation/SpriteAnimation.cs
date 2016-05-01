@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Xml;
 
 namespace MonoGamePortal3Practise
 {
-    public enum States { Idle, Walk, Jump }
+    public enum States { Idle, Walk, Jump, Shoot }
 
     class SpriteAnimation
     {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using System;
 
 namespace MonoGamePortal3Practise
 {

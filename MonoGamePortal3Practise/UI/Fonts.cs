@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace MonoGamePortal3Practise

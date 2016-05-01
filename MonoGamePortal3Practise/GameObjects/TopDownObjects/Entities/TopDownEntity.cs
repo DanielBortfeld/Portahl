@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
@@ -62,6 +63,11 @@ namespace MonoGamePortal3Practise
             GameManager.ReportMove();
         }
 
+        /// <summary>
+        /// the <param name="entity"></param> moves one 
+        /// tile in the player's current viewDirection
+        /// when this method is called.
+        /// </summary>
         public void MoveInPlayersViewDirection(Entity entity)
         {
             switch (player.ViewDirection)

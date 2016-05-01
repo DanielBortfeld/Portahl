@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace MonoGamePortal3Practise
             tutorialMap.LoadMapFromImage(GameManager.LoadTexture2D("PortalChamberTutorialTiles"));
             tutorialMap.LoadSpritesFromImage(GameManager.LoadTexture2D("PortalChamberTutorialSprites"));
 
-            textboxBackground = GameManager.LoadTexture2D("TEXTBOX");
+            textboxBackground = GameManager.LoadTexture2D("TEXTBOX3");
             textboxButton = GameManager.LoadTexture2D("BUTTON");
 
             player = new TopDownPlayer(new Vector2(1, 5));
@@ -102,6 +103,9 @@ namespace MonoGamePortal3Practise
             victoryTrigger = (VictoryTrigger)triggers.Find(t => t.Name.Contains("VictoryTrigger"));
         }
 
+        /// <summary>
+        /// Determines if a cube can respawn after its destruction.
+        /// </summary>
         private void SetCubeRespawnability()
         {
             List<TopDownWeightedCompanionCube> cubes = new List<TopDownWeightedCompanionCube>();

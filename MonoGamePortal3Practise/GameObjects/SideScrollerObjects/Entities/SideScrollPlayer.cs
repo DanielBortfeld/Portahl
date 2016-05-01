@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -23,8 +24,12 @@ namespace MonoGamePortal3Practise
 
         private bool isJumping;
         private bool isGrounded;
-        private float isGroundedTimeStamp;
+        private float isGroundedTimer;
         private float jumpCooldown = 0.1f;
+
+        private bool hasShot;
+        private float shootTimer;
+        private float shootCooldown = 0.15f;
 
         private WeightedCompanionCube cubeInReach;
         private WeightedCompanionCube heldCube;
@@ -49,7 +54,7 @@ namespace MonoGamePortal3Practise
 
         public override void LoadContent()
         {
-            //spriteAnimation = new SpriteAnimation(Name + "Animation", GameManager.LoadTexture2D("ChellAnimationSheet"), GameManager.Content.RootDirectory + "ChellAnimationSheet.xml", string.Format("{0}_{1}_{2}", Name, state, viewDirection));
+            spriteAnimation = new SpriteAnimation(Name, GameManager.LoadTexture2D("ChellAnimationSheet"), GameManager.Content.RootDirectory + "/ChellAnimationSheet.xml", string.Format("{0}_{1}_{2}", Name, state, viewDirection));
 
             InputManager.OnKeyPressed += OnKeyPressed;
             InputManager.OnKeyDown += OnKeyDown;
@@ -72,16 +77,17 @@ namespace MonoGamePortal3Practise
 
             UpdateColliderPosition();
 
-            #region old
-            //ProcessInput();
-            #endregion old
+            ShootingCooldown(gameTime);
+            if (hasShot)
+                state = States.Shoot;
 
             if (isGrounded)
-                isGroundedTimeStamp += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                isGroundedTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             else
             {
                 accelerationMultipier += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 velocity.Y += gravityForce * accelerationMultipier;
+                state = States.Jump;
             }
 
             if (spriteAnimation != null)
@@ -137,8 +143,10 @@ namespace MonoGamePortal3Practise
             Position += velocity;
             CameraTranslationPivot = new Vector2(SpriteRect.Width / 2, SpriteRect.Height) + Position;
 
-            velocity.X = 0;
-            state = States.Idle;
+            if (velocity.X == 0)
+                state = States.Idle;
+            else
+                velocity.X = 0;
 
             if (heldCube != null)
                 heldCube.Move(viewDirection);
@@ -152,14 +160,33 @@ namespace MonoGamePortal3Practise
             {
                 shot.Velocity.X = -50;
                 shot.ViewDirection = viewDirection;
+                hasShot = true;
             }
             else if (viewDirection == SideDirections.Right)
             {
                 shot.Velocity.X = 50;
                 shot.ViewDirection = viewDirection;
+                hasShot = true;
             }
         }
 
+        private void ShootingCooldown(GameTime gameTime)
+        {
+            if (hasShot)
+                shootTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (shootTimer >= shootCooldown)
+            {
+                hasShot = false;
+                shootTimer = 0f;
+            }
+        }
+
+        /// <summary>
+        /// If you collide with a cube, you
+        /// can use this method to pick it up.
+        /// If you picked up a cube, you can also put it
+        /// down again with this method.
+        /// </summary>
         private void ToggleHoldState()
         {
             if (heldCube != null)
@@ -179,6 +206,12 @@ namespace MonoGamePortal3Practise
             AdjustCollider();
         }
 
+        /// <summary>
+        /// If the player picks up a cube, the collider of the cube
+        /// gets extendet to the size of playerCollider.X + cubeCollider.X .
+        /// If you put down the cube, the playerCollider becomes
+        /// adjusted to its original size.
+        /// </summary>
         private void AdjustCollider()
         {
             if (heldCube != null)
@@ -240,12 +273,12 @@ namespace MonoGamePortal3Practise
                     break;
             }
 
-            if (isGrounded && eventArgs.Key == (Keys.Space) && isGroundedTimeStamp > jumpCooldown)
+            if (isGrounded && eventArgs.Key == (Keys.Space) && isGroundedTimer > jumpCooldown)
             {
                 velocity.Y = -jumpForce;
                 isJumping = true;
                 isGrounded = false;
-                isGroundedTimeStamp = 0;
+                isGroundedTimer = 0;
 
                 state = States.Jump;
             }
@@ -396,36 +429,5 @@ namespace MonoGamePortal3Practise
                 cubeInReach = null;
             }
         }
-
-        #region Old ProcessInput
-        //private MouseState previousState;
-
-        //public void ProcessInput()
-        //{
-        //    KeyboardState keyState = Keyboard.GetState();
-        //    MouseState mouseState = Mouse.GetState();
-
-        //    if (keyState.IsKeyDown(Keys.D))
-        //        velocity.X = moveForce;
-        //    else if (keyState.IsKeyDown(Keys.A))
-        //        velocity.X = -moveForce;
-        //    else
-        //        velocity.X = 0;
-
-        //    if (mouseState.LeftButton == ButtonState.Pressed && previousState.LeftButton != ButtonState.Pressed)
-        //        Shoot(SceneManager.CurrentScene.PortalBlue);
-        //    else if (mouseState.RightButton == ButtonState.Pressed && previousState.RightButton != ButtonState.Pressed)
-        //        Shoot(SceneManager.CurrentScene.PortalOrange);
-
-        //    previousState = mouseState;
-
-        //    if (isGrounded && keyState.IsKeyDown(Keys.Space) && isGroundedTimeStamp > jumpCooldown)
-        //    {
-        //        velocity.Y = -jumpForce;
-        //        isGrounded = false;
-        //        isGroundedTimeStamp = 0;
-        //    }
-        //}
-        #endregion
     }
 }

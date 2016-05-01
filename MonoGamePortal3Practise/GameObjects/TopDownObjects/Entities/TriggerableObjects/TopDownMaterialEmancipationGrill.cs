@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using System;
 
 namespace MonoGamePortal3Practise
@@ -7,6 +8,9 @@ namespace MonoGamePortal3Practise
 
     public enum GrillDirection { Down, Left }
 
+    /// <summary>
+    /// The blue "gates" who reset the portals and vaporize every object (except the player).
+    /// </summary>
     class TopDownMaterialEmancipationGrill : TopDownTriggerableObject
     {
         private GrillDirection direction;

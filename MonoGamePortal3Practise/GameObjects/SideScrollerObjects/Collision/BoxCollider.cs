@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -48,7 +49,9 @@ namespace MonoGamePortal3Practise
             get { return new Vector2(X, Y) + new Vector2(Width / 2, Height / 2); }
             set { X = (int)value.X - Width / 2; Y = (int)value.Y - Height / 2; }
         }
-
+        /// <summary>
+        /// The GameObject the BoxCollider is attached to
+        /// </summary>
         public GameObject GameObject { get; private set; }
 
         public BoxCollider(GameObject gameObject, int width, int height, bool isTrigger)
@@ -72,13 +75,6 @@ namespace MonoGamePortal3Practise
             if (GameObject is Entity && ((Entity)GameObject).SpriteRect != Rectangle.Empty)
             {
                 Center = ((Entity)GameObject).Center;
-
-                #region Old Calculation
-
-                //X = (int)GameObject.Position.X + (((Entity)GameObject).SpriteRect.Width / 2) - (Width / 2);
-                //Y = (int)GameObject.Position.Y + (((Entity)GameObject).SpriteRect.Height / 2) - (Height / 2);
-
-                #endregion Old Calculation
             }
             else
             {
@@ -88,6 +84,14 @@ namespace MonoGamePortal3Practise
         }
 
         /// <summary>
+        /// This is just for me to understand how collision is checked between two BoxColliders
+        /// 
+        /// if (this right border is further left than the other left border OR
+        /// the other right border is further left than this left border OR
+        /// this lower border is further up than the other upper border OR
+        /// the other lower border is further up than this upper border)
+        /// then no collision;
+        /// ###
         /// GER:
         /// wenn (diese rechte grenze weiter links als die andere linke grenze ist ||
         /// die andere rechte grenze weiter links als diese linke grenze ist ||
@@ -147,6 +151,11 @@ namespace MonoGamePortal3Practise
             return false;
         }
 
+        /// <summary>
+        /// Checks if the other BoxCollider is comletely inside this BoxCollider
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Contains(BoxCollider other)
         {
             if (Equals(other))

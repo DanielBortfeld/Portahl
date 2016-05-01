@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGamePortal3Practise
@@ -11,12 +12,12 @@ namespace MonoGamePortal3Practise
 
         public override void LoadContent()
         {
-            splashScreen = GameManager.LoadTexture2D("background");
+            splashScreen = GameManager.LoadTexture2D("titlescreen");
             button = new UIButton(splashScreen);
             button.OnLeftClick += OnClick;
             button.OnRightClick += OnClick;
 
-            title = new UILabel(Fonts.MonkirtaPursuitNC, "PORTAHL", new Vector2(100, 100), Color.White, 1);
+            title = new UILabel(Fonts.MonkirtaPursuitNC, "PORTAHL", new Vector2(666, 666), Color.White, 1.3f);
 
             GameManager.SetPreferredBackBufferSize(1920, 1080);
             if (!GameManager.Graphics.IsFullScreen)

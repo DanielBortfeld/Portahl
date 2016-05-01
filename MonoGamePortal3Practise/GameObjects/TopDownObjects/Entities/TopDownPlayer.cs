@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 
@@ -138,53 +139,5 @@ namespace MonoGamePortal3Practise
             shot.Destroy();
             return portalPosition;
         }
-
-        #region Old ProcessInput
-
-        //public void ProcessInput()
-        //{
-        //    KeyboardState keyState = Keyboard.GetState();
-        //    MouseState mouseState = Mouse.GetState();
-
-        //    if (PlayerCanMove(keyState, Keys.W))
-        //    {
-        //        viewDirection = ViewDirection.Up;
-        //        Move(-directionDown);
-        //    }
-
-        //    if (PlayerCanMove(keyState, Keys.A))
-        //    {
-        //        viewDirection = ViewDirection.Left;
-        //        Move(-directionRight);
-        //    }
-
-        //    if (PlayerCanMove(keyState, Keys.S))
-        //    {
-        //        viewDirection = ViewDirection.Down;
-        //        Move(directionDown);
-        //    }
-
-        //    if (PlayerCanMove(keyState, Keys.D))
-        //    {
-        //        viewDirection = ViewDirection.Right;
-        //        Move(directionRight);
-        //    }
-
-        //    //if (CheckKeyState(keyState, Keys.E))
-        //    //Take();
-
-        //    //if (CheckKeyState(keyState, Keys.F))
-        //    //    GameManager.Graphics.ToggleFullScreen();
-        //    //    GameManager.Graphics.ApplyChanges();
-
-        //    if (mouseState.LeftButton == ButtonState.Pressed)
-        //        Shoot(SceneManager.CurrentScene.PortalBlue);
-        //    if (mouseState.RightButton == ButtonState.Pressed)
-        //        Shoot(SceneManager.CurrentScene.PortalOrange);
-
-        //    previousState = keyState;
-        //}
-
-        #endregion Old ProcessInput
     }
 }

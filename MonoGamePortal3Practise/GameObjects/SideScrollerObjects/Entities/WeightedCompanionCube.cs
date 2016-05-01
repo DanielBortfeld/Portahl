@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// Copyright (c) 2016 Daniel Bortfeld
+using Microsoft.Xna.Framework;
 using System;
 
 namespace MonoGamePortal3Practise
@@ -49,7 +50,7 @@ namespace MonoGamePortal3Practise
             movement.UpdatePosition();
 
             if (isGrounded)
-                movement.SetIsGroundedTimeStamp(gameTime);
+                movement.SetIsGroundedTimer(gameTime);
             else if (player == null)
                 movement.ApplyGravity(gameTime);
 
@@ -69,6 +70,11 @@ namespace MonoGamePortal3Practise
             }
         }
 
+        /// <summary>
+        /// If the player picks up this cube, the
+        /// cube will know it.
+        /// </summary>
+        /// <param name="sideScrollPlayer"></param>
         public void ToggleHoldState(SideScrollPlayer sideScrollPlayer)
         {
             if (player != null)

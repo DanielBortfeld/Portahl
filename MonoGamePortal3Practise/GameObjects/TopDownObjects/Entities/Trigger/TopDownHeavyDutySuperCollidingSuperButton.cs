@@ -1,5 +1,9 @@
-﻿namespace MonoGamePortal3Practise
+﻿// Copyright (c) 2016 Daniel Bortfeld
+namespace MonoGamePortal3Practise
 {
+    /// <summary>
+    /// It's the red button in the TopDown part of the game.
+    /// </summary>
     class TopDownHeavyDutySuperCollidingSuperButton : TopDownTrigger
     {
         public TopDownHeavyDutySuperCollidingSuperButton(int index) : base(index)
