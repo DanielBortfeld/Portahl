@@ -205,12 +205,12 @@ namespace MonoGamePortal3Practise
             triggeredObjs.Find(c => c.Name.Contains("Grill") && c.ID == 9).OnTraversingEmancipationGrill -= OnTraversingGrillID9;
         }
 
-        private void ButtonID2_OnActivation()
+        private void ButtonID2_OnActivation(GameObject activator)
         {
             cubeID1.Respawn();
         }
 
-        private void ButtonID3_OnActivation()
+        private void ButtonID3_OnActivation(GameObject activator)
         {
             cubeID2.Respawn();
         }
@@ -221,7 +221,7 @@ namespace MonoGamePortal3Practise
             triggeredObjs.Find(c => c.Name.Contains("Grill") && c.ID == 1).OnTraversingEmancipationGrill -= OnTraversingGrillID1;
         }
 
-        private void OnVictory()
+        private void OnVictory(GameObject activator)
         {
             SceneManager.LoadScene<SceneTDLevelOne>();
             victoryTrigger.OnActivation -= OnVictory;

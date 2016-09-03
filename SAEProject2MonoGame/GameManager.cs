@@ -33,8 +33,7 @@ namespace MonoGamePortal3Practise
 
         public static void ReportMove()
         {
-            if (OnMove != null)
-                OnMove();
+            OnMove?.Invoke();
         }
 
         public static void ToggleFullScreen()
@@ -45,20 +44,17 @@ namespace MonoGamePortal3Practise
         public static void SetMouseVisibility(bool isVisible)
         {
             IsMouseVisible = isVisible;
-            if (OnSetMouseVisibility != null)
-                OnSetMouseVisibility();
+            OnSetMouseVisibility?.Invoke();
         }
 
         public static void ToggleMouseVisibility()
         {
-            if (OnToggleMouseVisibilitiy != null)
-                OnToggleMouseVisibilitiy();
+            OnToggleMouseVisibilitiy?.Invoke();
         }
 
         public static void Exit()
         {
-            if (OnGameCompletion != null)
-                OnGameCompletion();
+            OnGameCompletion?.Invoke();
         }
     }
 }

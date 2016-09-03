@@ -30,6 +30,7 @@ namespace MonoGamePortal3Practise
             Name = "Cube";
             Tag = "Cube";
             Position = new Vector2(x, y);
+            StandartPosition = Position;
         }
 
         public override void LoadContent()
@@ -85,8 +86,13 @@ namespace MonoGamePortal3Practise
             else if (sideScrollPlayer != null)
                 player = sideScrollPlayer;
 
-            if (OnToggleHoldState != null)
-                OnToggleHoldState();
+            OnToggleHoldState?.Invoke();
+        }
+
+        public void Respawn()
+        {
+            ToggleHoldState(player);
+            Position = StandartPosition;
         }
 
         public override void Destroy()

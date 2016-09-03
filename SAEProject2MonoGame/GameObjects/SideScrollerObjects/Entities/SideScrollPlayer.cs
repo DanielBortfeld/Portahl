@@ -104,6 +104,12 @@ namespace MonoGamePortal3Practise
                 base.Draw(spriteBatch);
         }
 
+        public void Respawn()
+        {
+            Position = StandartPosition;
+            SceneManager.CurrentScene.ResetPortals();
+        }
+
         public override void Destroy()
         {
             InputManager.OnKeyPressed -= OnKeyPressed;

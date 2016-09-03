@@ -83,22 +83,6 @@ namespace MonoGamePortal3Practise
             }
         }
 
-        /// <summary>
-        /// This is just for me to understand how collision is checked between two BoxColliders
-        /// 
-        /// if (this right border is further left than the other left border OR
-        /// the other right border is further left than this left border OR
-        /// this lower border is further up than the other upper border OR
-        /// the other lower border is further up than this upper border)
-        /// then no collision;
-        /// ###
-        /// GER:
-        /// wenn (diese rechte grenze weiter links als die andere linke grenze ist ||
-        /// die andere rechte grenze weiter links als diese linke grenze ist ||
-        /// diese untere grenze weiter oben als die andere obere grenze ist ||
-        /// die andere untere grenze weiter oben als diese obere grenze ist)
-        /// dann keine collision;
-        /// </summary>
         public void CheckCollision(BoxCollider other)
         {
             if (!isActive || !other.isActive)
@@ -114,6 +98,22 @@ namespace MonoGamePortal3Practise
                 return;
             }
 
+            /// <summary>
+            /// This is just for me to understand how collision is checked between two BoxColliders
+            /// 
+            /// if (this right border is further left than the other left border OR
+            /// the other right border is further left than this left border OR
+            /// this lower border is further up than the other upper border OR
+            /// the other lower border is further up than this upper border)
+            /// then no collision;
+            /// ###
+            /// GER:
+            /// wenn (diese rechte grenze weiter links als die andere linke grenze ist ||
+            /// die andere rechte grenze weiter links als diese linke grenze ist ||
+            /// diese untere grenze weiter oben als die andere obere grenze ist ||
+            /// die andere untere grenze weiter oben als diese obere grenze ist)
+            /// dann keine collision;
+            /// </summary>
             if (Right < other.Left || other.Right < Left || Bottom < other.Top || other.Bottom < Top)
             {
                 // no collision
@@ -141,7 +141,7 @@ namespace MonoGamePortal3Practise
                 OnCollisionEnter(other);
         }
 
-        public bool Intersects(BoxCollider other) // or "Collides" so to say
+        public bool Intersects(BoxCollider other) // or "CollidesWith" so to say
         {
             if (Equals(other))
                 throw new Exception("This and the other Collider are identical. A collider cannot intersect with itself.");

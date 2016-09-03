@@ -25,7 +25,7 @@ namespace MonoGamePortal3Practise
                     if (Position == ((TopDownEntity)item).OffsetPosition)
                     {
                         IsPressed = true;
-                        TriggerEvent();
+                        TriggerEvent(item);
                         item.Destroy();
                         SceneManager.CurrentScene.AddGameObject(item);
                         triggeringEntity = (TopDownEntity)item;

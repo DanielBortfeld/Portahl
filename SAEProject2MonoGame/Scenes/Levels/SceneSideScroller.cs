@@ -11,6 +11,7 @@ namespace MonoGamePortal3Practise
         private SideScrollPlayer player;
 
         private VictoryTrigger victoryTrigger;
+        private DeathTrigger deathTrigger;
         private Cake cake;
 
         public override void LoadContent()
@@ -30,14 +31,32 @@ namespace MonoGamePortal3Practise
             victoryTrigger.SetSize(200, 420);
             victoryTrigger.OnActivation += OnVictory;
 
+            deathTrigger = new DeathTrigger(1);
+            deathTrigger.Position = new Vector2(-500, sideScrollMap.Background.Height + 500);
+            deathTrigger.SetSize(sideScrollMap.Background.Width + 1000, 512);
+            deathTrigger.OnActivation += DeathTrigger_OnActivation;
+
             cake = new Cake(0, 360);
 
             GameManager.SetPreferredBackBufferSize(1920, 1080);
         }
 
+        private void DeathTrigger_OnActivation(GameObject activator)
+        {
+            if (activator == player)
+            {
+                player.Respawn();
+            }
+            else if (activator is WeightedCompanionCube)
+            {
+                ((WeightedCompanionCube)activator).Respawn();
+            }
+        }
+
         public override void UnloadContent()
         {
             victoryTrigger.OnActivation -= OnVictory;
+            deathTrigger.OnActivation -= DeathTrigger_OnActivation;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -51,9 +70,10 @@ namespace MonoGamePortal3Practise
             spriteBatch.End();
         }
 
-        private void OnVictory()
+        private void OnVictory(GameObject activator)
         {
             victoryTrigger.OnActivation -= OnVictory;
+            deathTrigger.OnActivation -= DeathTrigger_OnActivation;
             SceneManager.LoadScene<FinalScreen>();
         }
     }

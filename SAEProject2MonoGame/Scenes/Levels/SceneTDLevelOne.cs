@@ -61,12 +61,12 @@ namespace MonoGamePortal3Practise
             respawnButton = (TopDownHeavyDutySuperCollidingSuperButton)triggers.Find(t => t.Name.Contains("Button") && t.ID == 1);
         }
 
-        private void respawnButton_OnActivation()
+        private void respawnButton_OnActivation(GameObject activator)
         {
             cubeTheOneAndOnly.Respawn();
         }
 
-        private void OnVictory()
+        private void OnVictory(GameObject activator)
         {
             SceneManager.LoadScene<SceneSideScroller>();
             victoryTrigger.OnActivation -= OnVictory;

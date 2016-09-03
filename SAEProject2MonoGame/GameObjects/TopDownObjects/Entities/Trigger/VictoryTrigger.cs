@@ -27,7 +27,7 @@ namespace MonoGamePortal3Practise
         public override void Trigger_OnMove()
         {
             if (Position == player.OffsetPosition)
-                TriggerEvent();
+                TriggerEvent(null);
         }
 
         public void SetSize(int width, int height)
@@ -51,7 +51,7 @@ namespace MonoGamePortal3Practise
         private void OnTriggerEnter(BoxCollider other)
         {
             if (other.GameObject.Tag == "Player")
-                TriggerEvent();
+                TriggerEvent(other.GameObject);
         }
     }
 }

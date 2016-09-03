@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GameObjects\SideScrollerObjects\Camera.cs" />
+    <Compile Include="GameObjects\SideScrollerObjects\Entities\DeathTrigger.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\MapObjects\Cake.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\MapObjects\Platform.cs" />
     <Compile Include="GameObjects\SideScrollerObjects\Entities\Map\MapObjects\PortalResetter.cs" />
