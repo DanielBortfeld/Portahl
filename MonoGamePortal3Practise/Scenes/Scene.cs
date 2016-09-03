@@ -23,10 +23,10 @@ namespace MonoGamePortal3Practise
 
         public abstract void LoadContent();
 
-        public virtual void UnloadContent()
-        {
-            // use to unsubscribe events
-        }
+        /// <summary>
+        /// Use to unsubscribe events.
+        /// </summary>
+        public virtual void UnloadContent() { }
 
         public virtual void Update(GameTime gameTime)
         {
@@ -42,7 +42,7 @@ namespace MonoGamePortal3Practise
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.LinearClamp);
             gameObjects.ForEach(e => e.Draw(spriteBatch));
             UIManager.Draw(spriteBatch);
             spriteBatch.End();

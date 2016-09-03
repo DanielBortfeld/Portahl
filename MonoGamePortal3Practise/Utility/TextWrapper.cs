@@ -1,4 +1,5 @@
-﻿// Copyright (c) 2016 Daniel Bortfeld (source: http://stackoverflow.com/questions/15986473/how-do-i-implement-word-wrap)
+﻿// source: http://stackoverflow.com/questions/15986473/how-do-i-implement-word-wrap
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

@@ -45,7 +45,7 @@ namespace MonoGamePortal3Practise
             camera.UpdatePosition(SceneManager.graphicsDevice.Viewport);
             Matrix cameraTransform = Matrix.CreateTranslation(-camera.X, -camera.Y, 0);
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, cameraTransform);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.LinearClamp, null, null, null, cameraTransform);
             gameObjects.ForEach(e => e.Draw(spriteBatch));
             UIManager.Draw(spriteBatch);
             spriteBatch.End();

@@ -18,6 +18,22 @@ namespace MonoGamePortal3Practise
 
         protected override void Initialize()
         {
+            if (GraphicsDevice.DisplayMode.Width < 1920 && GraphicsDevice.DisplayMode.Height < 1080)
+            {
+                graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+                graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+                graphics.ApplyChanges();
+            }
+            else
+            {
+                graphics.PreferredBackBufferWidth = 1920;
+                graphics.PreferredBackBufferHeight = 1080;
+                graphics.ApplyChanges();
+            }
+
+            if (!graphics.IsFullScreen)
+                graphics.ToggleFullScreen();
+
             base.Initialize();
         }
 

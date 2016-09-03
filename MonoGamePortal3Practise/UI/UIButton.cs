@@ -38,6 +38,22 @@ namespace MonoGamePortal3Practise
 
             InputManager.OnKeyPressed += OnClick;
         }
+        public UIButton(Texture2D image, Rectangle bounds)
+        {
+            Image = image;
+            this.bounds = bounds;
+
+            InputManager.OnKeyPressed += OnClick;
+        }
+
+        public UIButton(Texture2D image, Rectangle bounds, Vector2 position)
+        {
+            Image = image;
+            this.bounds = bounds;
+            Position = position;
+
+            InputManager.OnKeyPressed += OnClick;
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
